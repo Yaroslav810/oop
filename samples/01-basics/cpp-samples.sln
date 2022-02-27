@@ -35,7 +35,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "arrays", "arrays\arrays.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "multi_dimensional_arrays", "multi_dimensional_arrays\multi_dimensional_arrays.vcxproj", "{98F05433-7295-49F8-92DB-7980C3B748B4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data Types and variables", "Data Types and variables", "{C74FB830-DCD2-4CB1-A1A8-F95A9C48B6AE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Args Types and variables", "Args Types and variables", "{C74FB830-DCD2-4CB1-A1A8-F95A9C48B6AE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Language Constructs", "Language Constructs", "{0C01B2E2-DEA3-4603-8FDA-A4EC25405868}"
 EndProject

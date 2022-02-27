@@ -1,28 +1,49 @@
-rem %1 - значение первого аргумента командной строки bat-файла (какой он есть)
-rem %~1 - значение первого аргумента командной строки bat-файла с удалением обрамляющих кавычек (если они были)
+@echo off
 
-rem Переменная PROGRAM будет хранить первый аргумент командной строки заключённый в кавычки
 set PROGRAM="%~1"
+if %PROGRAM%=="" (
+    echo Please specify path to program
+    exit /B 1
+)
 
-rem При запуске без параметров ожидается ненулевой код возврата
-%PROGRAM% > nul
-if NOT ERRORLEVEL 1 goto err
+set OUT="%TEMP%\output.txt"
 
-rem При запуске с правильными параметрами ожидается нулевой код возврата
-%PROGRAM% test-data\fox.txt "%TEMP%\fox.txt" bird cat
-if ERRORLEVEL 1 goto err
-fc.exe "%TEMP%\fox.txt" test-data\fox.txt >nul
-if ERRORLEVEL 1 goto err
+rem Running without arguments
+%PROGRAM% > nul && goto err
+echo Test #1: passed!
 
-rem При запуске с правильными параметрами ожидается нулевой код возврата
-%PROGRAM% test-data\fox.txt "%TEMP%\fox.txt" dog cat
-if ERRORLEVEL 1 goto err
-fc.exe "%TEMP%\fox.txt" test-data\fox-replace-dog-with-cat.txt >nul
-if ERRORLEVEL 1 goto err
+rem Input file is missing
+%PROGRAM% test-data\input-missing.txt %OUT% dog cat && goto err
+echo Test #2: passed!
 
-echo OK
-exit 0
+rem Replacing an empty file
+%PROGRAM% test-data\empty.txt %OUT% '' '' || goto err
+fc %OUT% test-data\empty-replace-empty-with-empty.txt > nul || goto err
+echo Test #3: passed!
+
+rem No replacements
+%PROGRAM% test-data\fox.txt %OUT% dog2 cat || goto err
+fc %OUT% test-data\fox-replace-dog2-with-cat.txt > nul || goto err
+echo Test #4: passed!
+
+rem Replacing an empty word
+%PROGRAM% test-data\fox.txt %OUT% '' cat || goto err
+fc %OUT% test-data\fox-replace-empty-with-cat.txt > nul || goto err
+echo Test #5: passed!
+
+rem Word replacement
+%PROGRAM% test-data\fox.txt %OUT% dog cat || goto err
+fc %OUT% test-data\fox-replace-dog-with-cat.txt > nul || goto err
+echo Test #6: passed!
+
+rem Big file
+%PROGRAM% test-data\53043200-characters-a.txt %OUT% a BB || goto err
+echo Test #7: passed!
+
+rem The tests successful
+echo All tests passed successfuly
+exit /B 0
 
 :err
 echo Program testing failed
-exit 1
+exit /B 1
