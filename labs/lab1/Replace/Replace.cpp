@@ -93,13 +93,15 @@ int main(int argc, char* argv[])
 
 		std::ifstream inputFile;
 		inputFile.open(args.inputFile);
-		if (!inputFile.is_open()) {
+		if (!inputFile.is_open())
+		{
 			throw std::ios_base::failure(buildFileReadingError());
 		}
 
 		std::ofstream outputFile;
 		outputFile.open(args.outputFile);
-		if (!outputFile.is_open()) {
+		if (!outputFile.is_open())
+		{
 			throw std::ios_base::failure(buildFileWritingError());
 		}
 
