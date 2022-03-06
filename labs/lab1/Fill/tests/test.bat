@@ -13,32 +13,32 @@ rem Running without arguments
 echo Test #1: passed!
 
 rem Input file is missing
-%PROGRAM% tests\input-missing.txt %OUT% && goto err
+%PROGRAM% input-missing.txt %OUT% > nul && goto err
 echo Test #2: passed!
 
 rem Filling in an empty file
-%PROGRAM% tests\empty.txt %OUT% || goto err
-fc %OUT% tests\empty-fill.txt > nul || goto err
+%PROGRAM% empty.txt %OUT% || goto err
+fc %OUT% empty-fill.txt > nul || goto err
 echo Test #3: passed!
 
 rem There is no start
-%PROGRAM% tests\not-start.txt %OUT% || goto err
-fc %OUT% tests\not-start-fill.txt > nul || goto err
+%PROGRAM% not-start.txt %OUT% || goto err
+fc %OUT% not-start-fill.txt > nul || goto err
 echo Test #4: passed!
 
 rem There is no border
-%PROGRAM% tests\not-border.txt %OUT% || goto err
-fc %OUT% tests\not-border-fill.txt > nul || goto err
+%PROGRAM% not-border.txt %OUT% || goto err
+fc %OUT% not-border-fill.txt > nul || goto err
 echo Test #5: passed!
 
 rem There two area
-%PROGRAM% tests\two-area.txt %OUT% || goto err
-fc %OUT% tests\two-area-fill.txt > nul || goto err
+%PROGRAM% two-area.txt %OUT% || goto err
+fc %OUT% two-area-fill.txt > nul || goto err
 echo Test #6: passed!
 
 rem A field with a hole
-%PROGRAM% tests\hole.txt %OUT% || goto err
-fc %OUT% tests\hole-fill.txt > nul || goto err
+%PROGRAM% hole.txt %OUT% || goto err
+fc %OUT% hole-fill.txt > nul || goto err
 echo Test #7: passed!
 
 rem The tests successful

@@ -63,7 +63,7 @@ void initField(Field field)
 	}
 }
 
-void readDataFromFile(std::ifstream& in, Field field)
+void readFieldFromFile(std::ifstream& in, Field field)
 {
 	int rowCount = 0;
 
@@ -88,7 +88,7 @@ void readDataFromFile(std::ifstream& in, Field field)
 				break;
 			default:
 				std::cout << rowCount << ":" << i << std::endl;
-				throw std::invalid_argument("Unknown character: |" + std::string(1, str[i]) + "|\n");
+				throw std::invalid_argument("Unknown character: " + std::string(1, str[i]) + "\n");
 			}
 		}
 
@@ -109,13 +109,13 @@ void printField(std::ofstream& out, Field field)
 	}
 }
 
-void getInputData(std::ifstream& in, Field field)
+void fillFieldInputData(std::ifstream& in, Field field)
 {
 	initField(field);
-	readDataFromFile(in, field);
+	readFieldFromFile(in, field);
 }
 
-void fillAreaRecurs(Field field, const int row, const int column)
+void fillAreaAroundPosition(Field field, const int row, const int column)
 {
 	if (field[row][column] == EMPTINESS)
 	{
@@ -124,19 +124,19 @@ void fillAreaRecurs(Field field, const int row, const int column)
 
 	if (row > 0 && field[row - 1][column] == EMPTINESS)
 	{
-		fillAreaRecurs(field, row - 1, column);
+		fillAreaAroundPosition(field, row - 1, column);
 	}
 	if (row < MAX_ROWS && field[row + 1][column] == EMPTINESS)
 	{
-		fillAreaRecurs(field, row + 1, column);
+		fillAreaAroundPosition(field, row + 1, column);
 	}
 	if (column > 0 && field[row][column - 1] == EMPTINESS)
 	{
-		fillAreaRecurs(field, row, column - 1);
+		fillAreaAroundPosition(field, row, column - 1);
 	}
 	if (column < MAX_COLUMNS && field[row][column + 1] == EMPTINESS)
 	{
-		fillAreaRecurs(field, row, column + 1);
+		fillAreaAroundPosition(field, row, column + 1);
 	}
 }
 
@@ -148,7 +148,7 @@ void fillArea(Field field)
 		{
 			if (field[i][j] == START_POSITION)
 			{
-				fillAreaRecurs(field, i, j);
+				fillAreaAroundPosition(field, i, j);
 			}
 		}
 	}
@@ -175,7 +175,7 @@ int main(int argc, char* argv[])
 		}
 
 		Field field = {};
-		getInputData(input, field);
+		fillFieldInputData(input, field);
 
 		if (input.bad())
 		{
