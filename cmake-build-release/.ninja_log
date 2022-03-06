@@ -1,0 +1,11 @@
+# ninja log v5
+24	227	6676640298659901	build.ninja	3023a14013baf760
+0	582	6671635367531600	CMakeFiles/replace.dir/labs/lab1/Replace/Replace.cpp.obj	70e5b9eebd8f9e85
+584	752	6671635369250308	replace.exe	80fc0aadf3bfe638
+3	250	6676640298659901	build.ninja	3023a14013baf760
+6	962	6676640308689908	CMakeFiles/copyfile.dir/labs/lab1/CopyFile/copyfile-my.cpp.obj	54eba035f9899316
+8	999	6676640309059896	CMakeFiles/replace.dir/labs/lab1/Replace/Replace.cpp.obj	70e5b9eebd8f9e85
+3	1119	6676640310269904	CMakeFiles/radix.dir/labs/lab1/Radix/Radix.cpp.obj	e8192a310f5e29df
+962	1143	6676640310439907	copyfile.exe	96ce98d91a143b0d
+999	1146	6676640310470106	replace.exe	80fc0aadf3bfe638
+1120	1256	6676640311579890	radix.exe	5efecf9e79d409a1

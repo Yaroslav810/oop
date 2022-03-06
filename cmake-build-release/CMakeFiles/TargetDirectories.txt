@@ -1,0 +1,5 @@
+C:/Volgatech/second_course/oop/oop/cmake-build-release/CMakeFiles/radix.dir
+C:/Volgatech/second_course/oop/oop/cmake-build-release/CMakeFiles/replace.dir
+C:/Volgatech/second_course/oop/oop/cmake-build-release/CMakeFiles/copyfile.dir
+C:/Volgatech/second_course/oop/oop/cmake-build-release/CMakeFiles/edit_cache.dir
+C:/Volgatech/second_course/oop/oop/cmake-build-release/CMakeFiles/rebuild_cache.dir

@@ -53,34 +53,6 @@ std::string buildInvalidValueInNumberSystem(const std::string& str, int& radix)
 	return str + " cannot be in the " + getString(radix) + " number system";
 }
 
-Args parseArgs(int argc, char* argv[])
-{
-	if (argc != 4)
-	{
-		throw std::invalid_argument(buildInvalidArgcError());
-	}
-
-	int sourceNotation = std::strtol(argv[1], nullptr, 10);
-	int destinationNotation = std::strtol(argv[2], nullptr, 10);
-	std::string value = argv[3];
-
-	if (sourceNotation > MAX_RADIX || sourceNotation < MIN_RADIX)
-	{
-		throw std::out_of_range(buildOutRangeError("sourceNotation"));
-	}
-
-	if (destinationNotation > MAX_RADIX || destinationNotation < MIN_RADIX)
-	{
-		throw std::out_of_range(buildOutRangeError("destinationNotation"));
-	}
-
-	return {
-		.sourceNotation = sourceNotation,
-		.destinationNotation = destinationNotation,
-		.value = value
-	};
-}
-
 bool isDigit(const char& ch)
 {
 	return ch >= '0' && ch <= '9';
@@ -192,6 +164,34 @@ std::string intToString(int n, int radix)
 	std::reverse(result.begin(), result.end());
 
 	return result;
+}
+
+Args parseArgs(int argc, char* argv[])
+{
+	if (argc != 4)
+	{
+		throw std::invalid_argument(buildInvalidArgcError());
+	}
+
+	int sourceNotation = stringToInt(argv[1], 10);
+	int destinationNotation = stringToInt(argv[2], 10);
+	std::string value = argv[3];
+
+	if (sourceNotation > MAX_RADIX || sourceNotation < MIN_RADIX)
+	{
+		throw std::out_of_range(buildOutRangeError("sourceNotation"));
+	}
+
+	if (destinationNotation > MAX_RADIX || destinationNotation < MIN_RADIX)
+	{
+		throw std::out_of_range(buildOutRangeError("destinationNotation"));
+	}
+
+	return {
+		.sourceNotation = sourceNotation,
+		.destinationNotation = destinationNotation,
+		.value = value
+	};
 }
 
 int main(int argc, char* argv[])
