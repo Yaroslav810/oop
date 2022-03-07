@@ -41,37 +41,37 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = C$:/Volgatech/second_course/oop/oop/cmake-build-debug/
 # =============================================================================
-# Object build statements for EXECUTABLE target radix
+# Object build statements for EXECUTABLE target copyfile
 
 
 #############################################
-# Order-only phony target for radix
+# Order-only phony target for copyfile
 
-build cmake_object_order_depends_target_radix: phony || CMakeFiles/radix.dir
+build cmake_object_order_depends_target_copyfile: phony || CMakeFiles/copyfile.dir
 
-build CMakeFiles/radix.dir/labs/lab1/Radix/radix.cpp.obj: CXX_COMPILER__radix_Debug C$:/Volgatech/second_course/oop/oop/labs/lab1/Radix/radix.cpp || cmake_object_order_depends_target_radix
-  DEP_FILE = CMakeFiles\radix.dir\labs\lab1\Radix\radix.cpp.obj.d
+build CMakeFiles/copyfile.dir/labs/lab1/CopyFile/copyfile-my.cpp.obj: CXX_COMPILER__copyfile_Debug C$:/Volgatech/second_course/oop/oop/labs/lab1/CopyFile/copyfile-my.cpp || cmake_object_order_depends_target_copyfile
+  DEP_FILE = CMakeFiles\copyfile.dir\labs\lab1\CopyFile\copyfile-my.cpp.obj.d
   FLAGS = -g -std=gnu++17
-  OBJECT_DIR = CMakeFiles\radix.dir
-  OBJECT_FILE_DIR = CMakeFiles\radix.dir\labs\lab1\Radix
+  OBJECT_DIR = CMakeFiles\copyfile.dir
+  OBJECT_FILE_DIR = CMakeFiles\copyfile.dir\labs\lab1\CopyFile
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target radix
+# Link build statements for EXECUTABLE target copyfile
 
 
 #############################################
-# Link the executable radix.exe
+# Link the executable copyfile.exe
 
-build radix.exe: CXX_EXECUTABLE_LINKER__radix_Debug CMakeFiles/radix.dir/labs/lab1/Radix/radix.cpp.obj
+build copyfile.exe: CXX_EXECUTABLE_LINKER__copyfile_Debug CMakeFiles/copyfile.dir/labs/lab1/CopyFile/copyfile-my.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\radix.dir
+  OBJECT_DIR = CMakeFiles\copyfile.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_FILE = radix.exe
-  TARGET_IMPLIB = libradix.dll.a
-  TARGET_PDB = radix.exe.dbg
+  TARGET_FILE = copyfile.exe
+  TARGET_IMPLIB = libcopyfile.dll.a
+  TARGET_PDB = copyfile.exe.dbg
 
 # =============================================================================
 # Object build statements for EXECUTABLE target replace
@@ -107,37 +107,70 @@ build replace.exe: CXX_EXECUTABLE_LINKER__replace_Debug CMakeFiles/replace.dir/l
   TARGET_PDB = replace.exe.dbg
 
 # =============================================================================
-# Object build statements for EXECUTABLE target copyfile
+# Object build statements for EXECUTABLE target radix
 
 
 #############################################
-# Order-only phony target for copyfile
+# Order-only phony target for radix
 
-build cmake_object_order_depends_target_copyfile: phony || CMakeFiles/copyfile.dir
+build cmake_object_order_depends_target_radix: phony || CMakeFiles/radix.dir
 
-build CMakeFiles/copyfile.dir/labs/lab1/CopyFile/copyfile-my.cpp.obj: CXX_COMPILER__copyfile_Debug C$:/Volgatech/second_course/oop/oop/labs/lab1/CopyFile/copyfile-my.cpp || cmake_object_order_depends_target_copyfile
-  DEP_FILE = CMakeFiles\copyfile.dir\labs\lab1\CopyFile\copyfile-my.cpp.obj.d
+build CMakeFiles/radix.dir/labs/lab1/Radix/radix.cpp.obj: CXX_COMPILER__radix_Debug C$:/Volgatech/second_course/oop/oop/labs/lab1/Radix/radix.cpp || cmake_object_order_depends_target_radix
+  DEP_FILE = CMakeFiles\radix.dir\labs\lab1\Radix\radix.cpp.obj.d
   FLAGS = -g -std=gnu++17
-  OBJECT_DIR = CMakeFiles\copyfile.dir
-  OBJECT_FILE_DIR = CMakeFiles\copyfile.dir\labs\lab1\CopyFile
+  OBJECT_DIR = CMakeFiles\radix.dir
+  OBJECT_FILE_DIR = CMakeFiles\radix.dir\labs\lab1\Radix
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target copyfile
+# Link build statements for EXECUTABLE target radix
 
 
 #############################################
-# Link the executable copyfile.exe
+# Link the executable radix.exe
 
-build copyfile.exe: CXX_EXECUTABLE_LINKER__copyfile_Debug CMakeFiles/copyfile.dir/labs/lab1/CopyFile/copyfile-my.cpp.obj
+build radix.exe: CXX_EXECUTABLE_LINKER__radix_Debug CMakeFiles/radix.dir/labs/lab1/Radix/radix.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\copyfile.dir
+  OBJECT_DIR = CMakeFiles\radix.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_FILE = copyfile.exe
-  TARGET_IMPLIB = libcopyfile.dll.a
-  TARGET_PDB = copyfile.exe.dbg
+  TARGET_FILE = radix.exe
+  TARGET_IMPLIB = libradix.dll.a
+  TARGET_PDB = radix.exe.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target crypt
+
+
+#############################################
+# Order-only phony target for crypt
+
+build cmake_object_order_depends_target_crypt: phony || CMakeFiles/crypt.dir
+
+build CMakeFiles/crypt.dir/labs/lab1/Crypt/crypt.cpp.obj: CXX_COMPILER__crypt_Debug C$:/Volgatech/second_course/oop/oop/labs/lab1/Crypt/crypt.cpp || cmake_object_order_depends_target_crypt
+  DEP_FILE = CMakeFiles\crypt.dir\labs\lab1\Crypt\crypt.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  OBJECT_DIR = CMakeFiles\crypt.dir
+  OBJECT_FILE_DIR = CMakeFiles\crypt.dir\labs\lab1\Crypt
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target crypt
+
+
+#############################################
+# Link the executable crypt.exe
+
+build crypt.exe: CXX_EXECUTABLE_LINKER__crypt_Debug CMakeFiles/crypt.dir/labs/lab1/Crypt/crypt.cpp.obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\crypt.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = crypt.exe
+  TARGET_IMPLIB = libcrypt.dll.a
+  TARGET_PDB = crypt.exe.dbg
 
 
 #############################################
@@ -159,8 +192,8 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 
 build cmake_object_order_depends_target_fill: phony || CMakeFiles/fill.dir
 
-build CMakeFiles/fill.dir/labs/lab1/Fill/Fill.cpp.obj: CXX_COMPILER__fill_Debug C$:/Volgatech/second_course/oop/oop/labs/lab1/Fill/Fill.cpp || cmake_object_order_depends_target_fill
-  DEP_FILE = CMakeFiles\fill.dir\labs\lab1\Fill\Fill.cpp.obj.d
+build CMakeFiles/fill.dir/labs/lab1/Fill/fill.cpp.obj: CXX_COMPILER__fill_Debug C$:/Volgatech/second_course/oop/oop/labs/lab1/Fill/fill.cpp || cmake_object_order_depends_target_fill
+  DEP_FILE = CMakeFiles\fill.dir\labs\lab1\Fill\fill.cpp.obj.d
   FLAGS = -g -std=gnu++17
   OBJECT_DIR = CMakeFiles\fill.dir
   OBJECT_FILE_DIR = CMakeFiles\fill.dir\labs\lab1\Fill
@@ -173,7 +206,7 @@ build CMakeFiles/fill.dir/labs/lab1/Fill/Fill.cpp.obj: CXX_COMPILER__fill_Debug 
 #############################################
 # Link the executable fill.exe
 
-build fill.exe: CXX_EXECUTABLE_LINKER__fill_Debug CMakeFiles/fill.dir/labs/lab1/Fill/Fill.cpp.obj
+build fill.exe: CXX_EXECUTABLE_LINKER__fill_Debug CMakeFiles/fill.dir/labs/lab1/Fill/fill.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\fill.dir
@@ -200,6 +233,8 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 build copyfile: phony copyfile.exe
 
+build crypt: phony crypt.exe
+
 build fill: phony fill.exe
 
 build radix: phony radix.exe
@@ -214,7 +249,7 @@ build replace: phony replace.exe
 #############################################
 # Folder: C:/Volgatech/second_course/oop/oop/cmake-build-debug
 
-build all: phony radix.exe replace.exe copyfile.exe fill.exe
+build all: phony copyfile.exe replace.exe radix.exe crypt.exe fill.exe
 
 # =============================================================================
 # Built-in targets
