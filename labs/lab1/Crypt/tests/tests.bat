@@ -39,6 +39,12 @@ rem Decrypted JEQ with code 10, expectation @#&
 fc %OUT% "decrypt-JEQ-code-10-with-expectation-@#&.txt" > nul || goto err
 echo Test #7: passed!
 
+rem Crypt exe
+%PROGRAM% crypt "C:\Volgatech\second_course\oop\oop\cmake-build-debug\crypt.exe" %OUT% 10 || goto err
+%PROGRAM% decrypt %OUT% "crypt_exe.txt" 10 || goto err
+fc "crypt_exe.txt" "C:\Volgatech\second_course\oop\oop\cmake-build-debug\crypt.exe" > nul || goto err
+echo Test #8: passed!
+
 rem The tests successful
 echo All tests passed successfuly
 exit /B 0

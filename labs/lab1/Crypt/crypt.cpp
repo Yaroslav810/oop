@@ -166,51 +166,6 @@ Args ParseArgs(int argc, char* argv[])
 	};
 }
 
-void Encrypt(unsigned char& byte, unsigned char key)
-{
-	byte ^= key;
-
-	byte = ((byte & 0b00000111) << 2)
-		| ((byte & 0b00011000) << 3)
-		| ((byte & 0b01100000) >> 5)
-		| ((byte & 0b10000000) >> 2);
-}
-
-void Decrypt(unsigned char& byte, unsigned char key)
-{
-	byte = ((byte & 0b00011100) >> 2)
-		| ((byte & 0b11000000) >> 3)
-		| ((byte & 0b00000011) << 5)
-		| ((byte & 0b00100000) << 2);
-
-	byte ^= key;
-}
-
-// Разделить на Encrypt и decript, istream, reinterpret_cast: char напрямую пихать в Encrypt и Decrypt
-void Crypt(std::ifstream& in, std::ofstream& out, Mode mode, unsigned char key)
-{
-	unsigned char byte;
-	while (in.read(reinterpret_cast<char*>(&byte), sizeof(unsigned char)))
-	{
-		(mode == Mode::CRYPT)
-			? Encrypt(byte, key)
-			: Decrypt(byte, key);
-		out.write(reinterpret_cast<char*>(&byte), sizeof(unsigned char));
-	}
-}
-
-void CheckOpeningFilesError(std::ifstream& input, std::ofstream& output)
-{
-	if (!input.is_open())
-	{
-		throw std::ios_base::failure(BuildFileReadingError());
-	}
-	if (!output.is_open())
-	{
-		throw std::ios_base::failure(BuildFileWritingError());
-	}
-}
-
 void CheckFileReadingError(std::ifstream& input)
 {
 	if (input.bad())
@@ -227,24 +182,75 @@ void CheckFileWritingError(std::ofstream& output)
 	}
 }
 
+void EncryptByte(char& byte, unsigned char key)
+{
+	byte ^= key;
+
+	byte = ((byte & 0b00000111) << 2)
+		| ((byte & 0b00011000) << 3)
+		| ((byte & 0b01100000) >> 5)
+		| ((byte & 0b10000000) >> 2);
+}
+
+void DecryptByte(char& byte, unsigned char key)
+{
+	byte = ((byte & 0b00011100) >> 2)
+		| ((byte & 0b11000000) >> 3)
+		| ((byte & 0b00000011) << 5)
+		| ((byte & 0b00100000) << 2);
+
+	byte ^= key;
+}
+
+void Encrypt(std::istream& input, std::ostream& output, unsigned char key)
+{
+	char byte;
+	while (input.read(&byte, sizeof(char)))
+	{
+		EncryptByte(byte, key);
+		output.write(&byte, sizeof(char));
+	}
+}
+
+void Decrypt(std::istream& input, std::ostream& output, unsigned char key)
+{
+	char byte;
+	while (input.read(&byte, sizeof(char)))
+	{
+		DecryptByte(byte, key);
+		output.write(&byte, sizeof(char));
+	}
+}
+
+void Crypt(const std::string& in, std::string& out, unsigned char key, Mode mode)
+{
+	std::ifstream input;
+	input.open(in, std::ios::binary);
+	if (!input.is_open())
+	{
+		throw std::ios_base::failure(BuildFileReadingError());
+	}
+
+	std::ofstream output;
+	output.open(out, std::ios::binary);
+	if (!output.is_open()) {
+		throw std::ios_base::failure(BuildFileWritingError());
+	}
+
+	(mode == Mode::CRYPT)
+		? Encrypt(input, output, key)
+		: Decrypt(input, output, key);
+
+	CheckFileReadingError(input);
+	CheckFileWritingError(output);
+}
+
 int main(int argc, char* argv[])
 {
 	try
 	{
 		auto args = ParseArgs(argc, argv);
-
-		// Общая функция
-		std::ifstream input;
-		input.open(args.input);
-		std::ofstream output;
-		output.open(args.output);
-
-		CheckOpeningFilesError(input, output);
-
-		Crypt(input, output, args.mode, args.key);
-
-		CheckFileReadingError(input);
-		CheckFileWritingError(output);
+		Crypt(args.input, args.output, args.key, args.mode);
 	}
 	catch (const std::exception& e)
 	{
