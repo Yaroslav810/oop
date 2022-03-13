@@ -8,7 +8,7 @@ const char BORDER = '#';
 const char START_POSITION = 'O';
 const char FILL = '-';
 
-using Field = char[MAX_ROWS][MAX_COLUMNS];
+using Field = std::array<std::array<char, MAX_COLUMNS>, MAX_ROWS>;
 
 struct Args
 {
@@ -16,14 +16,20 @@ struct Args
 	std::string output;
 };
 
-std::string buildInvalidArgcError()
+struct Cell
+{
+	int i;
+	int j;
+};
+
+std::string BuildInvalidArgcError()
 {
 	return "Invalid argument count"
 		   "\n"
 		   "Usage: fill.exe <inputFile> <outputFile>";
 }
 
-std::string buildFileReadingError()
+std::string BuildFileReadingError()
 {
 	return "Error reading the file!"
 		   "\n"
@@ -31,7 +37,7 @@ std::string buildFileReadingError()
 		   "\n";
 }
 
-std::string buildFileWritingError()
+std::string BuildFileWritingError()
 {
 	return "Error writing the file!"
 		   "\n"
@@ -39,11 +45,11 @@ std::string buildFileWritingError()
 		   "\n";
 }
 
-Args parseArgs(int argc, char* argv[])
+Args ParseArgs(int argc, char* argv[])
 {
 	if (argc != 3)
 	{
-		throw std::invalid_argument(buildInvalidArgcError());
+		throw std::invalid_argument(BuildInvalidArgcError());
 	}
 
 	return {
@@ -52,8 +58,9 @@ Args parseArgs(int argc, char* argv[])
 	};
 }
 
-void initField(Field field)
+Field InitField()
 {
+	Field field = {};
 	for (int i = 0; i < MAX_ROWS; ++i)
 	{
 		for (int j = 0; j < MAX_COLUMNS; ++j)
@@ -61,9 +68,11 @@ void initField(Field field)
 			field[i][j] = EMPTINESS;
 		}
 	}
+
+	return field;
 }
 
-void readFieldFromFile(std::ifstream& in, Field field)
+void ReadFieldFromFile(std::istream& in, Field& field)
 {
 	int rowCount = 0;
 
@@ -84,10 +93,9 @@ void readFieldFromFile(std::ifstream& in, Field field)
 			case START_POSITION:
 				field[rowCount][i] = str[i];
 				continue;
-			case '\n':
+			case '\n': // Нужен ли n?
 				break;
 			default:
-				std::cout << rowCount << ":" << i << std::endl;
 				throw std::invalid_argument("Unknown character: " + std::string(1, str[i]) + "\n");
 			}
 		}
@@ -96,7 +104,7 @@ void readFieldFromFile(std::ifstream& in, Field field)
 	}
 }
 
-void printField(std::ofstream& out, Field field)
+void PrintFieldToStream(std::ostream& out, const Field& field)
 {
 	for (int i = 0; i < MAX_ROWS; ++i)
 	{
@@ -109,38 +117,104 @@ void printField(std::ofstream& out, Field field)
 	}
 }
 
-void fillFieldInputData(std::ifstream& in, Field field)
+void PrintFieldToFile(const std::string& outputFile, const Field& field)
 {
-	initField(field);
-	readFieldFromFile(in, field);
+	std::ofstream output;
+	output.open(outputFile);
+	if (!output.is_open())
+	{
+		throw std::ios_base::failure(BuildFileWritingError());
+	}
+
+	PrintFieldToStream(output, field);
+
+	if (!output.flush())
+	{
+		throw std::ios_base::failure(BuildFileWritingError());
+	}
 }
 
-void fillAreaAroundPosition(Field field, const int row, const int column)
+Field GetFieldFromFile(const std::string& inputFile)
+{
+	std::ifstream input;
+	input.open(inputFile);
+	if (!input.is_open())
+	{
+		throw std::ios_base::failure(BuildFileReadingError());
+	}
+
+	auto field = InitField();
+	ReadFieldFromFile(input, field);
+	if (input.bad())
+	{
+		throw std::ios_base::failure(BuildFileReadingError());
+	}
+
+	return field;
+}
+
+void FillTopNeighboringCellIfEmpty(Field& field, std::queue<Cell>& queue, const int row, const int column)
+{
+	if (row > 0 && field[row - 1][column] == EMPTINESS)
+	{
+		field[row - 1][column] = FILL;
+		queue.push({
+			.i =  row - 1,
+			.j = column
+		});
+	}
+}
+
+void FillBottomNeighboringCellIfEmpty(Field& field, std::queue<Cell>& queue, const int row, const int column)
+{
+	if (row < MAX_ROWS && field[row + 1][column] == EMPTINESS)
+	{
+		field[row + 1][column] = FILL;
+		queue.push({
+			.i =  row + 1,
+			.j = column
+		});
+	}
+}
+
+void FillLeftNeighboringCellIfEmpty(Field& field, std::queue<Cell>& queue, const int row, const int column)
+{
+	if (column > 0 && field[row][column - 1] == EMPTINESS)
+	{
+		field[row][column - 1] = FILL;
+		queue.push({
+			.i =  row,
+			.j = column - 1
+		});
+	}
+}
+
+void FillRightNeighboringCellIfEmpty(Field& field, std::queue<Cell>& queue, const int row, const int column)
+{
+	if (column < MAX_COLUMNS && field[row][column + 1] == EMPTINESS)
+	{
+		field[row][column + 1] = FILL;
+		queue.push({
+			.i =  row,
+			.j = column + 1
+		});
+	}
+}
+
+void FillNeighboringCell(Field& field, std::queue<Cell>& queue, const int row, const int column)
 {
 	if (field[row][column] == EMPTINESS)
 	{
 		field[row][column] = FILL;
 	}
 
-	if (row > 0 && field[row - 1][column] == EMPTINESS)
-	{
-		fillAreaAroundPosition(field, row - 1, column);
-	}
-	if (row < MAX_ROWS && field[row + 1][column] == EMPTINESS)
-	{
-		fillAreaAroundPosition(field, row + 1, column);
-	}
-	if (column > 0 && field[row][column - 1] == EMPTINESS)
-	{
-		fillAreaAroundPosition(field, row, column - 1);
-	}
-	if (column < MAX_COLUMNS && field[row][column + 1] == EMPTINESS)
-	{
-		fillAreaAroundPosition(field, row, column + 1);
-	}
+	FillTopNeighboringCellIfEmpty(field, queue, row, column);
+	FillBottomNeighboringCellIfEmpty(field, queue, row, column);
+	FillLeftNeighboringCellIfEmpty(field, queue, row, column);
+	FillRightNeighboringCellIfEmpty(field, queue, row, column);
 }
 
-void fillArea(Field field)
+void PushStartPositionToQueue(Field& field, std::queue<Cell>& queue)
 {
 	for (int i = 0; i < MAX_ROWS; ++i)
 	{
@@ -148,9 +222,21 @@ void fillArea(Field field)
 		{
 			if (field[i][j] == START_POSITION)
 			{
-				fillAreaAroundPosition(field, i, j);
+				queue.push({ i, j });
 			}
 		}
+	}
+}
+
+void FillArea(Field& field)
+{
+	std::queue<Cell> queue = {};
+	PushStartPositionToQueue(field, queue);
+	while (!queue.empty())
+	{
+		auto front = queue.front();
+		FillNeighboringCell(field, queue, front.i, front.j);
+		queue.pop();
 	}
 }
 
@@ -158,44 +244,12 @@ int main(int argc, char* argv[])
 {
 	try
 	{
-		auto args = parseArgs(argc, argv);
-
-		std::ifstream input;
-		input.open(args.input);
-		if (!input.is_open())
-		{
-			throw std::ios_base::failure(buildFileReadingError());
-		}
-
-		std::ofstream output;
-		output.open(args.output);
-		if (!output.is_open())
-		{
-			throw std::ios_base::failure(buildFileWritingError());
-		}
-
-		Field field = {};
-		fillFieldInputData(input, field);
-
-		if (input.bad())
-		{
-			throw std::ios_base::failure(buildFileReadingError());
-		}
-
-		fillArea(field);
-		printField(output, field);
-
-		if (!output.flush())
-		{
-			throw std::ios_base::failure(buildFileWritingError());
-		}
+		auto args = ParseArgs(argc, argv);
+		auto field = GetFieldFromFile(args.input);
+		FillArea(field);
+		PrintFieldToFile(args.output, field);
 	}
-	catch (const std::invalid_argument& e)
-	{
-		std::cout << e.what() << std::endl;
-		return 1;
-	}
-	catch (const std::ios_base::failure& e)
+	catch (const std::exception& e)
 	{
 		std::cout << e.what() << std::endl;
 		return 1;

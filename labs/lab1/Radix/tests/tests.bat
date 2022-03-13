@@ -18,31 +18,40 @@ rem Conversion from 36 to 2
 fc convertingNumber16From36To2WithExpectation101010.txt %OUT% > nul || goto err
 echo Test #2: passed!
 
-rem Conversion from 9 to 5
+rem Conversion 871 from 9 to 5
 %PROGRAM% 9 5 871 > %OUT% || goto err
 fc convertingNumber871From9To5WithExpectation10322.txt %OUT% > nul || goto err
 echo Test #3: passed!
 
-rem Conversion from 12 to 28
+rem Conversion 8B71 from 12 to 28
 %PROGRAM% 12 28 8B71 > %OUT% || goto err
 fc convertingNumber8B71From12To28WithExpectationJL9.txt %OUT% > nul || goto err
 echo Test #4: passed!
 
+rem Conversion 0 from 2 to 16
+%PROGRAM% 2 16 0 > %OUT% || goto err
+fc convertingNumber0From2To16WithExpectation0.txt %OUT% > nul || goto err
+echo Test #5: passed!
+
 rem Running without arguments
 %PROGRAM% > nul && goto err
-echo Test #5: passed!
+echo Test #6: passed!
 
 rem Erroneous argument
 %PROGRAM% 2 37 1010 > nul && goto err
-echo Test #6: passed!
+echo Test #7: passed!
 
 rem Int overflow
-%PROGRAM% 10 37 2147483648 > nul && goto err
-echo Test #7: passed!
+%PROGRAM% 10 12 2147483648 > nul && goto err
+echo Test #8: passed!
+
+rem Int overflow
+%PROGRAM% 10 12 -2147483649 > nul && goto err
+echo Test #9: passed!
 
 rem The absence of a symbol in the number system
 %PROGRAM% 2 37 2000 > nul && goto err
-echo Test #8: passed!
+echo Test #10: passed!
 
 rem The tests successful
 echo All tests passed successfuly

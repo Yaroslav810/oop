@@ -41,72 +41,6 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = C$:/Volgatech/second_course/oop/oop/cmake-build-release/
 # =============================================================================
-# Object build statements for EXECUTABLE target radix
-
-
-#############################################
-# Order-only phony target for radix
-
-build cmake_object_order_depends_target_radix: phony || CMakeFiles/radix.dir
-
-build CMakeFiles/radix.dir/labs/lab1/Radix/Radix.cpp.obj: CXX_COMPILER__radix_Release C$:/Volgatech/second_course/oop/oop/labs/lab1/Radix/Radix.cpp || cmake_object_order_depends_target_radix
-  DEP_FILE = CMakeFiles\radix.dir\labs\lab1\Radix\Radix.cpp.obj.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17
-  OBJECT_DIR = CMakeFiles\radix.dir
-  OBJECT_FILE_DIR = CMakeFiles\radix.dir\labs\lab1\Radix
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target radix
-
-
-#############################################
-# Link the executable radix.exe
-
-build radix.exe: CXX_EXECUTABLE_LINKER__radix_Release CMakeFiles/radix.dir/labs/lab1/Radix/Radix.cpp.obj
-  FLAGS = -O3 -DNDEBUG
-  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\radix.dir
-  POST_BUILD = cd .
-  PRE_LINK = cd .
-  TARGET_FILE = radix.exe
-  TARGET_IMPLIB = libradix.dll.a
-  TARGET_PDB = radix.exe.dbg
-
-# =============================================================================
-# Object build statements for EXECUTABLE target replace
-
-
-#############################################
-# Order-only phony target for replace
-
-build cmake_object_order_depends_target_replace: phony || CMakeFiles/replace.dir
-
-build CMakeFiles/replace.dir/labs/lab1/Replace/Replace.cpp.obj: CXX_COMPILER__replace_Release C$:/Volgatech/second_course/oop/oop/labs/lab1/Replace/Replace.cpp || cmake_object_order_depends_target_replace
-  DEP_FILE = CMakeFiles\replace.dir\labs\lab1\Replace\Replace.cpp.obj.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17
-  OBJECT_DIR = CMakeFiles\replace.dir
-  OBJECT_FILE_DIR = CMakeFiles\replace.dir\labs\lab1\Replace
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target replace
-
-
-#############################################
-# Link the executable replace.exe
-
-build replace.exe: CXX_EXECUTABLE_LINKER__replace_Release CMakeFiles/replace.dir/labs/lab1/Replace/Replace.cpp.obj
-  FLAGS = -O3 -DNDEBUG
-  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\replace.dir
-  POST_BUILD = cd .
-  PRE_LINK = cd .
-  TARGET_FILE = replace.exe
-  TARGET_IMPLIB = libreplace.dll.a
-  TARGET_PDB = replace.exe.dbg
-
-# =============================================================================
 # Object build statements for EXECUTABLE target copyfile
 
 
@@ -139,6 +73,105 @@ build copyfile.exe: CXX_EXECUTABLE_LINKER__copyfile_Release CMakeFiles/copyfile.
   TARGET_IMPLIB = libcopyfile.dll.a
   TARGET_PDB = copyfile.exe.dbg
 
+# =============================================================================
+# Object build statements for EXECUTABLE target replace
+
+
+#############################################
+# Order-only phony target for replace
+
+build cmake_object_order_depends_target_replace: phony || CMakeFiles/replace.dir
+
+build CMakeFiles/replace.dir/labs/lab1/Replace/replace.cpp.obj: CXX_COMPILER__replace_Release C$:/Volgatech/second_course/oop/oop/labs/lab1/Replace/replace.cpp || cmake_object_order_depends_target_replace
+  DEP_FILE = CMakeFiles\replace.dir\labs\lab1\Replace\replace.cpp.obj.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  OBJECT_DIR = CMakeFiles\replace.dir
+  OBJECT_FILE_DIR = CMakeFiles\replace.dir\labs\lab1\Replace
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target replace
+
+
+#############################################
+# Link the executable replace.exe
+
+build replace.exe: CXX_EXECUTABLE_LINKER__replace_Release CMakeFiles/replace.dir/labs/lab1/Replace/replace.cpp.obj
+  FLAGS = -O3 -DNDEBUG
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\replace.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = replace.exe
+  TARGET_IMPLIB = libreplace.dll.a
+  TARGET_PDB = replace.exe.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target radix
+
+
+#############################################
+# Order-only phony target for radix
+
+build cmake_object_order_depends_target_radix: phony || CMakeFiles/radix.dir
+
+build CMakeFiles/radix.dir/labs/lab1/Radix/radix.cpp.obj: CXX_COMPILER__radix_Release C$:/Volgatech/second_course/oop/oop/labs/lab1/Radix/radix.cpp || cmake_object_order_depends_target_radix
+  DEP_FILE = CMakeFiles\radix.dir\labs\lab1\Radix\radix.cpp.obj.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  OBJECT_DIR = CMakeFiles\radix.dir
+  OBJECT_FILE_DIR = CMakeFiles\radix.dir\labs\lab1\Radix
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target radix
+
+
+#############################################
+# Link the executable radix.exe
+
+build radix.exe: CXX_EXECUTABLE_LINKER__radix_Release CMakeFiles/radix.dir/labs/lab1/Radix/radix.cpp.obj
+  FLAGS = -O3 -DNDEBUG
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\radix.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = radix.exe
+  TARGET_IMPLIB = libradix.dll.a
+  TARGET_PDB = radix.exe.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target crypt
+
+
+#############################################
+# Order-only phony target for crypt
+
+build cmake_object_order_depends_target_crypt: phony || CMakeFiles/crypt.dir
+
+build CMakeFiles/crypt.dir/labs/lab1/Crypt/crypt.cpp.obj: CXX_COMPILER__crypt_Release C$:/Volgatech/second_course/oop/oop/labs/lab1/Crypt/crypt.cpp || cmake_object_order_depends_target_crypt
+  DEP_FILE = CMakeFiles\crypt.dir\labs\lab1\Crypt\crypt.cpp.obj.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  OBJECT_DIR = CMakeFiles\crypt.dir
+  OBJECT_FILE_DIR = CMakeFiles\crypt.dir\labs\lab1\Crypt
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target crypt
+
+
+#############################################
+# Link the executable crypt.exe
+
+build crypt.exe: CXX_EXECUTABLE_LINKER__crypt_Release CMakeFiles/crypt.dir/labs/lab1/Crypt/crypt.cpp.obj
+  FLAGS = -O3 -DNDEBUG
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\crypt.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = crypt.exe
+  TARGET_IMPLIB = libcrypt.dll.a
+  TARGET_PDB = crypt.exe.dbg
+
 
 #############################################
 # Utility command for edit_cache
@@ -149,6 +182,39 @@ build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
   restat = 1
 
 build edit_cache: phony CMakeFiles/edit_cache.util
+
+# =============================================================================
+# Object build statements for EXECUTABLE target fill
+
+
+#############################################
+# Order-only phony target for fill
+
+build cmake_object_order_depends_target_fill: phony || CMakeFiles/fill.dir
+
+build CMakeFiles/fill.dir/labs/lab1/Fill/fill.cpp.obj: CXX_COMPILER__fill_Release C$:/Volgatech/second_course/oop/oop/labs/lab1/Fill/fill.cpp || cmake_object_order_depends_target_fill
+  DEP_FILE = CMakeFiles\fill.dir\labs\lab1\Fill\fill.cpp.obj.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  OBJECT_DIR = CMakeFiles\fill.dir
+  OBJECT_FILE_DIR = CMakeFiles\fill.dir\labs\lab1\Fill
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target fill
+
+
+#############################################
+# Link the executable fill.exe
+
+build fill.exe: CXX_EXECUTABLE_LINKER__fill_Release CMakeFiles/fill.dir/labs/lab1/Fill/fill.cpp.obj
+  FLAGS = -O3 -DNDEBUG
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\fill.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = fill.exe
+  TARGET_IMPLIB = libfill.dll.a
+  TARGET_PDB = fill.exe.dbg
 
 
 #############################################
@@ -167,6 +233,10 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 build copyfile: phony copyfile.exe
 
+build crypt: phony crypt.exe
+
+build fill: phony fill.exe
+
 build radix: phony radix.exe
 
 build replace: phony replace.exe
@@ -179,7 +249,7 @@ build replace: phony replace.exe
 #############################################
 # Folder: C:/Volgatech/second_course/oop/oop/cmake-build-release
 
-build all: phony radix.exe replace.exe copyfile.exe
+build all: phony copyfile.exe replace.exe radix.exe crypt.exe fill.exe
 
 # =============================================================================
 # Built-in targets

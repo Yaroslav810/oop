@@ -15,19 +15,19 @@ struct Args
 	std::string value;
 };
 
-std::string getString(const char& ch)
+std::string GetString(char ch)
 {
 	std::string str(1, ch);
 
 	return str;
 }
 
-std::string getString(const int& n)
+std::string GetString(int n)
 {
 	return std::to_string(n);
 }
 
-std::string buildOutRangeError(const std::string& source)
+std::string BuildOutRangeError(const std::string& source)
 {
 	return "Invalid <" + source + ">!"
 								  "\n"
@@ -35,49 +35,49 @@ std::string buildOutRangeError(const std::string& source)
 		+ std::to_string(MIN_RADIX) + " to " + std::to_string(MAX_RADIX) + "\n";
 }
 
-std::string buildInvalidArgError(const std::string& source)
+std::string BuildInvalidArgError(const std::string& source)
 {
 	return "Invalid value: " + source + "!"
 										"\n";
 }
 
-std::string buildInvalidArgcError()
+std::string BuildInvalidArgcError()
 {
 	return "Invalid argument count"
 		   "\n"
 		   "Usage: radix.exe <sourceNotation> <destinationNotation> <value>";
 }
 
-std::string buildInvalidValueInNumberSystem(const std::string& str, int& radix)
+std::string buildInvalidValueInNumberSystem(const std::string& str, int radix)
 {
-	return str + " cannot be in the " + getString(radix) + " number system";
+	return str + " cannot be in the " + GetString(radix) + " number system";
 }
 
-bool isDigit(const char& ch)
+bool IsDigit(char ch)
 {
 	return ch >= '0' && ch <= '9';
 }
 
-bool isLetter(const char& ch)
+bool IsCapitalLetter(char ch)
 {
 	return ch >= 'A' && ch <= 'Z';
 }
 
-int charToInt(const char& ch)
+int charToInt(char ch)
 {
-	if (isDigit(ch))
+	if (IsDigit(ch))
 	{
 		return ch - '0';
 	}
-	if (isLetter(ch))
+	if (IsCapitalLetter(ch))
 	{
 		return ch - 'A' + 10;
 	}
 
-	throw std::invalid_argument(buildInvalidArgError(getString(ch)));
+	throw std::invalid_argument(BuildInvalidArgError(GetString(ch)));
 }
 
-int updateNumber(const int& number, const int& radix, const int& digit, const bool& isNegative)
+int ConcatenateDigitToNumber(int number, int digit, int radix, bool isNegative)
 {
 	if (number > (MAX_INT - digit) / radix)
 	{
@@ -96,46 +96,46 @@ int updateNumber(const int& number, const int& radix, const int& digit, const bo
 	return number * radix + digit;
 }
 
-int stringToInt(const std::string& str, int radix)
+int StringToInt(const std::string& str, int radix)
 {
 	if (str.empty())
 	{
 		throw std::invalid_argument("Missing number");
 	}
 
-	int decimalNumber = 0;
+	int number = 0;
 	bool isNegativeNumber = str[0] == '-';
 
-	for (int i = isNegativeNumber ? 1 : 0; i < str.length(); ++i)
+	for (size_t i = isNegativeNumber ? 1 : 0; i < str.length(); ++i)
 	{
-		auto number = charToInt(str[i]);
-		if (number >= radix)
+		auto digit = charToInt(str[i]);
+		if (digit >= radix)
 		{
 			throw std::invalid_argument(
-				buildInvalidArgError(getString(str[i])) + buildInvalidValueInNumberSystem(getString(str[i]), radix));
+				BuildInvalidArgError(GetString(str[i])) + buildInvalidValueInNumberSystem(GetString(str[i]), radix));
 		}
 
-		decimalNumber = updateNumber(decimalNumber, radix, number, isNegativeNumber);
+		number = ConcatenateDigitToNumber(number, digit, radix, isNegativeNumber);
 	}
 
-	return decimalNumber;
+	return number;
 }
 
-char intToChar(const int& n)
+char IntToChar(int n)
 {
 	if (n >= 0 && n < 10)
 	{
 		return static_cast<char>(n + '0');
 	}
-	if (n >= 10 && n <= 36)
+	if (n >= 10 && n <= MAX_RADIX)
 	{
 		return static_cast<char>(n - 10 + 'A');
 	}
 
-	throw std::invalid_argument(buildInvalidArgError(getString(n)));
+	throw std::invalid_argument(BuildInvalidArgError(GetString(n)));
 }
 
-std::string intToString(int n, int radix)
+std::string IntToString(int n, int radix)
 {
 	if (n == 0)
 	{
@@ -147,13 +147,9 @@ std::string intToString(int n, int radix)
 	std::string result;
 	while (n != 0)
 	{
-		auto remains = n % radix;
-		if (remains < 0)
-		{
-			remains *= -1;
-		}
-		result.push_back(intToChar(remains));
-		n /= radix;
+		auto div = std::div(n, radix);
+		result.push_back(IntToChar(abs(div.rem)));
+		n = div.quot;
 	}
 
 	if (isNegativeNumber)
@@ -166,25 +162,25 @@ std::string intToString(int n, int radix)
 	return result;
 }
 
-Args parseArgs(int argc, char* argv[])
+Args ParseArgs(int argc, char* argv[])
 {
 	if (argc != 4)
 	{
-		throw std::invalid_argument(buildInvalidArgcError());
+		throw std::invalid_argument(BuildInvalidArgcError());
 	}
 
-	int sourceNotation = stringToInt(argv[1], 10);
-	int destinationNotation = stringToInt(argv[2], 10);
+	int sourceNotation = StringToInt(argv[1], 10);
+	int destinationNotation = StringToInt(argv[2], 10);
 	std::string value = argv[3];
 
 	if (sourceNotation > MAX_RADIX || sourceNotation < MIN_RADIX)
 	{
-		throw std::out_of_range(buildOutRangeError("sourceNotation"));
+		throw std::out_of_range(BuildOutRangeError("sourceNotation"));
 	}
 
 	if (destinationNotation > MAX_RADIX || destinationNotation < MIN_RADIX)
 	{
-		throw std::out_of_range(buildOutRangeError("destinationNotation"));
+		throw std::out_of_range(BuildOutRangeError("destinationNotation"));
 	}
 
 	return {
@@ -194,20 +190,23 @@ Args parseArgs(int argc, char* argv[])
 	};
 }
 
+std::string TranslationNumberFromSourceNumberSystemToDestination(const std::string& value, int sourceNotation, int destinationNotation)
+{
+	return IntToString(StringToInt(value, sourceNotation), destinationNotation);
+}
+
 int main(int argc, char* argv[])
 {
 	try
 	{
-		auto data = parseArgs(argc, argv);
-
-		std::cout << intToString(stringToInt(data.value, data.sourceNotation), data.destinationNotation) << std::endl;
+		auto data = ParseArgs(argc, argv);
+		std::cout << TranslationNumberFromSourceNumberSystemToDestination(
+			data.value,
+			data.sourceNotation,
+			data.destinationNotation);
+		std::cout << std::endl;
 	}
-	catch (const std::out_of_range& e)
-	{
-		std::cout << e.what() << std::endl;
-		return 1;
-	}
-	catch (const std::invalid_argument& e)
+	catch (const std::exception& e)
 	{
 		std::cout << e.what() << std::endl;
 		return 1;

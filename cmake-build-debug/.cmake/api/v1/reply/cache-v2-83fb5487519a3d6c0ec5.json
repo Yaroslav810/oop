@@ -43,7 +43,7 @@
 				}
 			],
 			"type" : "STRING",
-			"value" : "Release"
+			"value" : "Debug"
 		},
 		{
 			"name" : "CMAKE_CACHEFILE_DIR",
@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/Volgatech/second_course/oop/oop/cmake-build-release"
+			"value" : "c:/Volgatech/second_course/oop/oop/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -663,7 +663,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/PROGRA~1/JETBRA~1/CLION2~1.1/bin/ninja/win/ninja.exe"
+			"value" : "C:/Program Files/JetBrains/CLion 2021.2.1/bin/ninja/win/ninja.exe"
 		},
 		{
 			"name" : "CMAKE_MODULE_LINKER_FLAGS",
@@ -1230,6 +1230,42 @@
 			"value" : "FALSE"
 		},
 		{
+			"name" : "Project_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "C:/Volgatech/second_course/oop/oop/cmake-build-debug"
+		},
+		{
+			"name" : "Project_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "ON"
+		},
+		{
+			"name" : "Project_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "C:/Volgatech/second_course/oop/oop"
+		},
+		{
 			"name" : "oop_BINARY_DIR",
 			"properties" : 
 			[
@@ -1239,7 +1275,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Volgatech/second_course/oop/oop/cmake-build-release"
+			"value" : "C:/Volgatech/second_course/oop/oop/cmake-build-debug"
 		},
 		{
 			"name" : "oop_IS_TOP_LEVEL",

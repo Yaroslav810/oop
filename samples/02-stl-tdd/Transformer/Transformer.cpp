@@ -69,7 +69,7 @@ int main()
 		cout << endl;
 	}
 
-	//ofstream outputFile("output.txt");
+	//ofstream outputFile("two-area-fill.txt");
 	//Crypt(cin, outputFile, Encode);
 
 	vector<int> cryptKey = {1, 2, 3, 4};

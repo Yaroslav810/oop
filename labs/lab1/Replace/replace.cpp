@@ -12,7 +12,7 @@ struct Args
 	std::string replaceString;
 };
 
-std::string buildInvalidArgcError()
+std::string BuildInvalidArgcError()
 {
 	return "Invalid argument count!"
 		   "\n"
@@ -20,7 +20,7 @@ std::string buildInvalidArgcError()
 		   "\n";
 }
 
-std::string buildFileReadingError()
+std::string BuildFileReadingError()
 {
 	return "Error reading the file!"
 		   "\n"
@@ -28,7 +28,7 @@ std::string buildFileReadingError()
 		   "\n";
 }
 
-std::string buildFileWritingError()
+std::string BuildFileWritingError()
 {
 	return "Error writing the file!"
 		   "\n"
@@ -36,11 +36,11 @@ std::string buildFileWritingError()
 		   "\n";
 }
 
-Args parseArgs(int argc, char* argv[])
+Args ParseArgs(int argc, char* argv[])
 {
 	if (argc != 5)
 	{
-		throw std::invalid_argument(buildInvalidArgcError());
+		throw std::invalid_argument(BuildInvalidArgcError());
 	}
 
 	return {
@@ -51,7 +51,7 @@ Args parseArgs(int argc, char* argv[])
 	};
 }
 
-std::string replaceString(const std::string& subject,
+std::string ReplaceString(const std::string& subject,
 	const std::string& searchString,
 	const std::string& replacementString)
 {
@@ -73,7 +73,7 @@ std::string replaceString(const std::string& subject,
 	return result;
 }
 
-void copyFileWithReplace(std::istream& input,
+void CopyFileWithReplace(std::istream& input,
 	std::ostream& output,
 	const std::string& searchString,
 	const std::string& replacementString)
@@ -81,7 +81,7 @@ void copyFileWithReplace(std::istream& input,
 	std::string line;
 	while (std::getline(input, line))
 	{
-		output << replaceString(line, searchString, replacementString) << std::endl;
+		output << ReplaceString(line, searchString, replacementString) << std::endl;
 	}
 }
 
@@ -89,41 +89,35 @@ int main(int argc, char* argv[])
 {
 	try
 	{
-		auto args = parseArgs(argc, argv);
+		auto args = ParseArgs(argc, argv);
 
 		std::ifstream inputFile;
 		inputFile.open(args.inputFile);
 		if (!inputFile.is_open())
 		{
-			throw std::ios_base::failure(buildFileReadingError());
+			throw std::ios_base::failure(BuildFileReadingError());
 		}
 
 		std::ofstream outputFile;
 		outputFile.open(args.outputFile);
 		if (!outputFile.is_open())
 		{
-			throw std::ios_base::failure(buildFileWritingError());
+			throw std::ios_base::failure(BuildFileWritingError());
 		}
 
-		copyFileWithReplace(inputFile, outputFile, args.searchString, args.replaceString);
+		CopyFileWithReplace(inputFile, outputFile, args.searchString, args.replaceString);
 
 		if (inputFile.bad())
 		{
-			throw std::ios_base::failure(buildFileReadingError());
+			throw std::ios_base::failure(BuildFileReadingError());
 		}
 
 		if (!outputFile.flush())
 		{
-			throw std::ios_base::failure(buildFileWritingError());
+			throw std::ios_base::failure(BuildFileWritingError());
 		}
 	}
-	catch (const std::invalid_argument& e)
-	{
-		std::cout << e.what() << std::endl;
-		return 1;
-	}
-
-	catch (const std::ios_base::failure& e)
+	catch (const std::exception& e)
 	{
 		std::cout << e.what() << std::endl;
 		return 1;
