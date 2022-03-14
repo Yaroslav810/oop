@@ -18,8 +18,8 @@ struct Args
 
 struct Cell
 {
-	int i;
-	int j;
+	size_t i;
+	size_t j;
 };
 
 std::string BuildInvalidArgcError()
@@ -61,9 +61,9 @@ Args ParseArgs(int argc, char* argv[])
 Field InitField()
 {
 	Field field = {};
-	for (int i = 0; i < MAX_ROWS; ++i)
+	for (size_t i = 0; i < MAX_ROWS; ++i)
 	{
-		for (int j = 0; j < MAX_COLUMNS; ++j)
+		for (size_t j = 0; j < MAX_COLUMNS; ++j)
 		{
 			field[i][j] = EMPTINESS;
 		}
@@ -74,12 +74,12 @@ Field InitField()
 
 void ReadFieldFromFile(std::istream& in, Field& field)
 {
-	int rowCount = 0;
+	size_t rowCount = 0;
 
 	std::string str;
 	while (std::getline(in, str) && rowCount < MAX_ROWS)
 	{
-		for (int i = 0; i < str.length(); ++i)
+		for (size_t i = 0; i < str.length(); ++i)
 		{
 			if (i > MAX_COLUMNS)
 			{
@@ -106,9 +106,9 @@ void ReadFieldFromFile(std::istream& in, Field& field)
 
 void PrintFieldToStream(std::ostream& out, const Field& field)
 {
-	for (int i = 0; i < MAX_ROWS; ++i)
+	for (size_t i = 0; i < MAX_ROWS; ++i)
 	{
-		for (int j = 0; j < MAX_COLUMNS; ++j)
+		for (size_t j = 0; j < MAX_COLUMNS; ++j)
 		{
 			out << field[i][j];
 		}
@@ -153,7 +153,7 @@ Field GetFieldFromFile(const std::string& inputFile)
 	return field;
 }
 
-void FillTopNeighboringCellIfEmpty(Field& field, std::queue<Cell>& queue, const int row, const int column)
+void FillTopNeighboringCellIfEmpty(Field& field, std::queue<Cell>& queue, const size_t row, const size_t column)
 {
 	if (row > 0 && field[row - 1][column] == EMPTINESS)
 	{
@@ -165,7 +165,7 @@ void FillTopNeighboringCellIfEmpty(Field& field, std::queue<Cell>& queue, const 
 	}
 }
 
-void FillBottomNeighboringCellIfEmpty(Field& field, std::queue<Cell>& queue, const int row, const int column)
+void FillBottomNeighboringCellIfEmpty(Field& field, std::queue<Cell>& queue, const size_t row, const size_t column)
 {
 	if (row < MAX_ROWS && field[row + 1][column] == EMPTINESS)
 	{
@@ -177,7 +177,7 @@ void FillBottomNeighboringCellIfEmpty(Field& field, std::queue<Cell>& queue, con
 	}
 }
 
-void FillLeftNeighboringCellIfEmpty(Field& field, std::queue<Cell>& queue, const int row, const int column)
+void FillLeftNeighboringCellIfEmpty(Field& field, std::queue<Cell>& queue, const size_t row, const size_t column)
 {
 	if (column > 0 && field[row][column - 1] == EMPTINESS)
 	{
@@ -189,7 +189,7 @@ void FillLeftNeighboringCellIfEmpty(Field& field, std::queue<Cell>& queue, const
 	}
 }
 
-void FillRightNeighboringCellIfEmpty(Field& field, std::queue<Cell>& queue, const int row, const int column)
+void FillRightNeighboringCellIfEmpty(Field& field, std::queue<Cell>& queue, const size_t row, const size_t column)
 {
 	if (column < MAX_COLUMNS && field[row][column + 1] == EMPTINESS)
 	{
@@ -201,7 +201,7 @@ void FillRightNeighboringCellIfEmpty(Field& field, std::queue<Cell>& queue, cons
 	}
 }
 
-void FillNeighboringCell(Field& field, std::queue<Cell>& queue, const int row, const int column)
+void FillNeighboringCell(Field& field, std::queue<Cell>& queue, const size_t row, const size_t column)
 {
 	if (field[row][column] == EMPTINESS)
 	{
@@ -216,9 +216,9 @@ void FillNeighboringCell(Field& field, std::queue<Cell>& queue, const int row, c
 
 void PushStartPositionToQueue(Field& field, std::queue<Cell>& queue)
 {
-	for (int i = 0; i < MAX_ROWS; ++i)
+	for (size_t i = 0; i < MAX_ROWS; ++i)
 	{
-		for (int j = 0; j < MAX_COLUMNS; ++j)
+		for (size_t j = 0; j < MAX_COLUMNS; ++j)
 		{
 			if (field[i][j] == START_POSITION)
 			{

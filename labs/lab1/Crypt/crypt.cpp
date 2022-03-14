@@ -130,7 +130,7 @@ int StringToInt(const std::string& str)
 	int number = 0;
 	bool isNegativeNumber = str[0] == '-';
 
-	for (int i = isNegativeNumber ? 1 : 0; i < str.length(); ++i)
+	for (size_t i = isNegativeNumber ? 1 : 0; i < str.length(); ++i)
 	{
 		auto digit = CharToDigit(str[i]);
 
