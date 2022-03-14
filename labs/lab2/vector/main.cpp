@@ -8,6 +8,7 @@ int main()
 	}
 
 	MultiplyArrayElementsByMinimumElement(numbers.value());
+	SortVector(numbers.value());
 	PrintNumbers(std::cout, numbers.value());
 	return 0;
 }

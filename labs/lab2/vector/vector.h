@@ -8,3 +8,5 @@ std::optional<std::vector<double>> ReadDoubleVector(std::istream& in);
 void PrintNumbers(std::ostream& out, const std::vector<double>& numbers);
 
 void MultiplyArrayElementsByMinimumElement(std::vector<double>& vector);
+
+void SortVector(std::vector<double>& vector);

@@ -77,3 +77,6 @@
 8	549	6689460333218278	CMakeFiles/fill.dir/labs/lab1/Fill/fill.cpp.obj	9ac06349d9123785
 501	678	6689460334468269	crypt.exe	6d888f055d85ed5d
 550	695	6689460334638255	fill.exe	8baadd48103761cc
+3	413	6689462580474409	CMakeFiles/vector.dir/labs/lab2/vector/main.cpp.obj	92b1dde9e87270d5
+8	580	6689462582143325	CMakeFiles/vector.dir/labs/lab2/vector/vector.cpp.obj	6ae65af525396c02
+580	718	6689462583483319	vector.exe	f8aa0a4ffd8c1ad5

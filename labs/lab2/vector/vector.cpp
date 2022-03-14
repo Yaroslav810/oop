@@ -36,3 +36,8 @@ void MultiplyArrayElementsByMinimumElement(std::vector<double>& vector)
 		return elem * min;
 	});
 }
+
+void SortVector(std::vector<double>& vector)
+{
+	std::sort(vector.begin(), vector.end());
+}
