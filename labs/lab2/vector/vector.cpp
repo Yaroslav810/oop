@@ -1,6 +1,11 @@
-#include "stdafx.h"
+#include <iostream>
+#include <optional>
+#include <vector>
+#include <iterator>
+#include <algorithm>
 
-std::optional<std::vector<double>> readNumbers(std::istream& in) {
+std::optional<std::vector<double>> ReadDoubleVector(std::istream& in)
+{
 	std::vector<double> numbers = {};
 
 	double number;
@@ -8,34 +13,22 @@ std::optional<std::vector<double>> readNumbers(std::istream& in) {
 		numbers.push_back(number);
 	}
 
+	if (in.bad()) {
+		return std::nullopt;
+	}
+
 	return {numbers};
 }
 
-void printNumbers(std::ostream& out, std::vector<double> numbers) {
-
-}
-
-
-
-int main()
+void PrintNumbers(std::ostream& out, const std::vector<double>& numbers)
 {
-	auto numbers = readNumbers(std::cin);
-	if (!numbers.has_value()) {
-		throw std::invalid_argument("");
-	}
-
-	//copy(istream_iterator<double>(cin), istream_iterator<double>(), back_inserter(numbers));
-
-
-	/*
-	for (auto number : numbers)
-	{
-		cout << number << ", ";
-	}
-	*/
-	copy(numbers.begin(), numbers.end(), ostream_iterator<double>(cout, ", "));
-
-	cout << "\nSize of vector: " << numbers.size() << "\n";
-	return 0;
+	std::copy(numbers.begin(), numbers.end(), std::ostream_iterator<double>(std::cout, " "));
 }
 
+void MultiplyArrayElementsByMinimumElement(std::vector<double>& vector)
+{
+	auto min = *std::min_element(vector.begin(), vector.end());
+	std::transform(vector.begin(), vector.end(), vector.begin(), [min](const auto& elem) {
+		return elem * min;
+	});
+}

@@ -41,6 +41,45 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = C$:/Volgatech/second_course/oop/oop/cmake-build-debug/
 # =============================================================================
+# Object build statements for EXECUTABLE target vector
+
+
+#############################################
+# Order-only phony target for vector
+
+build cmake_object_order_depends_target_vector: phony || CMakeFiles/vector.dir
+
+build CMakeFiles/vector.dir/labs/lab2/vector/main.cpp.obj: CXX_COMPILER__vector_Debug C$:/Volgatech/second_course/oop/oop/labs/lab2/vector/main.cpp || cmake_object_order_depends_target_vector
+  DEP_FILE = CMakeFiles\vector.dir\labs\lab2\vector\main.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  OBJECT_DIR = CMakeFiles\vector.dir
+  OBJECT_FILE_DIR = CMakeFiles\vector.dir\labs\lab2\vector
+
+build CMakeFiles/vector.dir/labs/lab2/vector/vector.cpp.obj: CXX_COMPILER__vector_Debug C$:/Volgatech/second_course/oop/oop/labs/lab2/vector/vector.cpp || cmake_object_order_depends_target_vector
+  DEP_FILE = CMakeFiles\vector.dir\labs\lab2\vector\vector.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  OBJECT_DIR = CMakeFiles\vector.dir
+  OBJECT_FILE_DIR = CMakeFiles\vector.dir\labs\lab2\vector
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target vector
+
+
+#############################################
+# Link the executable vector.exe
+
+build vector.exe: CXX_EXECUTABLE_LINKER__vector_Debug CMakeFiles/vector.dir/labs/lab2/vector/main.cpp.obj CMakeFiles/vector.dir/labs/lab2/vector/vector.cpp.obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\vector.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = vector.exe
+  TARGET_IMPLIB = libvector.dll.a
+  TARGET_PDB = vector.exe.dbg
+
+# =============================================================================
 # Object build statements for EXECUTABLE target copyfile
 
 
@@ -241,6 +280,8 @@ build radix: phony radix.exe
 
 build replace: phony replace.exe
 
+build vector: phony vector.exe
+
 # =============================================================================
 # Folder targets.
 
@@ -249,7 +290,7 @@ build replace: phony replace.exe
 #############################################
 # Folder: C:/Volgatech/second_course/oop/oop/cmake-build-debug
 
-build all: phony copyfile.exe replace.exe radix.exe crypt.exe fill.exe
+build all: phony vector.exe copyfile.exe replace.exe radix.exe crypt.exe fill.exe
 
 # =============================================================================
 # Built-in targets
