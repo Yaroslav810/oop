@@ -93,8 +93,6 @@ void ReadFieldFromFile(std::istream& in, Field& field)
 			case START_POSITION:
 				field[rowCount][i] = str[i];
 				continue;
-			case '\n': // Нужен ли n?
-				break;
 			default:
 				throw std::invalid_argument("Unknown character: " + std::string(1, str[i]) + "\n");
 			}
