@@ -1,8 +1,8 @@
 #include <iostream>
 #include <optional>
 #include <vector>
-#include <iterator>
 #include <algorithm>
+#include <iomanip>
 
 std::optional<std::vector<double>> ReadDoubleVector(std::istream& in)
 {
@@ -22,7 +22,11 @@ std::optional<std::vector<double>> ReadDoubleVector(std::istream& in)
 
 void PrintNumbers(std::ostream& out, const std::vector<double>& numbers)
 {
-	std::copy(numbers.begin(), numbers.end(), std::ostream_iterator<double>(std::cout, " "));
+	for (const auto& number : numbers)
+	{
+		out << std::fixed << std::setprecision(3) << number << " ";
+	}
+	out << std::endl;
 }
 
 void MultiplyArrayElementsByMinimumElement(std::vector<double>& vector)
