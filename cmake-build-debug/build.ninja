@@ -49,17 +49,17 @@ cmake_ninja_workdir = C$:/Volgatech/second_course/oop/oop/cmake-build-debug/
 
 build cmake_object_order_depends_target_vector: phony || CMakeFiles/vector.dir
 
-build CMakeFiles/vector.dir/labs/lab2/vector/main.cpp.obj: CXX_COMPILER__vector_Debug C$:/Volgatech/second_course/oop/oop/labs/lab2/vector/main.cpp || cmake_object_order_depends_target_vector
-  DEP_FILE = CMakeFiles\vector.dir\labs\lab2\vector\main.cpp.obj.d
-  FLAGS = -g -std=gnu++17
+build CMakeFiles/vector.dir/labs/lab2/Vector/main.cpp.obj: CXX_COMPILER__vector_Debug C$:/Volgatech/second_course/oop/oop/labs/lab2/Vector/main.cpp || cmake_object_order_depends_target_vector
+  DEP_FILE = CMakeFiles\vector.dir\labs\lab2\Vector\main.cpp.obj.d
+  FLAGS = -g -std=gnu++2a
   OBJECT_DIR = CMakeFiles\vector.dir
-  OBJECT_FILE_DIR = CMakeFiles\vector.dir\labs\lab2\vector
+  OBJECT_FILE_DIR = CMakeFiles\vector.dir\labs\lab2\Vector
 
-build CMakeFiles/vector.dir/labs/lab2/vector/vector.cpp.obj: CXX_COMPILER__vector_Debug C$:/Volgatech/second_course/oop/oop/labs/lab2/vector/vector.cpp || cmake_object_order_depends_target_vector
-  DEP_FILE = CMakeFiles\vector.dir\labs\lab2\vector\vector.cpp.obj.d
-  FLAGS = -g -std=gnu++17
+build CMakeFiles/vector.dir/labs/lab2/Vector/vector.cpp.obj: CXX_COMPILER__vector_Debug C$:/Volgatech/second_course/oop/oop/labs/lab2/Vector/vector.cpp || cmake_object_order_depends_target_vector
+  DEP_FILE = CMakeFiles\vector.dir\labs\lab2\Vector\vector.cpp.obj.d
+  FLAGS = -g -std=gnu++2a
   OBJECT_DIR = CMakeFiles\vector.dir
-  OBJECT_FILE_DIR = CMakeFiles\vector.dir\labs\lab2\vector
+  OBJECT_FILE_DIR = CMakeFiles\vector.dir\labs\lab2\Vector
 
 
 # =============================================================================
@@ -69,7 +69,7 @@ build CMakeFiles/vector.dir/labs/lab2/vector/vector.cpp.obj: CXX_COMPILER__vecto
 #############################################
 # Link the executable vector.exe
 
-build vector.exe: CXX_EXECUTABLE_LINKER__vector_Debug CMakeFiles/vector.dir/labs/lab2/vector/main.cpp.obj CMakeFiles/vector.dir/labs/lab2/vector/vector.cpp.obj
+build vector.exe: CXX_EXECUTABLE_LINKER__vector_Debug CMakeFiles/vector.dir/labs/lab2/Vector/main.cpp.obj CMakeFiles/vector.dir/labs/lab2/Vector/vector.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\vector.dir
@@ -90,7 +90,7 @@ build cmake_object_order_depends_target_copyfile: phony || CMakeFiles/copyfile.d
 
 build CMakeFiles/copyfile.dir/labs/lab1/CopyFile/copyfile-my.cpp.obj: CXX_COMPILER__copyfile_Debug C$:/Volgatech/second_course/oop/oop/labs/lab1/CopyFile/copyfile-my.cpp || cmake_object_order_depends_target_copyfile
   DEP_FILE = CMakeFiles\copyfile.dir\labs\lab1\CopyFile\copyfile-my.cpp.obj.d
-  FLAGS = -g -std=gnu++17
+  FLAGS = -g -std=gnu++2a
   OBJECT_DIR = CMakeFiles\copyfile.dir
   OBJECT_FILE_DIR = CMakeFiles\copyfile.dir\labs\lab1\CopyFile
 
@@ -113,6 +113,45 @@ build copyfile.exe: CXX_EXECUTABLE_LINKER__copyfile_Debug CMakeFiles/copyfile.di
   TARGET_PDB = copyfile.exe.dbg
 
 # =============================================================================
+# Object build statements for EXECUTABLE target vector_test
+
+
+#############################################
+# Order-only phony target for vector_test
+
+build cmake_object_order_depends_target_vector_test: phony || CMakeFiles/vector_test.dir
+
+build CMakeFiles/vector_test.dir/labs/lab2/Vector/tests/vector_test.cpp.obj: CXX_COMPILER__vector_test_Debug C$:/Volgatech/second_course/oop/oop/labs/lab2/Vector/tests/vector_test.cpp || cmake_object_order_depends_target_vector_test
+  DEP_FILE = CMakeFiles\vector_test.dir\labs\lab2\Vector\tests\vector_test.cpp.obj.d
+  FLAGS = -g -std=gnu++2a
+  OBJECT_DIR = CMakeFiles\vector_test.dir
+  OBJECT_FILE_DIR = CMakeFiles\vector_test.dir\labs\lab2\Vector\tests
+
+build CMakeFiles/vector_test.dir/labs/lab2/Vector/vector.cpp.obj: CXX_COMPILER__vector_test_Debug C$:/Volgatech/second_course/oop/oop/labs/lab2/Vector/vector.cpp || cmake_object_order_depends_target_vector_test
+  DEP_FILE = CMakeFiles\vector_test.dir\labs\lab2\Vector\vector.cpp.obj.d
+  FLAGS = -g -std=gnu++2a
+  OBJECT_DIR = CMakeFiles\vector_test.dir
+  OBJECT_FILE_DIR = CMakeFiles\vector_test.dir\labs\lab2\Vector
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target vector_test
+
+
+#############################################
+# Link the executable vector_test.exe
+
+build vector_test.exe: CXX_EXECUTABLE_LINKER__vector_test_Debug CMakeFiles/vector_test.dir/labs/lab2/Vector/tests/vector_test.cpp.obj CMakeFiles/vector_test.dir/labs/lab2/Vector/vector.cpp.obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\vector_test.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = vector_test.exe
+  TARGET_IMPLIB = libvector_test.dll.a
+  TARGET_PDB = vector_test.exe.dbg
+
+# =============================================================================
 # Object build statements for EXECUTABLE target replace
 
 
@@ -123,7 +162,7 @@ build cmake_object_order_depends_target_replace: phony || CMakeFiles/replace.dir
 
 build CMakeFiles/replace.dir/labs/lab1/Replace/replace.cpp.obj: CXX_COMPILER__replace_Debug C$:/Volgatech/second_course/oop/oop/labs/lab1/Replace/replace.cpp || cmake_object_order_depends_target_replace
   DEP_FILE = CMakeFiles\replace.dir\labs\lab1\Replace\replace.cpp.obj.d
-  FLAGS = -g -std=gnu++17
+  FLAGS = -g -std=gnu++2a
   OBJECT_DIR = CMakeFiles\replace.dir
   OBJECT_FILE_DIR = CMakeFiles\replace.dir\labs\lab1\Replace
 
@@ -156,7 +195,7 @@ build cmake_object_order_depends_target_radix: phony || CMakeFiles/radix.dir
 
 build CMakeFiles/radix.dir/labs/lab1/Radix/radix.cpp.obj: CXX_COMPILER__radix_Debug C$:/Volgatech/second_course/oop/oop/labs/lab1/Radix/radix.cpp || cmake_object_order_depends_target_radix
   DEP_FILE = CMakeFiles\radix.dir\labs\lab1\Radix\radix.cpp.obj.d
-  FLAGS = -g -std=gnu++17
+  FLAGS = -g -std=gnu++2a
   OBJECT_DIR = CMakeFiles\radix.dir
   OBJECT_FILE_DIR = CMakeFiles\radix.dir\labs\lab1\Radix
 
@@ -189,7 +228,7 @@ build cmake_object_order_depends_target_crypt: phony || CMakeFiles/crypt.dir
 
 build CMakeFiles/crypt.dir/labs/lab1/Crypt/crypt.cpp.obj: CXX_COMPILER__crypt_Debug C$:/Volgatech/second_course/oop/oop/labs/lab1/Crypt/crypt.cpp || cmake_object_order_depends_target_crypt
   DEP_FILE = CMakeFiles\crypt.dir\labs\lab1\Crypt\crypt.cpp.obj.d
-  FLAGS = -g -std=gnu++17
+  FLAGS = -g -std=gnu++2a
   OBJECT_DIR = CMakeFiles\crypt.dir
   OBJECT_FILE_DIR = CMakeFiles\crypt.dir\labs\lab1\Crypt
 
@@ -211,17 +250,6 @@ build crypt.exe: CXX_EXECUTABLE_LINKER__crypt_Debug CMakeFiles/crypt.dir/labs/la
   TARGET_IMPLIB = libcrypt.dll.a
   TARGET_PDB = crypt.exe.dbg
 
-
-#############################################
-# Utility command for edit_cache
-
-build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Volgatech\second_course\oop\oop\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2021.2.1\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
-  DESC = No interactive CMake dialog available...
-  restat = 1
-
-build edit_cache: phony CMakeFiles/edit_cache.util
-
 # =============================================================================
 # Object build statements for EXECUTABLE target fill
 
@@ -233,7 +261,7 @@ build cmake_object_order_depends_target_fill: phony || CMakeFiles/fill.dir
 
 build CMakeFiles/fill.dir/labs/lab1/Fill/fill.cpp.obj: CXX_COMPILER__fill_Debug C$:/Volgatech/second_course/oop/oop/labs/lab1/Fill/fill.cpp || cmake_object_order_depends_target_fill
   DEP_FILE = CMakeFiles\fill.dir\labs\lab1\Fill\fill.cpp.obj.d
-  FLAGS = -g -std=gnu++17
+  FLAGS = -g -std=gnu++2a
   OBJECT_DIR = CMakeFiles\fill.dir
   OBJECT_FILE_DIR = CMakeFiles\fill.dir\labs\lab1\Fill
 
@@ -254,6 +282,17 @@ build fill.exe: CXX_EXECUTABLE_LINKER__fill_Debug CMakeFiles/fill.dir/labs/lab1/
   TARGET_FILE = fill.exe
   TARGET_IMPLIB = libfill.dll.a
   TARGET_PDB = fill.exe.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Volgatech\second_course\oop\oop\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2021.2.1\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build edit_cache: phony CMakeFiles/edit_cache.util
 
 
 #############################################
@@ -282,6 +321,8 @@ build replace: phony replace.exe
 
 build vector: phony vector.exe
 
+build vector_test: phony vector_test.exe
+
 # =============================================================================
 # Folder targets.
 
@@ -290,7 +331,7 @@ build vector: phony vector.exe
 #############################################
 # Folder: C:/Volgatech/second_course/oop/oop/cmake-build-debug
 
-build all: phony vector.exe copyfile.exe replace.exe radix.exe crypt.exe fill.exe
+build all: phony vector.exe copyfile.exe vector_test.exe replace.exe radix.exe crypt.exe fill.exe
 
 # =============================================================================
 # Built-in targets

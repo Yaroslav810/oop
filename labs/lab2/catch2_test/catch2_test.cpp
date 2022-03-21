@@ -6,7 +6,7 @@
 #include <iostream>
 #include <vector>
 
-TEST_CASE("vector comparison")
+TEST_CASE("Vector comparison")
 {
 	using namespace Catch::literals;
 	std::vector<double> v1{1, 0.3, 3.5};	

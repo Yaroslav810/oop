@@ -4,7 +4,8 @@ int main()
 {
 	auto numbers = ReadDoubleVector(std::cin);
 	if (!numbers.has_value()) {
-		throw std::invalid_argument("Error");
+		std::cout << "Error parsing data!" << std::endl;
+		return 1;
 	}
 
 	MultiplyArrayElementsByMinimumElement(numbers.value());

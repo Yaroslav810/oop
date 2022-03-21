@@ -87,10 +87,10 @@ int main()
 	Вышеописанный код (с lambda-функцией) аналогичен следующему:
 	class Transformer
 	{
-		vector<int> & cryptKey;
+		Vector<int> & cryptKey;
 		size_t pos = 0;
 	public:
-		Transformer(vector<int> & key)
+		Transformer(Vector<int> & key)
 			:cryptKey(key)
 		{
 		}

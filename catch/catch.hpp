@@ -1085,7 +1085,7 @@ namespace Catch {
         return ::Catch::Detail::rangeToString( begin( range ), end( range ) );
     }
 
-    // Handle vector<bool> specially
+    // Handle Vector<bool> specially
     template<typename Allocator>
     std::string rangeToString( std::vector<bool, Allocator> const& v ) {
         ReusableStringStream rss;
@@ -2515,7 +2515,7 @@ namespace Matchers {
             bool match(std::vector<T> const &v) const override {
                 // !TBD: This currently works if all elements can be compared using !=
                 // - a more general approach would be via a compare template that defaults
-                // to using !=. but could be specialised for, e.g. std::vector<T> etc
+                // to using !=. but could be specialised for, e.g. std::Vector<T> etc
                 // - then just call that directly
                 if (m_comparator.size() != v.size())
                     return false;
@@ -3016,7 +3016,7 @@ namespace Catch
 
 // end catch_wildcard_pattern.h
 #include <string>
-#include <vector>
+#include <Vector>
 #include <memory>
 
 namespace Catch {
@@ -3056,7 +3056,7 @@ namespace Catch {
         };
 
         struct Filter {
-            std::vector<PatternPtr> m_patterns;
+            std::Vector<PatternPtr> m_patterns;
 
             bool matches( TestCaseInfo const& testCase ) const;
         };
@@ -3066,7 +3066,7 @@ namespace Catch {
         bool matches( TestCaseInfo const& testCase ) const;
 
     private:
-        std::vector<Filter> m_filters;
+        std::Vector<Filter> m_filters;
 
         friend class TestSpecParser;
     };
@@ -3105,7 +3105,7 @@ namespace Catch {
         bool m_exclusion = false;
         std::size_t m_start = std::string::npos, m_pos = 0;
         std::string m_arg;
-        std::vector<std::size_t> m_escapeChars;
+        std::Vector<std::size_t> m_escapeChars;
         TestSpec::Filter m_currentFilter;
         TestSpec m_testSpec;
         ITagAliasRegistry const* m_tagAliases = nullptr;
@@ -3157,7 +3157,7 @@ namespace Catch {
 
 #include <iosfwd>
 #include <string>
-#include <vector>
+#include <Vector>
 #include <memory>
 
 namespace Catch {
@@ -3218,7 +3218,7 @@ namespace Catch {
         virtual unsigned int rngSeed() const = 0;
         virtual int benchmarkResolutionMultiple() const = 0;
         virtual UseColour::YesOrNo useColour() const = 0;
-        virtual std::vector<std::string> const& getSectionsToRun() const = 0;
+        virtual std::Vector<std::string> const& getSectionsToRun() const = 0;
         virtual Verbosity verbosity() const = 0;
     };
 
@@ -3229,7 +3229,7 @@ namespace Catch {
 // Libstdc++ doesn't like incomplete classes for unique_ptr
 
 #include <memory>
-#include <vector>
+#include <Vector>
 #include <string>
 
 #ifndef CATCH_CONFIG_CONSOLE_WIDTH
@@ -3269,9 +3269,9 @@ namespace Catch {
         std::string name;
         std::string processName;
 
-        std::vector<std::string> reporterNames;
-        std::vector<std::string> testsOrTags;
-        std::vector<std::string> sectionsToRun;
+        std::Vector<std::string> reporterNames;
+        std::Vector<std::string> testsOrTags;
+        std::Vector<std::string> sectionsToRun;
     };
 
     class Config : public IConfig {
@@ -3290,9 +3290,9 @@ namespace Catch {
 
         std::string getProcessName() const;
 
-        std::vector<std::string> const& getReporterNames() const;
-        std::vector<std::string> const& getTestsOrTags() const;
-        std::vector<std::string> const& getSectionsToRun() const override;
+        std::Vector<std::string> const& getReporterNames() const;
+        std::Vector<std::string> const& getTestsOrTags() const;
+        std::Vector<std::string> const& getSectionsToRun() const override;
 
         virtual TestSpec const& testSpec() const override;
         bool hasTestFilters() const override;
@@ -3495,7 +3495,7 @@ namespace Catch {
 
     struct AssertionStats {
         AssertionStats( AssertionResult const& _assertionResult,
-                        std::vector<MessageInfo> const& _infoMessages,
+                        std::Vector<MessageInfo> const& _infoMessages,
                         Totals const& _totals );
 
         AssertionStats( AssertionStats const& )              = default;
@@ -3505,7 +3505,7 @@ namespace Catch {
         virtual ~AssertionStats();
 
         AssertionResult assertionResult;
-        std::vector<MessageInfo> infoMessages;
+        std::Vector<MessageInfo> infoMessages;
         Totals totals;
     };
 
@@ -3639,7 +3639,7 @@ namespace Catch {
 
     struct IReporterRegistry {
         using FactoryMap = std::map<std::string, IReporterFactoryPtr>;
-        using Listeners = std::vector<IReporterFactoryPtr>;
+        using Listeners = std::Vector<IReporterFactoryPtr>;
 
         virtual ~IReporterRegistry();
         virtual IStreamingReporterPtr create( std::string const& name, IConfigPtr const& config ) const = 0;
@@ -3731,7 +3731,7 @@ namespace Catch {
         LazyStat<GroupInfo> currentGroupInfo;
         LazyStat<TestCaseInfo> currentTestCaseInfo;
 
-        std::vector<SectionInfo> m_sectionStack;
+        std::Vector<SectionInfo> m_sectionStack;
         ReporterPreferences m_reporterPrefs;
     };
 
@@ -3742,7 +3742,7 @@ namespace Catch {
             explicit Node( T const& _value ) : value( _value ) {}
             virtual ~Node() {}
 
-            using ChildNodes = std::vector<std::shared_ptr<ChildNodeT>>;
+            using ChildNodes = std::Vector<std::shared_ptr<ChildNodeT>>;
             T value;
             ChildNodes children;
         };
@@ -3758,8 +3758,8 @@ namespace Catch {
             }
 
             SectionStats stats;
-            using ChildSections = std::vector<std::shared_ptr<SectionNode>>;
-            using Assertions = std::vector<AssertionStats>;
+            using ChildSections = std::Vector<std::shared_ptr<SectionNode>>;
+            using Assertions = std::Vector<AssertionStats>;
             ChildSections childSections;
             Assertions assertions;
             std::string stdOut;
@@ -3879,16 +3879,16 @@ namespace Catch {
 
         IConfigPtr m_config;
         std::ostream& stream;
-        std::vector<AssertionStats> m_assertions;
-        std::vector<std::vector<std::shared_ptr<SectionNode>>> m_sections;
-        std::vector<std::shared_ptr<TestCaseNode>> m_testCases;
-        std::vector<std::shared_ptr<TestGroupNode>> m_testGroups;
+        std::Vector<AssertionStats> m_assertions;
+        std::Vector<std::Vector<std::shared_ptr<SectionNode>>> m_sections;
+        std::Vector<std::shared_ptr<TestCaseNode>> m_testCases;
+        std::Vector<std::shared_ptr<TestGroupNode>> m_testGroups;
 
-        std::vector<std::shared_ptr<TestRunNode>> m_testRuns;
+        std::Vector<std::shared_ptr<TestRunNode>> m_testRuns;
 
         std::shared_ptr<SectionNode> m_rootSection;
         std::shared_ptr<SectionNode> m_deepestSection;
-        std::vector<std::shared_ptr<SectionNode>> m_sectionStack;
+        std::Vector<std::shared_ptr<SectionNode>> m_sectionStack;
         ReporterPreferences m_reporterPrefs;
     };
 
@@ -4121,7 +4121,7 @@ namespace Catch {
         void printHeaderString(std::string const& _string, std::size_t indent = 0);
 
         void printTotals(Totals const& totals);
-        void printSummaryRow(std::string const& label, std::vector<SummaryColumn> const& cols, std::size_t row);
+        void printSummaryRow(std::string const& label, std::Vector<SummaryColumn> const& cols, std::size_t row);
 
         void printTotalsDivider(Totals const& totals);
         void printSummaryDivider();
@@ -4141,7 +4141,7 @@ namespace Catch {
 
 // start catch_xmlwriter.h
 
-#include <vector>
+#include <Vector>
 
 namespace Catch {
 
@@ -4225,7 +4225,7 @@ namespace Catch {
 
         bool m_tagIsOpen = false;
         bool m_needsNewline = false;
-        std::vector<std::string> m_tags;
+        std::Vector<std::string> m_tags;
         std::string m_indent;
         std::ostream& m_os;
     };
@@ -4346,7 +4346,7 @@ namespace Catch {
 // start catch_test_case_tracker.h
 
 #include <string>
-#include <vector>
+#include <Vector>
 #include <memory>
 
 namespace Catch {
@@ -4436,7 +4436,7 @@ namespace TestCaseTracking {
             bool operator ()( ITrackerPtr const& tracker ) const;
         };
 
-        using Children = std::vector<ITrackerPtr>;
+        using Children = std::Vector<ITrackerPtr>;
         NameAndLocation m_nameAndLocation;
         TrackerContext& m_ctx;
         ITracker* m_parent;
@@ -4474,7 +4474,7 @@ namespace TestCaseTracking {
     };
 
     class SectionTracker : public TrackerBase {
-        std::vector<std::string> m_filters;
+        std::Vector<std::string> m_filters;
     public:
         SectionTracker( NameAndLocation const& nameAndLocation, TrackerContext& ctx, ITracker* parent );
 
@@ -4484,8 +4484,8 @@ namespace TestCaseTracking {
 
         void tryOpen();
 
-        void addInitialFilters( std::vector<std::string> const& filters );
-        void addNextFilters( std::vector<std::string> const& filters );
+        void addInitialFilters( std::Vector<std::string> const& filters );
+        void addNextFilters( std::Vector<std::string> const& filters );
     };
 
     class IndexTracker : public TrackerBase {
@@ -4862,10 +4862,10 @@ namespace Catch {
         IConfigPtr m_config;
         Totals m_totals;
         IStreamingReporterPtr m_reporter;
-        std::vector<MessageInfo> m_messages;
+        std::Vector<MessageInfo> m_messages;
         AssertionInfo m_lastAssertionInfo;
-        std::vector<SectionEndInfo> m_unfinishedSections;
-        std::vector<ITracker*> m_activeSections;
+        std::Vector<SectionEndInfo> m_unfinishedSections;
+        std::Vector<ITracker*> m_activeSections;
         TrackerContext m_trackerContext;
         bool m_lastAssertionPassed = false;
         bool m_shouldReportUnexpected = true;
@@ -5168,7 +5168,7 @@ namespace Catch {
 #include <cassert>
 #include <ostream>
 #include <sstream>
-#include <vector>
+#include <Vector>
 
 #ifndef CATCH_CLARA_TEXTFLOW_CONFIG_CONSOLE_WIDTH
 #define CATCH_CLARA_TEXTFLOW_CONFIG_CONSOLE_WIDTH 80
@@ -5192,7 +5192,7 @@ namespace Catch { namespace clara { namespace TextFlow {
     class Columns;
 
     class Column {
-        std::vector<std::string> m_strings;
+        std::Vector<std::string> m_strings;
         size_t m_width = CATCH_CLARA_TEXTFLOW_CONFIG_CONSOLE_WIDTH;
         size_t m_indent = 0;
         size_t m_initialIndent = std::string::npos;
@@ -5365,7 +5365,7 @@ namespace Catch { namespace clara { namespace TextFlow {
     };
 
     class Columns {
-        std::vector<Column> m_columns;
+        std::Vector<Column> m_columns;
 
     public:
 
@@ -5373,8 +5373,8 @@ namespace Catch { namespace clara { namespace TextFlow {
             friend Columns;
             struct EndTag {};
 
-            std::vector<Column> const& m_columns;
-            std::vector<Column::iterator> m_iterators;
+            std::Vector<Column> const& m_columns;
+            std::Vector<Column::iterator> m_iterators;
             size_t m_activeIterators;
 
             iterator( Columns const& columns, EndTag )
@@ -5515,7 +5515,7 @@ namespace detail {
     class Args {
         friend TokenStream;
         std::string m_exeName;
-        std::vector<std::string> m_args;
+        std::Vector<std::string> m_args;
 
     public:
         Args( int argc, char const* const* argv )
@@ -5552,10 +5552,10 @@ namespace detail {
 
     // Abstracts iterators into args as a stream of tokens, with option arguments uniformly handled
     class TokenStream {
-        using Iterator = std::vector<std::string>::const_iterator;
+        using Iterator = std::Vector<std::string>::const_iterator;
         Iterator it;
         Iterator itEnd;
-        std::vector<Token> m_tokenBuffer;
+        std::Vector<Token> m_tokenBuffer;
 
         void loadBuffer() {
             m_tokenBuffer.resize( 0 );
@@ -5826,10 +5826,10 @@ namespace detail {
     };
 
     template<typename T>
-    struct BoundValueRef<std::vector<T>> : BoundValueRefBase {
-        std::vector<T> &m_ref;
+    struct BoundValueRef<std::Vector<T>> : BoundValueRefBase {
+        std::Vector<T> &m_ref;
 
-        explicit BoundValueRef( std::vector<T> &ref ) : m_ref( ref ) {}
+        explicit BoundValueRef( std::Vector<T> &ref ) : m_ref( ref ) {}
 
         auto isContainer() const -> bool override { return true; }
 
@@ -6064,7 +6064,7 @@ namespace detail {
 
     class Opt : public ParserRefImpl<Opt> {
     protected:
-        std::vector<std::string> m_optNames;
+        std::Vector<std::string> m_optNames;
 
     public:
         template<typename LambdaT>
@@ -6083,7 +6083,7 @@ namespace detail {
             return *this;
         }
 
-        auto getHelpColumns() const -> std::vector<HelpColumns> {
+        auto getHelpColumns() const -> std::Vector<HelpColumns> {
             std::ostringstream oss;
             bool first = true;
             for( auto const &opt : m_optNames ) {
@@ -6180,8 +6180,8 @@ namespace detail {
     struct Parser : ParserBase {
 
         mutable ExeName m_exeName;
-        std::vector<Opt> m_options;
-        std::vector<Arg> m_args;
+        std::Vector<Opt> m_options;
+        std::Vector<Arg> m_args;
 
         auto operator|=( ExeName const &exeName ) -> Parser & {
             m_exeName = exeName;
@@ -6215,8 +6215,8 @@ namespace detail {
         template<typename T>
         auto operator+( T const &other ) const -> Parser { return operator|( other ); }
 
-        auto getHelpColumns() const -> std::vector<HelpColumns> {
-            std::vector<HelpColumns> cols;
+        auto getHelpColumns() const -> std::Vector<HelpColumns> {
+            std::Vector<HelpColumns> cols;
             for (auto const &o : m_options) {
                 auto childCols = o.getHelpColumns();
                 cols.insert( cols.end(), childCols.begin(), childCols.end() );
@@ -6648,9 +6648,9 @@ namespace Catch {
 
     std::string Config::getProcessName() const { return m_data.processName; }
 
-    std::vector<std::string> const& Config::getReporterNames() const { return m_data.reporterNames; }
-    std::vector<std::string> const& Config::getTestsOrTags() const { return m_data.testsOrTags; }
-    std::vector<std::string> const& Config::getSectionsToRun() const { return m_data.sectionsToRun; }
+    std::Vector<std::string> const& Config::getReporterNames() const { return m_data.reporterNames; }
+    std::Vector<std::string> const& Config::getTestsOrTags() const { return m_data.testsOrTags; }
+    std::Vector<std::string> const& Config::getSectionsToRun() const { return m_data.sectionsToRun; }
 
     TestSpec const& Config::testSpec() const { return m_testSpec; }
     bool Config::hasTestFilters() const { return m_hasTestFilters; }
@@ -7129,7 +7129,7 @@ namespace Catch {
 
 // start catch_exception_translator_registry.h
 
-#include <vector>
+#include <Vector>
 #include <string>
 #include <memory>
 
@@ -7143,7 +7143,7 @@ namespace Catch {
         std::string tryTranslators() const;
 
     private:
-        std::vector<std::unique_ptr<IExceptionTranslator const>> m_translators;
+        std::Vector<std::unique_ptr<IExceptionTranslator const>> m_translators;
     };
 }
 
@@ -7400,7 +7400,7 @@ namespace Catch {
 namespace Catch {
 
     class MultipleReporters : public IStreamingReporter {
-        using Reporters = std::vector<IStreamingReporterPtr>;
+        using Reporters = std::Vector<IStreamingReporterPtr>;
         Reporters m_reporters;
 
     public:
@@ -7460,7 +7460,7 @@ namespace Catch {
     {}
 
      AssertionStats::AssertionStats( AssertionResult const& _assertionResult,
-                                     std::vector<MessageInfo> const& _infoMessages,
+                                     std::Vector<MessageInfo> const& _infoMessages,
                                      Totals const& _totals )
     :   assertionResult( _assertionResult ),
         infoMessages( _infoMessages ),
@@ -7678,7 +7678,7 @@ namespace Catch {
     std::size_t listTestsNamesOnly( Config const& config ) {
         TestSpec testSpec = config.testSpec();
         std::size_t matchedTests = 0;
-        std::vector<TestCase> matchedTestCases = filterTests( getAllTestCasesSorted( config ), testSpec, config );
+        std::Vector<TestCase> matchedTestCases = filterTests( getAllTestCasesSorted( config ), testSpec, config );
         for( auto const& testCaseInfo : matchedTestCases ) {
             matchedTests++;
             if( startsWith( testCaseInfo.name, '#' ) )
@@ -7714,7 +7714,7 @@ namespace Catch {
 
         std::map<std::string, TagInfo> tagCounts;
 
-        std::vector<TestCase> matchedTestCases = filterTests( getAllTestCasesSorted( config ), testSpec, config );
+        std::Vector<TestCase> matchedTestCases = filterTests( getAllTestCasesSorted( config ), testSpec, config );
         for( auto const& testCase : matchedTestCases ) {
             for( auto const& tagName : testCase.getTestCaseInfo().tags ) {
                 std::string lcaseTagName = toLower( tagName );
@@ -8106,9 +8106,9 @@ namespace Catch {
         result_type operator()() const;
 
         template<typename V>
-        static void shuffle( V& vector ) {
+        static void shuffle( V& Vector ) {
             RandomNumberGenerator rng;
-            std::shuffle( vector.begin(), vector.end(), rng );
+            std::shuffle( Vector.begin(), Vector.end(), rng );
         }
     };
 
@@ -8140,7 +8140,7 @@ namespace Catch {
 
 // start catch_test_case_registry_impl.h
 
-#include <vector>
+#include <Vector>
 #include <set>
 #include <algorithm>
 #include <ios>
@@ -8150,13 +8150,13 @@ namespace Catch {
     class TestCase;
     struct IConfig;
 
-    std::vector<TestCase> sortTests( IConfig const& config, std::vector<TestCase> const& unsortedTestCases );
+    std::Vector<TestCase> sortTests( IConfig const& config, std::Vector<TestCase> const& unsortedTestCases );
     bool matchTest( TestCase const& testCase, TestSpec const& testSpec, IConfig const& config );
 
-    void enforceNoDuplicateTestCases( std::vector<TestCase> const& functions );
+    void enforceNoDuplicateTestCases( std::Vector<TestCase> const& functions );
 
-    std::vector<TestCase> filterTests( std::vector<TestCase> const& testCases, TestSpec const& testSpec, IConfig const& config );
-    std::vector<TestCase> const& getAllTestCasesSorted( IConfig const& config );
+    std::Vector<TestCase> filterTests( std::Vector<TestCase> const& testCases, TestSpec const& testSpec, IConfig const& config );
+    std::Vector<TestCase> const& getAllTestCasesSorted( IConfig const& config );
 
     class TestRegistry : public ITestCaseRegistry {
     public:
@@ -8164,13 +8164,13 @@ namespace Catch {
 
         virtual void registerTest( TestCase const& testCase );
 
-        std::vector<TestCase> const& getAllTests() const override;
-        std::vector<TestCase> const& getAllTestsSorted( IConfig const& config ) const override;
+        std::Vector<TestCase> const& getAllTests() const override;
+        std::Vector<TestCase> const& getAllTestsSorted( IConfig const& config ) const override;
 
     private:
-        std::vector<TestCase> m_functions;
+        std::Vector<TestCase> m_functions;
         mutable RunTests::InWhatOrder m_currentSortOrder = RunTests::InDeclarationOrder;
-        mutable std::vector<TestCase> m_sortedFunctions;
+        mutable std::Vector<TestCase> m_sortedFunctions;
         std::size_t m_unnamedCount = 0;
         std::ios_base::Init m_ostreamInit; // Forces cout/ cerr to be initialised
     };
@@ -8257,7 +8257,7 @@ namespace Catch {
 // end catch_tag_alias_registry.h
 // start catch_startup_exception_registry.h
 
-#include <vector>
+#include <Vector>
 #include <exception>
 
 namespace Catch {
@@ -8265,9 +8265,9 @@ namespace Catch {
     class StartupExceptionRegistry {
     public:
         void add(std::exception_ptr const& exception) noexcept;
-        std::vector<std::exception_ptr> const& getExceptions() const noexcept;
+        std::Vector<std::exception_ptr> const& getExceptions() const noexcept;
     private:
-        std::vector<std::exception_ptr> m_exceptions;
+        std::Vector<std::exception_ptr> m_exceptions;
     };
 
 } // end namespace Catch
@@ -9059,7 +9059,7 @@ namespace Catch {
         }
 
         void applyFilenamesAsTags(Catch::IConfig const& config) {
-            auto& tests = const_cast<std::vector<TestCase>&>(getAllTestCasesSorted(config));
+            auto& tests = const_cast<std::Vector<TestCase>&>(getAllTestCasesSorted(config));
             for (auto& testCase : tests) {
                 auto tags = testCase.tags;
 
@@ -9260,7 +9260,7 @@ namespace Catch {
         }
     }
 
-    std::vector<std::exception_ptr> const& StartupExceptionRegistry::getExceptions() const noexcept {
+    std::Vector<std::exception_ptr> const& StartupExceptionRegistry::getExceptions() const noexcept {
         return m_exceptions;
     }
 
@@ -9272,7 +9272,7 @@ namespace Catch {
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <vector>
+#include <Vector>
 #include <memory>
 
 #if defined(__clang__)
@@ -9396,8 +9396,8 @@ namespace Catch {
 
     // This class encapsulates the idea of a pool of ostringstreams that can be reused.
     struct StringStreams {
-        std::vector<std::unique_ptr<std::ostringstream>> m_streams;
-        std::vector<std::size_t> m_unused;
+        std::Vector<std::unique_ptr<std::ostringstream>> m_streams;
+        std::Vector<std::size_t> m_unused;
         std::ostringstream m_referenceStream; // Used for copy state/ flags from
         static StringStreams* s_instance;
 
@@ -9767,7 +9767,7 @@ namespace Catch {
         bool isHidden = false;
 
         // Parse out tags
-        std::vector<std::string> tags;
+        std::Vector<std::string> tags;
         std::string desc, tag;
         bool inTag = false;
         std::string _descOrTags = nameAndTags.tags;
@@ -9802,7 +9802,7 @@ namespace Catch {
         return TestCase( _testCase, std::move(info) );
     }
 
-    void setTags( TestCaseInfo& testCaseInfo, std::vector<std::string> tags ) {
+    void setTags( TestCaseInfo& testCaseInfo, std::Vector<std::string> tags ) {
         std::sort(begin(tags), end(tags));
         tags.erase(std::unique(begin(tags), end(tags)), end(tags));
         testCaseInfo.lcaseTags.clear();
@@ -9818,7 +9818,7 @@ namespace Catch {
     TestCaseInfo::TestCaseInfo( std::string const& _name,
                                 std::string const& _className,
                                 std::string const& _description,
-                                std::vector<std::string> const& _tags,
+                                std::Vector<std::string> const& _tags,
                                 SourceLineInfo const& _lineInfo )
     :   name( _name ),
         className( _className ),
@@ -9894,9 +9894,9 @@ namespace Catch {
 
 namespace Catch {
 
-    std::vector<TestCase> sortTests( IConfig const& config, std::vector<TestCase> const& unsortedTestCases ) {
+    std::Vector<TestCase> sortTests( IConfig const& config, std::Vector<TestCase> const& unsortedTestCases ) {
 
-        std::vector<TestCase> sorted = unsortedTestCases;
+        std::Vector<TestCase> sorted = unsortedTestCases;
 
         switch( config.runOrder() ) {
             case RunTests::InLexicographicalOrder:
@@ -9916,7 +9916,7 @@ namespace Catch {
         return testSpec.matches( testCase ) && ( config.allowThrows() || !testCase.throws() );
     }
 
-    void enforceNoDuplicateTestCases( std::vector<TestCase> const& functions ) {
+    void enforceNoDuplicateTestCases( std::Vector<TestCase> const& functions ) {
         std::set<TestCase> seenFunctions;
         for( auto const& function : functions ) {
             auto prev = seenFunctions.insert( function );
@@ -9927,15 +9927,15 @@ namespace Catch {
         }
     }
 
-    std::vector<TestCase> filterTests( std::vector<TestCase> const& testCases, TestSpec const& testSpec, IConfig const& config ) {
-        std::vector<TestCase> filtered;
+    std::Vector<TestCase> filterTests( std::Vector<TestCase> const& testCases, TestSpec const& testSpec, IConfig const& config ) {
+        std::Vector<TestCase> filtered;
         filtered.reserve( testCases.size() );
         for( auto const& testCase : testCases )
             if( matchTest( testCase, testSpec, config ) )
                 filtered.push_back( testCase );
         return filtered;
     }
-    std::vector<TestCase> const& getAllTestCasesSorted( IConfig const& config ) {
+    std::Vector<TestCase> const& getAllTestCasesSorted( IConfig const& config ) {
         return getRegistryHub().getTestCaseRegistry().getAllTestsSorted( config );
     }
 
@@ -9949,10 +9949,10 @@ namespace Catch {
         m_functions.push_back( testCase );
     }
 
-    std::vector<TestCase> const& TestRegistry::getAllTests() const {
+    std::Vector<TestCase> const& TestRegistry::getAllTests() const {
         return m_functions;
     }
-    std::vector<TestCase> const& TestRegistry::getAllTestsSorted( IConfig const& config ) const {
+    std::Vector<TestCase> const& TestRegistry::getAllTestsSorted( IConfig const& config ) const {
         if( m_sortedFunctions.empty() )
             enforceNoDuplicateTestCases( m_functions );
 
@@ -10191,14 +10191,14 @@ namespace TestCaseTracking {
             open();
     }
 
-    void SectionTracker::addInitialFilters( std::vector<std::string> const& filters ) {
+    void SectionTracker::addInitialFilters( std::Vector<std::string> const& filters ) {
         if( !filters.empty() ) {
             m_filters.push_back(""); // Root - should never be consulted
             m_filters.push_back(""); // Test Case - not a section filter
             m_filters.insert( m_filters.end(), filters.begin(), filters.end() );
         }
     }
-    void SectionTracker::addNextFilters( std::vector<std::string> const& filters ) {
+    void SectionTracker::addNextFilters( std::Vector<std::string> const& filters ) {
         if( filters.size() > 1 )
             m_filters.insert( m_filters.end(), ++filters.begin(), filters.end() );
     }
@@ -10291,7 +10291,7 @@ namespace Catch {
 
 #include <algorithm>
 #include <string>
-#include <vector>
+#include <Vector>
 #include <memory>
 
 namespace Catch {
@@ -11281,7 +11281,7 @@ private:
             return;
 
         // using messages.end() directly yields (or auto) compilation error:
-        std::vector<MessageInfo>::const_iterator itEnd = messages.end();
+        std::Vector<MessageInfo>::const_iterator itEnd = messages.end();
         const std::size_t N = static_cast<std::size_t>(std::distance(itMessage, itEnd));
 
         {
@@ -11304,8 +11304,8 @@ private:
 private:
     std::ostream& stream;
     AssertionResult const& result;
-    std::vector<MessageInfo> messages;
-    std::vector<MessageInfo>::const_iterator itMessage;
+    std::Vector<MessageInfo> messages;
+    std::Vector<MessageInfo>::const_iterator itMessage;
     bool printInfoMessages;
 };
 
@@ -11516,7 +11516,7 @@ private:
     std::string passOrFail;
     std::string messageLabel;
     std::string message;
-    std::vector<MessageInfo> messages;
+    std::Vector<MessageInfo> messages;
     bool printInfoMessages;
 };
 
@@ -11618,17 +11618,17 @@ public:
 
 class TablePrinter {
     std::ostream& m_os;
-    std::vector<ColumnInfo> m_columnInfos;
+    std::Vector<ColumnInfo> m_columnInfos;
     std::ostringstream m_oss;
     int m_currentColumn = -1;
     bool m_isOpen = false;
 
 public:
-    TablePrinter( std::ostream& os, std::vector<ColumnInfo> columnInfos )
+    TablePrinter( std::ostream& os, std::Vector<ColumnInfo> columnInfos )
     :   m_os( os ),
         m_columnInfos( std::move( columnInfos ) ) {}
 
-    auto columnInfos() const -> std::vector<ColumnInfo> const& {
+    auto columnInfos() const -> std::Vector<ColumnInfo> const& {
         return m_columnInfos;
     }
 
@@ -11898,7 +11898,7 @@ struct SummaryColumn {
 
     std::string label;
     Colour::Code colour;
-    std::vector<std::string> rows;
+    std::Vector<std::string> rows;
 
 };
 
@@ -11913,7 +11913,7 @@ void ConsoleReporter::printTotals( Totals const& totals ) {
             << '\n';
     } else {
 
-        std::vector<SummaryColumn> columns;
+        std::Vector<SummaryColumn> columns;
         columns.push_back(SummaryColumn("", Colour::None)
                           .addRow(totals.testCases.total())
                           .addRow(totals.assertions.total()));
@@ -11931,7 +11931,7 @@ void ConsoleReporter::printTotals( Totals const& totals ) {
         printSummaryRow("assertions", columns, 1);
     }
 }
-void ConsoleReporter::printSummaryRow(std::string const& label, std::vector<SummaryColumn> const& cols, std::size_t row) {
+void ConsoleReporter::printSummaryRow(std::string const& label, std::Vector<SummaryColumn> const& cols, std::size_t row) {
     for (auto col : cols) {
         std::string value = col.rows[row];
         if (col.label.empty()) {
@@ -12018,7 +12018,7 @@ namespace Catch {
             return std::string(timeStamp);
         }
 
-        std::string fileNameTag(const std::vector<std::string> &tags) {
+        std::string fileNameTag(const std::Vector<std::string> &tags) {
             auto it = std::find_if(begin(tags),
                                    end(tags),
                                    [] (std::string const& tag) {return tag.front() == '#'; });

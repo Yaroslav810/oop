@@ -34,7 +34,7 @@ int _tmain()
 	*/
 	copy(numbers.begin(), numbers.end(), ostream_iterator<double>(cout, ", "));
 
-	cout << "\nSize of vector: " << numbers.size() << "\n";
+	cout << "\nSize of Vector: " << numbers.size() << "\n";
 	return 0;
 }
 

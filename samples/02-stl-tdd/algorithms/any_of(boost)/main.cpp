@@ -17,11 +17,11 @@ void TestWhetherVectorContainsNonEmptyStrings()
 	vector<string> strings = { "", "", "Alexey", "" };
 	if (any_of(strings, IsNotEmpty))
 	{
-		cout << "strings vector contains at least one non-empty string" << endl;
+		cout << "strings Vector contains at least one non-empty string" << endl;
 	}
 	else
 	{
-		cout << "strings vector contains empty strings only" << endl;
+		cout << "strings Vector contains empty strings only" << endl;
 	}
 }
 

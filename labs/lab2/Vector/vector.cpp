@@ -13,7 +13,7 @@ std::optional<std::vector<double>> ReadDoubleVector(std::istream& in)
 		numbers.push_back(number);
 	}
 
-	if (in.bad()) {
+	if (in.bad() || !in.eof()) {
 		return std::nullopt;
 	}
 
@@ -31,6 +31,10 @@ void PrintNumbers(std::ostream& out, const std::vector<double>& numbers)
 
 void MultiplyArrayElementsByMinimumElement(std::vector<double>& vector)
 {
+	if (!vector.size())
+	{
+		return;
+	}
 	auto min = *std::min_element(vector.begin(), vector.end());
 	std::transform(vector.begin(), vector.end(), vector.begin(), [min](const auto& elem) {
 		return elem * min;

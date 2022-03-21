@@ -8,7 +8,7 @@
 using namespace std;
 
 /*
-int AccumulateVector(vector<int> const& v)
+int AccumulateVector(Vector<int> const& v)
 {
 	int sum = 0;
 	for (auto & val : v)
@@ -18,7 +18,7 @@ int AccumulateVector(vector<int> const& v)
 	return sum;
 }
 
-string AccumulateVector(vector<string> const& v)
+string AccumulateVector(Vector<string> const& v)
 {
 	string sum;
 	for (auto & val : v)

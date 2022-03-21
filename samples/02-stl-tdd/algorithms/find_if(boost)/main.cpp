@@ -32,7 +32,7 @@ void FindLastNegativeNumberInVector()
 
 	if (it != reversedNumbers.end())
 	{
-		cout << "Last negative number in vector is " << *it << endl;
+		cout << "Last negative number in Vector is " << *it << endl;
 	}
 }
 

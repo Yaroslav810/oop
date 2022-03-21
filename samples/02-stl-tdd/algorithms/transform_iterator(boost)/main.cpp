@@ -26,14 +26,14 @@ using It = transform_iterator < Fn, SrcIt > ;
 
 void IntsToStrings()
 {
-	cout << "Constructing vector<string> from vector<int> using transform_iterator" << endl;
+	cout << "Constructing Vector<string> from Vector<int> using transform_iterator" << endl;
 
 	vector<int> ints = { 1, 2, -3, 42, 13 };
 
-	// Construct a vector of strings by transforming values retrieved
+	// Construct a Vector of strings by transforming values retrieved
 	vector<string> strings(It(ints.begin(), IntToStringWithinSquareBraces), It(ints.end(), IntToStringWithinSquareBraces));
 
-	cout << "vector<string> items:" << endl;
+	cout << "Vector<string> items:" << endl;
 
 	copy(strings, ostream_iterator<string>(cout, ", "));
 	cout << endl;
