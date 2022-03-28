@@ -1,23 +1,25 @@
+#include <algorithm>
+#include <iomanip>
 #include <iostream>
 #include <optional>
 #include <vector>
-#include <algorithm>
-#include <iomanip>
 
-std::optional<std::vector<double>> ReadDoubleVector(std::istream& in)
+std::optional<std::vector<double>> ReadVector(std::istream& in)
 {
 	std::vector<double> numbers = {};
 
 	double number;
-	while (in >> number) {
+	while (in >> number)
+	{
 		numbers.push_back(number);
 	}
 
-	if (in.bad() || !in.eof()) {
+	if (in.bad() || !in.eof())
+	{
 		return std::nullopt;
 	}
 
-	return {numbers};
+	return { numbers };
 }
 
 void PrintNumbers(std::ostream& out, const std::vector<double>& numbers)
@@ -31,7 +33,7 @@ void PrintNumbers(std::ostream& out, const std::vector<double>& numbers)
 
 void MultiplyArrayElementsByMinimumElement(std::vector<double>& vector)
 {
-	if (!vector.size())
+	if (vector.empty())
 	{
 		return;
 	}

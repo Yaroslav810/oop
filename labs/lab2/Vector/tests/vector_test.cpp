@@ -2,6 +2,7 @@
 #include "../../../../catch2/catch.hpp"
 #include "../vector.h"
 
+// Разделить на case
 SCENARIO("Data reading works correctly")
 {
 	std::istringstream iss("-1 -2 -3 -4 5.123");

@@ -1,0 +1,12 @@
+add_executable(
+        vector
+        main.cpp
+        vector.h
+        vector.cpp
+)
+add_executable(
+        vector_test
+        tests/vector_test.cpp
+        vector.h
+        vector.cpp
+)

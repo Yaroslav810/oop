@@ -1,9 +1,0 @@
-C:/Volgatech/second_course/oop/oop/cmake-build-release/CMakeFiles/vector.dir
-C:/Volgatech/second_course/oop/oop/cmake-build-release/CMakeFiles/copyfile.dir
-C:/Volgatech/second_course/oop/oop/cmake-build-release/CMakeFiles/vector_test.dir
-C:/Volgatech/second_course/oop/oop/cmake-build-release/CMakeFiles/replace.dir
-C:/Volgatech/second_course/oop/oop/cmake-build-release/CMakeFiles/radix.dir
-C:/Volgatech/second_course/oop/oop/cmake-build-release/CMakeFiles/crypt.dir
-C:/Volgatech/second_course/oop/oop/cmake-build-release/CMakeFiles/fill.dir
-C:/Volgatech/second_course/oop/oop/cmake-build-release/CMakeFiles/edit_cache.dir
-C:/Volgatech/second_course/oop/oop/cmake-build-release/CMakeFiles/rebuild_cache.dir

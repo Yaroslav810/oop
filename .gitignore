@@ -238,3 +238,12 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 samples/01-basics/string-joiner/out.txt
+
+# Examples
+labs/lab1/_Examples
+labs/lab2/_Examples
+labs/lab3/_Examples
+labs/lab4/_Examples
+labs/lab5/_Examples
+labs/lab6/_Examples
+labs/lab7/_Examples

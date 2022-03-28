@@ -23,28 +23,25 @@ struct Args
 	unsigned char key;
 };
 
+constexpr std::string_view InvalidArgcError = "Invalid argument count"
+											  "\n"
+											  "Usage:"
+											  "\n"
+											  "     - crypt.exe crypt <inputFile> <outputFile> <key> for crypt"
+											  "\n"
+											  "     - crypt.exe decrypt <inputFile> <outputFile> <key> for decrypt";
+
+constexpr auto InvalidModeError(const std::string& str)
+{
+	return "Failed to recognize the mode!"
+			"\n"
+			"Expected <"
+		+ CRYPT_MODE + "> or <" + DECRYPT_MODE + ">, but received: " + str + "\n";
+}
+
 std::string GetString(int n)
 {
 	return std::to_string(n);
-}
-
-std::string BuildInvalidArgcError()
-{
-	return "Invalid argument count"
-		   "\n"
-		   "Usage:"
-		   "\n"
-		   "     - crypt.exe crypt <inputFile> <outputFile> <key> for crypt"
-		   "\n"
-		   "     - crypt.exe decrypt <inputFile> <outputFile> <key> for decrypt";
-}
-
-std::string BuildInvalidModeError(const std::string& str)
-{
-	return "Failed to recognize the mode!"
-		   "\n"
-		   "Expected <"
-		+ CRYPT_MODE + "> or <" + DECRYPT_MODE + ">, but received: " + str + "\n";
 }
 
 std::string BuildInvalidKeyError(const std::string& str)
@@ -88,7 +85,7 @@ Mode ParseMode(const std::string& mode)
 		return Mode::DECRYPT;
 	}
 
-	throw std::invalid_argument(BuildInvalidModeError(mode));
+	throw std::invalid_argument(InvalidModeError(mode));
 }
 
 int CharToDigit(char ch)
@@ -142,6 +139,7 @@ int StringToInt(const std::string& str)
 
 unsigned char ParseKey(const std::string& key)
 {
+	// Todo: stoi()
 	auto number = StringToInt(key);
 	if (number < MIN_KEY || number > MAX_KEY)
 	{
@@ -155,7 +153,7 @@ Args ParseArgs(int argc, char* argv[])
 {
 	if (argc != 5)
 	{
-		throw std::invalid_argument(BuildInvalidArgcError());
+		throw std::invalid_argument(InvalidArgcError());
 	}
 
 	return {
@@ -166,16 +164,13 @@ Args ParseArgs(int argc, char* argv[])
 	};
 }
 
-void CheckFileReadingError(std::ifstream& input)
+void CheckFileError(const std::ifstream& input, std::ofstream& output)
 {
 	if (input.bad())
 	{
 		throw std::ios_base::failure(BuildFileReadingError());
 	}
-}
 
-void CheckFileWritingError(std::ofstream& output)
-{
 	if (!output.flush())
 	{
 		throw std::ios_base::failure(BuildFileWritingError());
@@ -205,44 +200,47 @@ void DecryptByte(char& byte, unsigned char key)
 void Encrypt(std::istream& input, std::ostream& output, unsigned char key)
 {
 	char byte;
-	while (input.read(&byte, sizeof(char)))
+	while (input >> byte)
 	{
 		EncryptByte(byte, key);
-		output.write(&byte, sizeof(char));
+		output << byte;
 	}
 }
 
 void Decrypt(std::istream& input, std::ostream& output, unsigned char key)
 {
 	char byte;
-	while (input.read(&byte, sizeof(char)))
+	while (input >> byte)
 	{
 		DecryptByte(byte, key);
-		output.write(&byte, sizeof(char));
+		output << byte;
 	}
 }
 
-void Crypt(const std::string& in, std::string& out, unsigned char key, Mode mode)
+void InitFiles(const std::ifstream& input, const std::ofstream& output)
 {
-	std::ifstream input;
-	input.open(in, std::ios::binary);
 	if (!input.is_open())
 	{
 		throw std::ios_base::failure(BuildFileReadingError());
 	}
 
-	std::ofstream output;
-	output.open(out, std::ios::binary);
-	if (!output.is_open()) {
+	if (!output.is_open())
+	{
 		throw std::ios_base::failure(BuildFileWritingError());
 	}
+}
+
+void Crypt(const std::string& inputFileName, const std::string& outputFileName, unsigned char key, const Mode& mode)
+{
+	std::ifstream input(inputFileName, std::ios::binary);
+	std::ofstream output(outputFileName, std::ios::binary);
+	InitFiles(input, output);
 
 	(mode == Mode::CRYPT)
 		? Encrypt(input, output, key)
 		: Decrypt(input, output, key);
 
-	CheckFileReadingError(input);
-	CheckFileWritingError(output);
+	CheckFileError(input, output);
 }
 
 int main(int argc, char* argv[])

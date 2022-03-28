@@ -1,3 +1,0 @@
-This is a non empty file
-
-It contains several lines

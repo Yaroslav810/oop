@@ -8,6 +8,8 @@ if %PROGRAM%=="" (
 
 set OUT="%TEMP%\output.txt"
 
+rem Todo: Key overflow
+
 rem Running without arguments
 %PROGRAM% > nul && goto err
 echo Test #1: passed!

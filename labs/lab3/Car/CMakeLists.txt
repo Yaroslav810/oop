@@ -1,0 +1,11 @@
+add_executable(
+        car
+        main.cpp
+        stdafx.h
+        CCar.h
+        CCar.cpp
+        Direction.h
+        CCarController.h
+        CCarController.cpp
+        Command.h
+)
