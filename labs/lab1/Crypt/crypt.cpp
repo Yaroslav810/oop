@@ -71,59 +71,9 @@ Mode ParseMode(const std::string& mode)
 	throw std::invalid_argument(BuildInvalidModeError(mode));
 }
 
-int CharToDigit(char ch)
-{
-	if (ch >= '0' && ch <= '9')
-	{
-		return ch - '0';
-	}
-
-	throw std::invalid_argument(InvalidNumberSystemError);
-}
-
-int ConcatenateDigitToNumber(int number, int digit, bool isNegative)
-{
-	if (number > (MAX_INT - digit) / 10)
-	{
-		throw std::out_of_range("Too big a number!");
-	}
-	if (number < (MIN_INT + digit) / 10)
-	{
-		throw std::out_of_range("Too small a number!");
-	}
-
-	if (isNegative)
-	{
-		return number * 10 - digit;
-	}
-
-	return number * 10 + digit;
-}
-
-int StringToInt(const std::string& str)
-{
-	if (str.empty())
-	{
-		throw std::invalid_argument("Missing number");
-	}
-
-	int number = 0;
-	bool isNegativeNumber = str[0] == '-';
-
-	for (size_t i = isNegativeNumber ? 1 : 0; i < str.length(); ++i)
-	{
-		auto digit = CharToDigit(str[i]);
-
-		number = ConcatenateDigitToNumber(number, digit, isNegativeNumber);
-	}
-
-	return number;
-}
-
 unsigned char ParseKey(const std::string& key)
 {
-	// Todo: stoi()
-	auto number = StringToInt(key);
+	auto number = std::stoi(key);
 	if (number < MIN_KEY || number > MAX_KEY)
 	{
 		throw std::invalid_argument(BuildInvalidKeyError(key));
