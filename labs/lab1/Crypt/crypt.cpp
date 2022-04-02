@@ -23,25 +23,30 @@ struct Args
 	unsigned char key;
 };
 
-constexpr std::string_view InvalidArgcError = "Invalid argument count"
-											  "\n"
-											  "Usage:"
-											  "\n"
-											  "     - crypt.exe crypt <inputFile> <outputFile> <key> for crypt"
-											  "\n"
-											  "     - crypt.exe decrypt <inputFile> <outputFile> <key> for decrypt";
+constexpr auto InvalidArgcError = "Invalid argument count\n"
+								  "Usage:\n"
+								  "     - crypt.exe crypt <inputFile> <outputFile> <key> for crypt\n"
+								  "     - crypt.exe decrypt <inputFile> <outputFile> <key> for decrypt\n";
 
-constexpr auto InvalidModeError(const std::string& str)
-{
-	return "Failed to recognize the mode!"
-			"\n"
-			"Expected <"
-		+ CRYPT_MODE + "> or <" + DECRYPT_MODE + ">, but received: " + str + "\n";
-}
+constexpr auto FileReadingError = "Error reading the file!\n"
+								  "It is possible that the file is corrupted or there are no permissions to read it\n";
+
+constexpr auto FileWritingError = "Error writing the file!\n"
+								  "It is possible that the file is corrupted or there are no permissions to write it\n";
+
+constexpr auto InvalidNumberSystemError = "To indicate the key, use the decimal system of reading!\n";
 
 std::string GetString(int n)
 {
 	return std::to_string(n);
+}
+
+std::string BuildInvalidModeError(const std::string& str)
+{
+	return "Failed to recognize the mode!"
+		   "\n"
+		   "Expected <"
+		+ CRYPT_MODE + "> or <" + DECRYPT_MODE + ">, but received: " + str + "\n";
 }
 
 std::string BuildInvalidKeyError(const std::string& str)
@@ -50,28 +55,6 @@ std::string BuildInvalidKeyError(const std::string& str)
 		   "\n"
 		   "Use a number from "
 		+ GetString(MIN_KEY) + " to " + GetString(MAX_KEY) + "\n";
-}
-
-std::string BuildFileReadingError()
-{
-	return "Error reading the file!"
-		   "\n"
-		   "It is possible that the file is corrupted or there are no permissions to read it"
-		   "\n";
-}
-
-std::string BuildFileWritingError()
-{
-	return "Error writing the file!"
-		   "\n"
-		   "It is possible that the file is corrupted or there are no permissions to write it"
-		   "\n";
-}
-
-std::string BuildInvalidNumberSystemError()
-{
-	return "To indicate the key, use the decimal system of reading!"
-		   "\n";
 }
 
 Mode ParseMode(const std::string& mode)
@@ -85,7 +68,7 @@ Mode ParseMode(const std::string& mode)
 		return Mode::DECRYPT;
 	}
 
-	throw std::invalid_argument(InvalidModeError(mode));
+	throw std::invalid_argument(BuildInvalidModeError(mode));
 }
 
 int CharToDigit(char ch)
@@ -95,7 +78,7 @@ int CharToDigit(char ch)
 		return ch - '0';
 	}
 
-	throw std::invalid_argument(BuildInvalidNumberSystemError());
+	throw std::invalid_argument(InvalidNumberSystemError);
 }
 
 int ConcatenateDigitToNumber(int number, int digit, bool isNegative)
@@ -153,7 +136,7 @@ Args ParseArgs(int argc, char* argv[])
 {
 	if (argc != 5)
 	{
-		throw std::invalid_argument(InvalidArgcError());
+		throw std::invalid_argument(InvalidArgcError);
 	}
 
 	return {
@@ -168,12 +151,12 @@ void CheckFileError(const std::ifstream& input, std::ofstream& output)
 {
 	if (input.bad())
 	{
-		throw std::ios_base::failure(BuildFileReadingError());
+		throw std::ios_base::failure(FileReadingError);
 	}
 
 	if (!output.flush())
 	{
-		throw std::ios_base::failure(BuildFileWritingError());
+		throw std::ios_base::failure(FileWritingError);
 	}
 }
 
@@ -221,12 +204,12 @@ void InitFiles(const std::ifstream& input, const std::ofstream& output)
 {
 	if (!input.is_open())
 	{
-		throw std::ios_base::failure(BuildFileReadingError());
+		throw std::ios_base::failure(FileReadingError);
 	}
 
 	if (!output.is_open())
 	{
-		throw std::ios_base::failure(BuildFileWritingError());
+		throw std::ios_base::failure(FileWritingError);
 	}
 }
 
@@ -235,6 +218,7 @@ void Crypt(const std::string& inputFileName, const std::string& outputFileName, 
 	std::ifstream input(inputFileName, std::ios::binary);
 	std::ofstream output(outputFileName, std::ios::binary);
 	InitFiles(input, output);
+	input >> std::noskipws;
 
 	(mode == Mode::CRYPT)
 		? Encrypt(input, output, key)
