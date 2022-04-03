@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "CCar.h"
-#include "Command.h"
 
 class CController
 {
@@ -10,8 +9,24 @@ public:
 	void Start();
 
 private:
+	enum class CommandType
+	{
+		INFO,
+		ENGINE_ON,
+		ENGINE_OFF,
+		SET_GEAR,
+		SET_SPEED,
+		HELP,
+		EXIT,
+	};
+	struct Command
+	{
+		CommandType type;
+		int args;
+	};
+
 	Command ParseCommand(const std::string& str);
-	CommandType ParseCommandType(const std::string& str);
+	std::optional<CommandType> ParseCommandType(const std::string& str);
 	int ParseArgs(const std::string& str);
 	void ExecuteCommand(const Command& command);
 	void ExecuteInfoCommand();
@@ -20,6 +35,11 @@ private:
 	void ExecuteSetGearCommand(int value);
 	void ExecuteSetSpeedCommand(int value);
 	void ExecuteHelpCommand();
+	void ExecuteUnknownCommand(const std::string& msgError);
+
+	std::string DirectionToString(CCar::Direction direction);
+	std::string GearToString(CCar::Gear gear);
+	std::optional<CCar::Gear> IntToGear(int value);
 
 	CCar& m_car;
 	std::istream& m_input;

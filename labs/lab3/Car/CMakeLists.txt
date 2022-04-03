@@ -4,8 +4,16 @@ add_executable(
         stdafx.h
         CCar.h
         CCar.cpp
-        Direction.h
         CCarController.h
         CCarController.cpp
-        Command.h
+)
+
+add_executable(
+        car_test
+        tests/car_test.cpp
+        stdafx.h
+        CCar.h
+        CCar.cpp
+        CCarController.h
+        CCarController.cpp
 )

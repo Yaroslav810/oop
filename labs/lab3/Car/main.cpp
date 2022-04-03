@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include "CCar.h"
 #include "CCarController.h"
 
 int main()
