@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "CCar.h"
 
-class CController
+class CCarController
 {
 public:
-	CController(CCar& car, std::istream& input, std::ostream& output);
-	~CController();
+	CCarController(CCar& car, std::istream& input, std::ostream& output);
+	~CCarController();
 	void Start();
 
 private:

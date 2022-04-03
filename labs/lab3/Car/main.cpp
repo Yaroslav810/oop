@@ -4,7 +4,7 @@
 int main()
 {
 	CCar car;
-	CController controller(car, std::cin, std::cout);
+	CCarController controller(car, std::cin, std::cout);
 	controller.Start();
 
 	return 0;

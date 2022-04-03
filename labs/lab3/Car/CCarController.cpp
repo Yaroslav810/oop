@@ -1,17 +1,17 @@
 #include "CCarController.h"
 
-CController::CController(CCar& car, std::istream& input, std::ostream& output)
+CCarController::CCarController(CCar& car, std::istream& input, std::ostream& output)
 	: m_car(car)
 	, m_input(input)
 	, m_output(output)
 {
 }
 
-CController::~CController()
+CCarController::~CCarController()
 {
 }
 
-void CController::Start()
+void CCarController::Start()
 {
 	std::string str;
 	bool isExit = false;
@@ -30,7 +30,7 @@ void CController::Start()
 	}
 }
 
-CController::Command CController::ParseCommand(const std::string& str)
+CCarController::Command CCarController::ParseCommand(const std::string& str)
 {
 	std::stringstream line(str);
 
@@ -57,7 +57,7 @@ CController::Command CController::ParseCommand(const std::string& str)
 	};
 }
 
-std::optional<CController::CommandType> CController::ParseCommandType(const std::string& str)
+std::optional<CCarController::CommandType> CCarController::ParseCommandType(const std::string& str)
 {
 	if (str == "Info")
 	{
@@ -91,7 +91,7 @@ std::optional<CController::CommandType> CController::ParseCommandType(const std:
 	return std::nullopt;
 }
 
-void CController::ExecuteCommand(const Command& command)
+void CCarController::ExecuteCommand(const Command& command)
 {
 	switch (command.type)
 	{
@@ -119,7 +119,7 @@ void CController::ExecuteCommand(const Command& command)
 	}
 }
 
-void CController::ExecuteInfoCommand()
+void CCarController::ExecuteInfoCommand()
 {
 	m_output << "State engine: " << (m_car.IsTurnedOn() ? "On" : "Off") << std::endl;
 	m_output << "Direction movement: " << DirectionToString(m_car.GetDirection()) << std::endl;
@@ -128,7 +128,7 @@ void CController::ExecuteInfoCommand()
 	m_output << std::endl;
 }
 
-void CController::ExecuteEngineOnCommand()
+void CCarController::ExecuteEngineOnCommand()
 {
 	if (m_car.TurnOnEngine())
 	{
@@ -141,7 +141,7 @@ void CController::ExecuteEngineOnCommand()
 	m_output << std::endl;
 }
 
-void CController::ExecuteEngineOffCommand()
+void CCarController::ExecuteEngineOffCommand()
 {
 	if (m_car.TurnOffEngine())
 	{
@@ -154,7 +154,7 @@ void CController::ExecuteEngineOffCommand()
 	m_output << std::endl;
 }
 
-void CController::ExecuteSetGearCommand(int value)
+void CCarController::ExecuteSetGearCommand(int value)
 {
 	auto gear = IntToGear(value);
 	if (gear.has_value() && m_car.SetGear(gear.value()))
@@ -168,7 +168,7 @@ void CController::ExecuteSetGearCommand(int value)
 	m_output << std::endl;
 }
 
-void CController::ExecuteSetSpeedCommand(int value)
+void CCarController::ExecuteSetSpeedCommand(int value)
 {
 	if (m_car.SetSpeed(value))
 	{
@@ -181,7 +181,7 @@ void CController::ExecuteSetSpeedCommand(int value)
 	m_output << std::endl;
 }
 
-void CController::ExecuteHelpCommand()
+void CCarController::ExecuteHelpCommand()
 {
 	auto indent = std::string(5, ' ');
 	m_output << "The following commands are available: " << std::endl;
@@ -195,14 +195,14 @@ void CController::ExecuteHelpCommand()
 	m_output << std::endl;
 }
 
-void CController::ExecuteUnknownCommand(const std::string& msgError)
+void CCarController::ExecuteUnknownCommand(const std::string& msgError)
 {
 	m_output << msgError << std::endl;
 	m_output << std::endl;
 	ExecuteHelpCommand();
 }
 
-std::string CController::DirectionToString(CCar::Direction direction)
+std::string CCarController::DirectionToString(CCar::Direction direction)
 {
 	switch (direction)
 	{
@@ -217,7 +217,7 @@ std::string CController::DirectionToString(CCar::Direction direction)
 	}
 }
 
-std::string CController::GearToString(CCar::Gear gear)
+std::string CCarController::GearToString(CCar::Gear gear)
 {
 	switch (gear)
 	{
@@ -240,7 +240,7 @@ std::string CController::GearToString(CCar::Gear gear)
 	}
 }
 
-std::optional<CCar::Gear> CController::IntToGear(int value)
+std::optional<CCar::Gear> CCarController::IntToGear(int value)
 {
 	switch (value)
 	{
