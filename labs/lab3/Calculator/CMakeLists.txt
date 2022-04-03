@@ -1,0 +1,19 @@
+add_executable(
+        calculator
+        main.cpp
+        stdafx.h
+        CCalculator.h
+        CCalculator.cpp
+        CCalculatorController.h
+        CCalculatorController.cpp
+)
+
+add_executable(
+        calculator_test
+        tests/calculator_test.cpp
+        stdafx.h
+        CCalculator.h
+        CCalculator.cpp
+        CCalculatorController.h
+        CCalculatorController.cpp
+)
