@@ -2,6 +2,7 @@
 #include "../../../../catch2/catch.hpp"
 #include "../CCarController.h"
 
+// Todo: test case -> given -> when -> then
 SCENARIO("A car can be controlled")
 {
 	GIVEN("Creation car")

@@ -7,10 +7,6 @@ CCarController::CCarController(CCar& car, std::istream& input, std::ostream& out
 {
 }
 
-CCarController::~CCarController()
-{
-}
-
 void CCarController::Start()
 {
 	std::string str;
@@ -25,7 +21,9 @@ void CCarController::Start()
 		}
 		catch (const std::exception& e)
 		{
-			ExecuteUnknownCommand(e.what());
+			m_output << e.what() << std::endl;
+			m_output << std::endl;
+			ExecuteHelpCommand();
 		}
 	}
 }
@@ -195,13 +193,6 @@ void CCarController::ExecuteHelpCommand()
 	m_output << std::endl;
 }
 
-void CCarController::ExecuteUnknownCommand(const std::string& msgError)
-{
-	m_output << msgError << std::endl;
-	m_output << std::endl;
-	ExecuteHelpCommand();
-}
-
 std::string CCarController::DirectionToString(CCar::Direction direction)
 {
 	switch (direction)
@@ -213,7 +204,7 @@ std::string CCarController::DirectionToString(CCar::Direction direction)
 	case CCar::Direction::BACK:
 		return "Moving back";
 	default:
-		return "Unknown car condition";
+		throw std::invalid_argument("Unknown car direction");
 	}
 }
 
@@ -236,7 +227,7 @@ std::string CCarController::GearToString(CCar::Gear gear)
 	case CCar::Gear::FIFTH:
 		return "Fifth";
 	default:
-		return "Unknown gear";
+		throw std::invalid_argument("Unknown gear");
 	}
 }
 

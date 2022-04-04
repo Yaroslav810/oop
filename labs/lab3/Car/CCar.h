@@ -1,15 +1,12 @@
 #pragma once
 #include "stdafx.h"
 
-const int MAX_SPEED_BACK = 20;
-const int MAX_SPEED = 150;
+constexpr int MAX_SPEED_BACK = 20;
+constexpr int MAX_SPEED = 150;
 
 class CCar
 {
 public:
-	CCar();
-	~CCar();
-
 	enum class Direction
 	{
 		FORWARD,
@@ -27,6 +24,8 @@ public:
 		FOURTH,
 		FIFTH,
 	};
+
+	CCar();
 
 	bool IsTurnedOn() const;
 	Direction GetDirection() const;

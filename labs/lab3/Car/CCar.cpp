@@ -9,10 +9,6 @@ CCar::CCar()
 {
 }
 
-CCar::~CCar()
-{
-}
-
 CCar::TransmissionSpeedRanges CCar::InitTransmissionSpeedRanges()
 {
 	return {
@@ -129,16 +125,15 @@ void CCar::SetDirection(int speed)
 	if (speed == 0)
 	{
 		m_direction = Direction::NO_MOVEMENT;
+		return;
 	}
-	else
+	if (m_currentGear == Gear::REVERSE)
 	{
-		if (m_currentGear == Gear::REVERSE)
-		{
-			m_direction = Direction::BACK;
-		}
-		else if (m_currentGear != Gear::NEUTRAL)
-		{
-			m_direction = Direction::FORWARD;
-		}
+		m_direction = Direction::BACK;
+		return;
+	}
+	if (m_currentGear != Gear::NEUTRAL)
+	{
+		m_direction = Direction::FORWARD;
 	}
 }

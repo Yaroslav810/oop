@@ -5,7 +5,6 @@ class CCarController
 {
 public:
 	CCarController(CCar& car, std::istream& input, std::ostream& output);
-	~CCarController();
 	void Start();
 
 private:
@@ -35,7 +34,6 @@ private:
 	void ExecuteSetGearCommand(int value);
 	void ExecuteSetSpeedCommand(int value);
 	void ExecuteHelpCommand();
-	void ExecuteUnknownCommand(const std::string& msgError);
 
 	std::string DirectionToString(CCar::Direction direction);
 	std::string GearToString(CCar::Gear gear);
