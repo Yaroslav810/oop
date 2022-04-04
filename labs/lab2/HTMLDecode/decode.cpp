@@ -2,19 +2,29 @@
 
 MapDecodeHTML InitMapDecode()
 {
-	MapDecodeHTML mapDecode = {
-		{"&quot;", '"'},
-		{"&apos;", '\''},
-		{"&lt;", '<'},
-		{"&gt;", '>'},
-		{"&amp;", '&'},
+	return {
+		{ "&quot;", '"' },
+		{ "&apos;", '\'' },
+		{ "&lt;", '<' },
+		{ "&gt;", '>' },
+		{ "&amp;", '&' },
 	};
-	return mapDecode;
 }
 
-void DecodeHTMLEntity(std::string const& subject, MapDecodeHTML const& map, size_t foundPos)
+std::string DecodeHTMLEntity(std::string const& subject, MapDecodeHTML const& map, size_t& foundPos)
 {
-	//
+	std::string res;
+	for (const auto& [search, replacement] : map)
+	{
+		if (std::string(subject, foundPos, search.size()) == search)
+		{
+			foundPos += search.size();
+			return std::string(1, replacement);
+		}
+	}
+
+	foundPos++;
+	return std::string(1, subject[foundPos - 1]);
 }
 
 std::string HtmlDecode(std::string const& html, MapDecodeHTML const& map)
@@ -30,8 +40,8 @@ std::string HtmlDecode(std::string const& html, MapDecodeHTML const& map)
 			break;
 		}
 
-		result.append(replacementString);
-		pos = foundPos + searchString.length();
+		result.append(DecodeHTMLEntity(html, map, foundPos));
+		pos = foundPos;
 	}
 
 	return result;

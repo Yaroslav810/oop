@@ -4,6 +4,7 @@ add_executable(
         decode.h
         decode.cpp
 )
+
 add_executable(
         decode_test
         tests/decode_test.cpp
