@@ -1,5 +1,7 @@
 #include "./decode.h"
 
+using MapDecodeHTML = std::map<std::string, char>;
+
 MapDecodeHTML InitMapDecode()
 {
 	return {
@@ -11,8 +13,10 @@ MapDecodeHTML InitMapDecode()
 	};
 }
 
-std::string DecodeHTMLEntity(std::string const& subject, MapDecodeHTML const& map, size_t& foundPos)
+std::string DecodeHTMLEntity(const std::string& subject, const MapDecodeHTML& map, size_t& foundPos)
 {
+	// subject обрезать
+	// map find
 	std::string res;
 	for (const auto& [search, replacement] : map)
 	{
