@@ -150,7 +150,7 @@ void Decrypt(std::istream& input, std::ostream& output, unsigned char key)
 	}
 }
 
-void InitFiles(const std::ifstream& input, const std::ofstream& output)
+void CheckFileOpen(const std::ifstream& input, const std::ofstream& output)
 {
 	if (!input.is_open())
 	{
@@ -167,7 +167,7 @@ void Crypt(const std::string& inputFileName, const std::string& outputFileName, 
 {
 	std::ifstream input(inputFileName, std::ios::binary);
 	std::ofstream output(outputFileName, std::ios::binary);
-	InitFiles(input, output);
+	CheckFileOpen(input, output);
 	input >> std::noskipws;
 
 	(mode == Mode::CRYPT)

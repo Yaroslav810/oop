@@ -12,35 +12,26 @@ struct Args
 	std::string replaceString;
 };
 
-std::string BuildInvalidArgcError()
-{
-	return "Invalid argument count!"
-		   "\n"
-		   "Usage: replace.exe <inputFile> <outputFile> <searchString> <replaceString>"
-		   "\n";
-}
+constexpr auto InvalidArgcError = "Invalid argument count!"
+								  "\n"
+								  "Usage: replace.exe <inputFile> <outputFile> <searchString> <replaceString>"
+								  "\n";
 
-std::string BuildFileReadingError()
-{
-	return "Error reading the file!"
-		   "\n"
-		   "It is possible that the file is corrupted or there are no permissions to read it"
-		   "\n";
-}
+constexpr auto FileReadingError = "Error reading the file!"
+								  "\n"
+								  "It is possible that the file is corrupted or there are no permissions to read it"
+								  "\n";
 
-std::string BuildFileWritingError()
-{
-	return "Error writing the file!"
-		   "\n"
-		   "It is possible that the file is corrupted or there are no permissions to write it"
-		   "\n";
-}
+constexpr auto FileWritingError = "Error writing the file!"
+								  "\n"
+								  "It is possible that the file is corrupted or there are no permissions to write it"
+								  "\n";
 
 Args ParseArgs(int argc, char* argv[])
 {
 	if (argc != 5)
 	{
-		throw std::invalid_argument(BuildInvalidArgcError());
+		throw std::invalid_argument(InvalidArgcError);
 	}
 
 	return {
@@ -85,37 +76,45 @@ void CopyFileWithReplace(std::istream& input,
 	}
 }
 
+void CheckFileOpen(const std::ifstream& input, const std::ofstream& output)
+{
+	if (!input.is_open())
+	{
+		throw std::ios_base::failure(FileReadingError);
+	}
+
+	if (!output.is_open())
+	{
+		throw std::ios_base::failure(FileWritingError);
+	}
+}
+
+void CheckFileError(const std::ifstream& input, std::ofstream& output)
+{
+	if (input.bad())
+	{
+		throw std::ios_base::failure(FileReadingError);
+	}
+
+	if (!output.flush())
+	{
+		throw std::ios_base::failure(FileWritingError);
+	}
+}
+
 int main(int argc, char* argv[])
 {
 	try
 	{
 		auto args = ParseArgs(argc, argv);
 
-		std::ifstream inputFile;
-		inputFile.open(args.inputFile);
-		if (!inputFile.is_open())
-		{
-			throw std::ios_base::failure(BuildFileReadingError());
-		}
-
-		std::ofstream outputFile;
-		outputFile.open(args.outputFile);
-		if (!outputFile.is_open())
-		{
-			throw std::ios_base::failure(BuildFileWritingError());
-		}
+		std::ifstream inputFile(args.inputFile);
+		std::ofstream outputFile(args.outputFile);
+		CheckFileOpen(inputFile, outputFile);
 
 		CopyFileWithReplace(inputFile, outputFile, args.searchString, args.replaceString);
 
-		if (inputFile.bad())
-		{
-			throw std::ios_base::failure(BuildFileReadingError());
-		}
-
-		if (!outputFile.flush())
-		{
-			throw std::ios_base::failure(BuildFileWritingError());
-		}
+		CheckFileError(inputFile, outputFile);
 	}
 	catch (const std::exception& e)
 	{
