@@ -3,6 +3,8 @@
 
 constexpr auto INVALID_IDENTIFIER = "Invalid identifier";
 constexpr auto REDEFINITION = "Re-declaring the identifier";
+constexpr auto UNDECLARED = "Using an undeclared identifier";
+constexpr auto INVALID_EXPRESSION = "Invalid function expression";
 
 class CCalculator
 {
@@ -43,6 +45,7 @@ private:
 
 	bool IsValidIdentifier(const Identifier& identifier) const;
 	bool IsIdentifierDefined(const Identifier& identifier) const;
+	Value CalculateFunction(const Expression& expression) const;
 
 	Vars m_vars;
 	Functions m_functions;
