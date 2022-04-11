@@ -5,7 +5,7 @@ class CCalculatorController
 {
 public:
 	CCalculatorController(CCalculator& car, std::istream& input, std::ostream& output);
-	~CCalculatorController();
+	void Start();
 
 private:
 	CCalculator& m_calculator;

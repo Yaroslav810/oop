@@ -7,6 +7,6 @@ CCalculatorController::CCalculatorController(CCalculator& calculator, std::istre
 {
 }
 
-CCalculatorController::~CCalculatorController()
+void CCalculatorController::Start()
 {
 }
