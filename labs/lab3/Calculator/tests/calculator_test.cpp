@@ -21,7 +21,7 @@ TEST_CASE("Creating variables with different identifiers")
 
 		WHEN("Creating a variable x")
 		{
-			REQUIRE_THROWS(calculator.CreateVar("x"));
+			REQUIRE_NOTHROW(calculator.CreateVar("x"));
 			THEN("The variable x has been created, and has the value Nan")
 			{
 				REQUIRE(std::isnan(calculator.GetIdentifierValue("x")));
@@ -30,7 +30,7 @@ TEST_CASE("Creating variables with different identifiers")
 
 		WHEN("Creating a variable x12_")
 		{
-			REQUIRE_THROWS(calculator.CreateVar("x12_"));
+			REQUIRE_NOTHROW(calculator.CreateVar("x12_"));
 			THEN("The variable x12_ has been created, and has the value Nan")
 			{
 				REQUIRE(std::isnan(calculator.GetIdentifierValue("x12_")));
@@ -39,7 +39,7 @@ TEST_CASE("Creating variables with different identifiers")
 
 		WHEN("Creating a variable _abc")
 		{
-			REQUIRE_THROWS(calculator.CreateVar("_abc"));
+			REQUIRE_NOTHROW(calculator.CreateVar("_abc"));
 			THEN("The variable _abc has been created, and has the value Nan")
 			{
 				REQUIRE(std::isnan(calculator.GetIdentifierValue("_abc")));
@@ -75,8 +75,8 @@ TEST_CASE("Creating variables with different identifiers")
 
 		WHEN("Two identical identifiers are created")
 		{
-			REQUIRE_THROWS(calculator.CreateVar("x"));
-			REQUIRE_THROWS_AS(calculator.CreateVar("x"), std::invalid_argument);
+			REQUIRE_NOTHROW(calculator.CreateVar("x"));
+			REQUIRE_THROWS_AS(calculator.CreateVar("x"), std::runtime_error);
 			THEN("One variable has been created")
 			{
 				 REQUIRE(calculator.GetVars().size() == 1);
@@ -93,7 +93,7 @@ TEST_CASE("Creating variables via assignment")
 
 		WHEN("Creating a variable x")
 		{
-			REQUIRE_THROWS(calculator.AssignmentLet("x", 1.23));
+			REQUIRE_NOTHROW(calculator.AssignmentLet("x", 1.23));
 			THEN("The variable x contains the value 1.23")
 			{
 				REQUIRE(calculator.GetIdentifierValue("x") == 1.23);
@@ -102,8 +102,8 @@ TEST_CASE("Creating variables via assignment")
 
 		WHEN("Create the variable x via var and assign the value 1.23")
 		{
-			REQUIRE_THROWS(calculator.CreateVar("x"));
-			REQUIRE_THROWS(calculator.AssignmentLet("x", 1.23));
+			REQUIRE_NOTHROW(calculator.CreateVar("x"));
+			REQUIRE_NOTHROW(calculator.AssignmentLet("x", 1.23));
 			THEN("The variable x contains the value 1.23")
 			{
 				REQUIRE(calculator.GetVars().size() == 1);
@@ -113,8 +113,8 @@ TEST_CASE("Creating variables via assignment")
 
 		WHEN("Assign the value of NaN to the variable y")
 		{
-			REQUIRE_THROWS(calculator.CreateVar("x"));
-			REQUIRE_THROWS(calculator.AssignmentLet("y", "x"));
+			REQUIRE_NOTHROW(calculator.CreateVar("x"));
+			REQUIRE_NOTHROW(calculator.AssignmentLet("y", "x"));
 			THEN("The variable y must contain the value NaN")
 			{
 				REQUIRE(calculator.GetVars().size() == 2);
@@ -124,8 +124,8 @@ TEST_CASE("Creating variables via assignment")
 
 		WHEN("Assign the value of 1.23 to the variable y")
 		{
-			REQUIRE_THROWS(calculator.AssignmentLet("x", 1.23));
-			REQUIRE_THROWS(calculator.AssignmentLet("y", "x"));
+			REQUIRE_NOTHROW(calculator.AssignmentLet("x", 1.23));
+			REQUIRE_NOTHROW(calculator.AssignmentLet("y", "x"));
 			THEN("The variable y must contain the value 1.23")
 			{
 				REQUIRE(calculator.GetVars().size() == 2);
@@ -137,18 +137,18 @@ TEST_CASE("Creating variables via assignment")
 		{
 			REQUIRE_THROWS_AS(calculator.AssignmentLet("%1", 1.23), std::invalid_argument);
 			REQUIRE_THROWS_AS(calculator.AssignmentLet("Hello_2?", 123), std::invalid_argument);
-			REQUIRE_THROWS_AS(calculator.AssignmentLet("x", "12y"), std::invalid_argument);
-			REQUIRE_THROWS_AS(calculator.AssignmentLet("x", "y"), std::invalid_argument);
-			REQUIRE_THROWS_AS(calculator.AssignmentLet("x", "y%"), std::invalid_argument);
+			REQUIRE_THROWS_AS(calculator.AssignmentLet("x", "12y"), std::runtime_error);
+			REQUIRE_THROWS_AS(calculator.AssignmentLet("x", "y"), std::runtime_error);
+			REQUIRE_THROWS_AS(calculator.AssignmentLet("x", "y%"), std::runtime_error);
 		}
 
 		WHEN("Redistricting")
 		{
-			REQUIRE_THROWS(calculator.AssignmentLet("x", 1));
+			REQUIRE_NOTHROW(calculator.AssignmentLet("x", 1));
 			REQUIRE(calculator.GetIdentifierValue("x") == 1);
-			REQUIRE_THROWS(calculator.AssignmentLet("x", 1.2));
+			REQUIRE_NOTHROW(calculator.AssignmentLet("x", 1.2));
 			REQUIRE(calculator.GetIdentifierValue("x") == 1.2);
-			REQUIRE_THROWS(calculator.AssignmentLet("x", 0));
+			REQUIRE_NOTHROW(calculator.AssignmentLet("x", 0));
 			REQUIRE(calculator.GetIdentifierValue("x") == 0);
 		}
 	}
@@ -159,13 +159,13 @@ TEST_CASE("Creating functions")
 	GIVEN("Calculator, var x with NaN, var y with 1.5, var z with 4.5")
 	{
 		CCalculator calculator;
-		REQUIRE_THROWS(calculator.CreateVar("x"));
-		REQUIRE_THROWS(calculator.AssignmentLet("y", 1.5));
-		REQUIRE_THROWS(calculator.AssignmentLet("z", 4.5));
+		REQUIRE_NOTHROW(calculator.CreateVar("x"));
+		REQUIRE_NOTHROW(calculator.AssignmentLet("y", 1.5));
+		REQUIRE_NOTHROW(calculator.AssignmentLet("z", 4.5));
 
 		WHEN("The function is created with the value x")
 		{
-			REQUIRE_THROWS(calculator.CreateFunction("func", "x"));
+			REQUIRE_NOTHROW(calculator.CreateFunction("func", "x"));
 			THEN("The func identifier with the NaN value is defined")
 			{
 				REQUIRE(std::isnan(calculator.GetIdentifierValue("func")));
@@ -174,7 +174,7 @@ TEST_CASE("Creating functions")
 
 		WHEN("The function is created with the value y")
 		{
-			REQUIRE_THROWS(calculator.CreateFunction("func", "y"));
+			REQUIRE_NOTHROW(calculator.CreateFunction("func", "y"));
 			THEN("The func identifier with the 1.5 value is defined")
 			{
 				REQUIRE(calculator.GetIdentifierValue("func") == 1.5);
@@ -183,7 +183,7 @@ TEST_CASE("Creating functions")
 
 		WHEN("The function is created with with the expression y + z")
 		{
-			REQUIRE_THROWS(calculator.CreateFunction("func", {
+			REQUIRE_NOTHROW(calculator.CreateFunction("func", {
 																 .firstOperandId = "y",
 																 .secondOperandId = "z",
 																 .operation = CCalculator::Operation::ADDITION,
@@ -196,7 +196,7 @@ TEST_CASE("Creating functions")
 
 		WHEN("The function is created with with the expression z - y")
 		{
-			REQUIRE_THROWS(calculator.CreateFunction("func", {
+			REQUIRE_NOTHROW(calculator.CreateFunction("func", {
 																 .firstOperandId = "z",
 																 .secondOperandId = "y",
 																 .operation = CCalculator::Operation::DIVISION,
@@ -209,7 +209,7 @@ TEST_CASE("Creating functions")
 
 		WHEN("The function is created with with the expression y * z")
 		{
-			REQUIRE_THROWS(calculator.CreateFunction("func", {
+			REQUIRE_NOTHROW(calculator.CreateFunction("func", {
 																 .firstOperandId = "y",
 																 .secondOperandId = "z",
 																 .operation = CCalculator::Operation::MULTIPLICATION,
@@ -222,9 +222,9 @@ TEST_CASE("Creating functions")
 
 		WHEN("The function is created with with the expression z / y")
 		{
-			REQUIRE_THROWS(calculator.CreateFunction("func", {
-																 .firstOperandId = "y",
-																 .secondOperandId = "z",
+			REQUIRE_NOTHROW(calculator.CreateFunction("func", {
+																 .firstOperandId = "z",
+																 .secondOperandId = "y",
 																 .operation = CCalculator::Operation::DIVISION,
 															 }));
 			THEN("The func identifier with the 3 value is defined")
@@ -235,10 +235,10 @@ TEST_CASE("Creating functions")
 
 		WHEN("The function is created with with the expression x + y")
 		{
-			REQUIRE_THROWS(calculator.CreateFunction("func", {
+			REQUIRE_NOTHROW(calculator.CreateFunction("func", {
 																 .firstOperandId = "x",
 																 .secondOperandId = "y",
-																 .operation = CCalculator::Operation::DIVISION,
+																 .operation = CCalculator::Operation::ADDITION,
 															 }));
 			THEN("The func identifier with the NaN value is defined")
 			{
@@ -263,14 +263,14 @@ TEST_CASE("Declaration, assignment and output of variable values")
 	{
 		CCalculator calculator;
 
-		REQUIRE_THROWS(calculator.CreateVar("x"));
+		REQUIRE_NOTHROW(calculator.CreateVar("x"));
 		REQUIRE(std::isnan(calculator.GetIdentifierValue("x")));
-		REQUIRE_THROWS(calculator.AssignmentLet("x", 42));
+		REQUIRE_NOTHROW(calculator.AssignmentLet("x", 42));
 		REQUIRE(calculator.GetIdentifierValue("x") == 42);
-		REQUIRE_THROWS(calculator.AssignmentLet("x", 1.23));
+		REQUIRE_NOTHROW(calculator.AssignmentLet("x", 1.23));
 		REQUIRE(calculator.GetIdentifierValue("x") == 1.23);
-		REQUIRE_THROWS(calculator.AssignmentLet("x", "y"));
-		REQUIRE_THROWS(calculator.AssignmentLet("x", 99));
+		REQUIRE_NOTHROW(calculator.AssignmentLet("y", "x"));
+		REQUIRE_NOTHROW(calculator.AssignmentLet("x", 99));
 
 		CCalculator::Vars vars = { { "x", 99.00 }, { "y", 1.23 } };
 		REQUIRE(calculator.GetVars() == vars);

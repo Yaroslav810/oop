@@ -25,6 +25,7 @@ public:
 		Identifier secondOperandId;
 		Operation operation;
 	};
+	using Values = std::map<Identifier, Value>;
 	using Vars = std::map<Identifier, Value>;
 	using Functions = std::map<Identifier, Expression>;
 
@@ -37,8 +38,8 @@ public:
 	void CreateFunction(const Identifier& identifier, const Expression& expression);
 
 	Value GetIdentifierValue(const Identifier& identifier) const;
-	Vars GetVars() const;
-	Functions GetFunctions() const;
+	Values GetVars() const;
+	Values GetFunctions() const;
 
 private:
 	static constexpr auto NAN_VAL = std::numeric_limits<Value>::quiet_NaN();

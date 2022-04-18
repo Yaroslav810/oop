@@ -1,9 +1,22 @@
 #include "CCalculator.h"
 
 CCalculator::CCalculator()
-	: m_vars({})
-	, m_functions({})
+	: m_vars({
+		{"a" , 10.232},
+		{"b", 20},
+	})
+	, m_functions({
+		  {
+			  "hello",
+			  {
+				  .firstOperandId =  "a",
+				  .secondOperandId = "b",
+				  .operation = Operation::ADDITION,
+			  }
+		  }
+	  })
 {
+	// TODO: Убрать код выше
 }
 
 void CCalculator::CreateVar(const Identifier& identifier)
@@ -101,14 +114,19 @@ CCalculator::Value CCalculator::GetIdentifierValue(const Identifier& identifier)
 	throw std::runtime_error(UNDECLARED);
 }
 
-CCalculator::Vars CCalculator::GetVars() const
+CCalculator::Values CCalculator::GetVars() const
 {
 	return m_vars;
 }
 
-CCalculator::Functions CCalculator::GetFunctions() const
+CCalculator::Values CCalculator::GetFunctions() const
 {
-	return m_functions;
+	CCalculator::Values fns;
+	for (const auto& [identifier, expression] : m_functions)
+	{
+		fns[identifier] = CalculateFunction(expression);
+	}
+	return fns;
 }
 
 bool CCalculator::IsValidIdentifier(const Identifier& identifier) const
@@ -138,13 +156,13 @@ CCalculator::Value CCalculator::CalculateFunction(const Expression& expression) 
 	switch (expression.operation)
 	{
 	case Operation::ADDITION:
-		return firstValue + GetIdentifierValue(expression.firstOperandId);
+		return firstValue + GetIdentifierValue(expression.secondOperandId);
 	case Operation::SUBTRACTION:
-		return firstValue - GetIdentifierValue(expression.firstOperandId);
+		return firstValue - GetIdentifierValue(expression.secondOperandId);
 	case Operation::MULTIPLICATION:
-		return firstValue * GetIdentifierValue(expression.firstOperandId);
+		return firstValue * GetIdentifierValue(expression.secondOperandId);
 	case Operation::DIVISION:
-		return firstValue / GetIdentifierValue(expression.firstOperandId);
+		return firstValue / GetIdentifierValue(expression.secondOperandId);
 	case Operation::NONE:
 		return firstValue;
 	}
