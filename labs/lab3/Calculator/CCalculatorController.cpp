@@ -199,17 +199,18 @@ CCalculatorController::AssignVarType CCalculatorController::ParseAssign(const st
 		throw std::invalid_argument("");
 	}
 	const auto idEnd = identifier.find_last_not_of(' ');
+	identifier.substr(0, idEnd + 1);
 	try
 	{
 		return {
-			.identifier = identifier.substr(0, idEnd + 1),
+			.identifier = identifier,
 			.value = std::stoi(value),
 		};
 	}
 	catch (const std::invalid_argument& e)
 	{
 		return {
-			.identifier = identifier.substr(0, idEnd + 1),
+			.identifier = identifier,
 			.value = value,
 		};
 	}

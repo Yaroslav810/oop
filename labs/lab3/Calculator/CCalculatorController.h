@@ -30,7 +30,7 @@ private:
 	};
 	struct CreateFunctionType {
 		CCalculator::Identifier identifier;
-		std::variant<CCalculator::Value, CCalculator::Expression> value;
+		std::variant<CCalculator::Identifier, CCalculator::Expression> value;
 	};
 
 	Command ParseCommand(const std::string& str);
