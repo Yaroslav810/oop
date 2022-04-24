@@ -10,7 +10,8 @@ public:
 private:
 	static constexpr int OUTPUT_ACCURACY = 2;
 
-	enum class CommandType {
+	enum class CommandType
+	{
 		CREATE_VAR,
 		ASSIGN_VAR,
 		CREATE_FUNCTION,
@@ -20,15 +21,18 @@ private:
 		EXIT,
 		HELP,
 	};
-	struct Command {
+	struct Command
+	{
 		CommandType type;
 		std::string arguments;
 	};
-	struct AssignVarType {
+	struct AssignVarType
+	{
 		CCalculator::Identifier identifier;
 		std::variant<CCalculator::Value, CCalculator::Identifier> value;
 	};
-	struct CreateFunctionType {
+	struct CreateFunctionType
+	{
 		CCalculator::Identifier identifier;
 		std::variant<CCalculator::Identifier, CCalculator::Expression> value;
 	};

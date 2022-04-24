@@ -144,11 +144,13 @@ void CCalculatorController::ExecuteCreateVarCommand(const std::string& str)
 void CCalculatorController::ExecuteAssignVarCommand(const std::string& str)
 {
 	auto data = ParseAssign(str);
-	if (std::holds_alternative<CCalculator::Value>(data.value)) {
+	if (std::holds_alternative<CCalculator::Value>(data.value))
+	{
 		m_calculator.AssignmentLet(data.identifier, std::get<CCalculator::Value>(data.value));
 		return;
 	}
-	if (std::holds_alternative<CCalculator::Identifier>(data.value)) {
+	if (std::holds_alternative<CCalculator::Identifier>(data.value))
+	{
 		m_calculator.AssignmentLet(data.identifier, std::get<CCalculator::Identifier>(data.value));
 		return;
 	}
@@ -159,11 +161,13 @@ void CCalculatorController::ExecuteAssignVarCommand(const std::string& str)
 void CCalculatorController::ExecuteCreateFunction(const std::string& str)
 {
 	auto data = ParseFunction(str);
-	if (std::holds_alternative<CCalculator::Identifier>(data.value)) {
+	if (std::holds_alternative<CCalculator::Identifier>(data.value))
+	{
 		m_calculator.CreateFunction(data.identifier, std::get<CCalculator::Identifier>(data.value));
 		return;
 	}
-	if (std::holds_alternative<CCalculator::Expression>(data.value)) {
+	if (std::holds_alternative<CCalculator::Expression>(data.value))
+	{
 		m_calculator.CreateFunction(data.identifier, std::get<CCalculator::Expression>(data.value));
 		return;
 	}
@@ -199,7 +203,8 @@ CCalculator::Identifier CCalculatorController::ParseIdentifier(const std::string
 CCalculator::Identifier CCalculatorController::ParseIdentifier(std::stringstream& ss)
 {
 	CCalculator::Identifier identifier;
-	if (!std::getline(ss, identifier, '=')) {
+	if (!std::getline(ss, identifier, '='))
+	{
 		throw std::invalid_argument("Invalid identifier");
 	}
 	const auto idEnd = identifier.find_last_not_of(' ');
@@ -210,7 +215,8 @@ std::string CCalculatorController::ParseAssignArguments(std::stringstream& ss)
 {
 	std::string value;
 	ss >> value;
-	if (value.empty()) {
+	if (value.empty())
+	{
 		throw std::invalid_argument("Empty assignment");
 	}
 
@@ -248,7 +254,8 @@ CCalculatorController::CreateFunctionType CCalculatorController::ParseFunction(c
 
 	auto operation = ParseOperation(line);
 
-	if (!operation.has_value()) {
+	if (!operation.has_value())
+	{
 		return {
 			.identifier = identifier,
 			.value = firstOperandId,
@@ -257,7 +264,8 @@ CCalculatorController::CreateFunctionType CCalculatorController::ParseFunction(c
 
 	std::string secondOperandId;
 	line >> secondOperandId;
-	if (firstOperandId.empty() || secondOperandId.empty()) {
+	if (firstOperandId.empty() || secondOperandId.empty())
+	{
 		throw std::invalid_argument("Empty identifier of the function creation");
 	}
 
@@ -276,19 +284,24 @@ std::optional<CCalculator::Operation> CCalculatorController::ParseOperation(std:
 	std::string str;
 	ss >> str;
 
-	if (str == "+") {
+	if (str == "+")
+	{
 		return CCalculator::Operation::ADDITION;
 	}
-	else if (str == "-") {
+	else if (str == "-")
+	{
 		return CCalculator::Operation::SUBTRACTION;
 	}
-	else if (str == "*") {
+	else if (str == "*")
+	{
 		return CCalculator::Operation::MULTIPLICATION;
 	}
-	else if (str == "/") {
+	else if (str == "/")
+	{
 		return CCalculator::Operation::DIVISION;
 	}
-	else {
+	else
+	{
 		return std::nullopt;
 	}
 }

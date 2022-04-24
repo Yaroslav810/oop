@@ -79,7 +79,7 @@ TEST_CASE("Creating variables with different identifiers")
 			REQUIRE_THROWS_AS(calculator.CreateVar("x"), std::runtime_error);
 			THEN("One variable has been created")
 			{
-				 REQUIRE(calculator.GetVars().size() == 1);
+				REQUIRE(calculator.GetVars().size() == 1);
 			}
 		}
 	}
@@ -184,10 +184,10 @@ TEST_CASE("Creating functions")
 		WHEN("The function is created with with the expression y + z")
 		{
 			REQUIRE_NOTHROW(calculator.CreateFunction("func", {
-																 .firstOperandId = "y",
-																 .secondOperandId = "z",
-																 .operation = CCalculator::Operation::ADDITION,
-															 }));
+																  .firstOperandId = "y",
+																  .secondOperandId = "z",
+																  .operation = CCalculator::Operation::ADDITION,
+															  }));
 			THEN("The func identifier with the 6 value is defined")
 			{
 				REQUIRE(calculator.GetIdentifierValue("func") == 6);
@@ -197,10 +197,10 @@ TEST_CASE("Creating functions")
 		WHEN("The function is created with with the expression z - y")
 		{
 			REQUIRE_NOTHROW(calculator.CreateFunction("func", {
-																 .firstOperandId = "z",
-																 .secondOperandId = "y",
-																 .operation = CCalculator::Operation::DIVISION,
-															 }));
+																  .firstOperandId = "z",
+																  .secondOperandId = "y",
+																  .operation = CCalculator::Operation::DIVISION,
+															  }));
 			THEN("The func identifier with the 3 value is defined")
 			{
 				REQUIRE(calculator.GetIdentifierValue("func") == 3);
@@ -210,10 +210,10 @@ TEST_CASE("Creating functions")
 		WHEN("The function is created with with the expression y * z")
 		{
 			REQUIRE_NOTHROW(calculator.CreateFunction("func", {
-																 .firstOperandId = "y",
-																 .secondOperandId = "z",
-																 .operation = CCalculator::Operation::MULTIPLICATION,
-															 }));
+																  .firstOperandId = "y",
+																  .secondOperandId = "z",
+																  .operation = CCalculator::Operation::MULTIPLICATION,
+															  }));
 			THEN("The func identifier with the 6.75 value is defined")
 			{
 				REQUIRE(calculator.GetIdentifierValue("func") == 6.75);
@@ -223,10 +223,10 @@ TEST_CASE("Creating functions")
 		WHEN("The function is created with with the expression z / y")
 		{
 			REQUIRE_NOTHROW(calculator.CreateFunction("func", {
-																 .firstOperandId = "z",
-																 .secondOperandId = "y",
-																 .operation = CCalculator::Operation::DIVISION,
-															 }));
+																  .firstOperandId = "z",
+																  .secondOperandId = "y",
+																  .operation = CCalculator::Operation::DIVISION,
+															  }));
 			THEN("The func identifier with the 3 value is defined")
 			{
 				REQUIRE(calculator.GetIdentifierValue("func") == 3);
@@ -236,10 +236,10 @@ TEST_CASE("Creating functions")
 		WHEN("The function is created with with the expression x + y")
 		{
 			REQUIRE_NOTHROW(calculator.CreateFunction("func", {
-																 .firstOperandId = "x",
-																 .secondOperandId = "y",
-																 .operation = CCalculator::Operation::ADDITION,
-															 }));
+																  .firstOperandId = "x",
+																  .secondOperandId = "y",
+																  .operation = CCalculator::Operation::ADDITION,
+															  }));
 			THEN("The func identifier with the NaN value is defined")
 			{
 				REQUIRE(std::isnan(calculator.GetIdentifierValue("func")));
@@ -252,6 +252,22 @@ TEST_CASE("Creating functions")
 			THEN("There is no function with this identifier")
 			{
 				REQUIRE(calculator.GetFunctions().empty());
+			}
+		}
+
+		WHEN("A function is created that depends on other functions")
+		{
+			REQUIRE_NOTHROW(calculator.CreateFunction("fn1", "y"));
+			REQUIRE_NOTHROW(calculator.CreateFunction("fn2", "z"));
+			REQUIRE_NOTHROW(calculator.CreateFunction("fn3", {
+																 .firstOperandId = "z",
+																 .secondOperandId = "y",
+																 .operation = CCalculator::Operation::DIVISION,
+															 }));
+			THEN("Create a function fn3, with a value of 3")
+			{
+				REQUIRE(calculator.GetFunctions().size() == 3);
+				REQUIRE(calculator.GetIdentifierValue("fn3") == 3);
 			}
 		}
 	}

@@ -44,7 +44,7 @@ public:
 private:
 	static constexpr auto NAN_VAL = std::numeric_limits<Value>::quiet_NaN();
 
-	static bool IsValidIdentifier(const Identifier& identifier) ;
+	static bool IsValidIdentifier(const Identifier& identifier);
 	[[nodiscard]] bool IsIdentifierDefined(const Identifier& identifier) const;
 	[[nodiscard]] Value CalculateFunction(const Expression& expression) const;
 
