@@ -292,3 +292,92 @@ TEST_CASE("Declaration, assignment and output of variable values")
 		REQUIRE(calculator.GetVars() == vars);
 	}
 }
+
+TEST_CASE("Output by identifier")
+{
+	GIVEN("Calculator, var x with 1.0, var y with 1.5, var z with 4.5")
+	{
+		CCalculator calculator;
+		REQUIRE_NOTHROW(calculator.AssignmentLet("x", 1.0));
+		REQUIRE_NOTHROW(calculator.AssignmentLet("y", 1.5));
+		REQUIRE_NOTHROW(calculator.AssignmentLet("z", 4.5));
+
+		REQUIRE(calculator.GetIdentifierValue("x") == 1);
+		REQUIRE(calculator.GetIdentifierValue("y") == 1.5);
+		REQUIRE(calculator.GetIdentifierValue("z") == 4.5);
+		REQUIRE_THROWS_AS(calculator.GetIdentifierValue("a"), std::runtime_error);
+		REQUIRE_THROWS_AS(calculator.GetIdentifierValue("ab"), std::runtime_error);
+		REQUIRE_THROWS_AS(calculator.GetIdentifierValue("xyz"), std::runtime_error);
+		REQUIRE_THROWS_AS(calculator.GetIdentifierValue(""), std::runtime_error);
+	}
+}
+
+TEST_CASE("Output of variables")
+{
+	GIVEN("Calculator, var x with 1.0, var y with 1.5, var z with 4.5")
+	{
+		CCalculator calculator;
+		REQUIRE_NOTHROW(calculator.AssignmentLet("x", 1.0));
+		REQUIRE_NOTHROW(calculator.AssignmentLet("y", 1.5));
+		REQUIRE_NOTHROW(calculator.AssignmentLet("z", 4.5));
+
+		REQUIRE(calculator.GetVars().size() == 3);
+		REQUIRE_NOTHROW(calculator.AssignmentLet("a", 10));
+		REQUIRE(calculator.GetVars().size() == 4);
+		auto data = calculator.GetVars();
+		REQUIRE(data["a"] == 10);
+		REQUIRE(data["x"] == 1.0);
+		REQUIRE(data["y"] == 1.5);
+		REQUIRE(data["z"] == 4.5);
+	}
+}
+
+TEST_CASE("Output of functions")
+{
+	GIVEN("Calculator, var x with 1.0, var y with 1.5, var z with 4.5")
+	{
+		CCalculator calculator;
+		REQUIRE_NOTHROW(calculator.AssignmentLet("x", 1.0));
+		REQUIRE_NOTHROW(calculator.AssignmentLet("y", 1.5));
+		REQUIRE_NOTHROW(calculator.AssignmentLet("z", 4.5));
+
+		REQUIRE_NOTHROW(calculator.CreateFunction("fn1", "x"));
+		REQUIRE_NOTHROW(calculator.CreateFunction("fn2", "y"));
+		REQUIRE_NOTHROW(calculator.CreateFunction("fn3", "z"));
+		REQUIRE_NOTHROW(calculator.CreateFunction("fn4", {
+															 .firstOperandId = "fn1",
+															 .secondOperandId = "fn2",
+															 .operation = CCalculator::Operation::ADDITION,
+														 }));
+		REQUIRE_NOTHROW(calculator.CreateFunction("fn5", {
+															 .firstOperandId = "fn2",
+															 .secondOperandId = "fn1",
+															 .operation = CCalculator::Operation::SUBTRACTION,
+														 }));
+		REQUIRE_NOTHROW(calculator.CreateFunction("fn6", {
+															 .firstOperandId = "fn2",
+															 .secondOperandId = "fn3",
+															 .operation = CCalculator::Operation::MULTIPLICATION,
+														 }));
+		REQUIRE_NOTHROW(calculator.CreateFunction("fn7", {
+															 .firstOperandId = "fn3",
+															 .secondOperandId = "fn2",
+															 .operation = CCalculator::Operation::DIVISION,
+														 }));
+		REQUIRE_THROWS_AS(calculator.CreateFunction("fn7", "unknown"), std::runtime_error);
+		REQUIRE_THROWS_AS(calculator.CreateFunction("fn8", {
+															   .firstOperandId = "fn8",
+															   .secondOperandId = "fn9",
+															   .operation = CCalculator::Operation::DIVISION,
+														   }),
+			std::runtime_error);
+		REQUIRE_THROWS_AS(calculator.CreateFunction("fn8", "unknown"), std::runtime_error);
+		REQUIRE(calculator.GetIdentifierValue("fn1") == 1.0);
+		REQUIRE(calculator.GetIdentifierValue("fn2") == 1.5);
+		REQUIRE(calculator.GetIdentifierValue("fn3") == 4.5);
+		REQUIRE(calculator.GetIdentifierValue("fn4") == 2.5);
+		REQUIRE(calculator.GetIdentifierValue("fn5") == 0.5);
+		REQUIRE(calculator.GetIdentifierValue("fn6") == 6.75);
+		REQUIRE(calculator.GetIdentifierValue("fn7") == 3);
+	}
+}
