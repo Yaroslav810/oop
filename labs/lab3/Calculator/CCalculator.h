@@ -37,16 +37,16 @@ public:
 	void CreateFunction(const Identifier& identifier1, const Identifier& identifier2);
 	void CreateFunction(const Identifier& identifier, const Expression& expression);
 
-	Value GetIdentifierValue(const Identifier& identifier) const;
-	Values GetVars() const;
-	Values GetFunctions() const;
+	[[nodiscard]] Value GetIdentifierValue(const Identifier& identifier) const;
+	[[nodiscard]] Values GetVars() const;
+	[[nodiscard]] Values GetFunctions() const;
 
 private:
 	static constexpr auto NAN_VAL = std::numeric_limits<Value>::quiet_NaN();
 
-	bool IsValidIdentifier(const Identifier& identifier) const;
-	bool IsIdentifierDefined(const Identifier& identifier) const;
-	Value CalculateFunction(const Expression& expression) const;
+	static bool IsValidIdentifier(const Identifier& identifier) ;
+	[[nodiscard]] bool IsIdentifierDefined(const Identifier& identifier) const;
+	[[nodiscard]] Value CalculateFunction(const Expression& expression) const;
 
 	Vars m_vars;
 	Functions m_functions;

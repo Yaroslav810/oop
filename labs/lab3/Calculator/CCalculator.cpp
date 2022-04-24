@@ -1,22 +1,9 @@
 #include "CCalculator.h"
 
 CCalculator::CCalculator()
-	: m_vars({
-		{"a" , 10.232},
-		{"b", 20},
-	})
-	, m_functions({
-		  {
-			  "hello",
-			  {
-				  .firstOperandId =  "a",
-				  .secondOperandId = "b",
-				  .operation = Operation::ADDITION,
-			  }
-		  }
-	  })
+	: m_vars({})
+	, m_functions({})
 {
-	// TODO: Убрать код выше
 }
 
 void CCalculator::CreateVar(const Identifier& identifier)
@@ -129,7 +116,7 @@ CCalculator::Values CCalculator::GetFunctions() const
 	return fns;
 }
 
-bool CCalculator::IsValidIdentifier(const Identifier& identifier) const
+bool CCalculator::IsValidIdentifier(const Identifier& identifier)
 {
 	if (identifier.empty() || std::isdigit(identifier[0]))
 	{

@@ -33,8 +33,8 @@ private:
 		std::variant<CCalculator::Identifier, CCalculator::Expression> value;
 	};
 
-	Command ParseCommand(const std::string& str);
-	std::optional<CommandType> ParseCommandType(const std::string str);
+	static Command ParseCommand(const std::string& str);
+	static std::optional<CommandType> ParseCommandType(const std::string& str);
 	void ExecuteCommand(const Command& command);
 	void ExecuteHelpCommand();
 	void ExecuteCreateVarCommand(const std::string& str);
@@ -44,9 +44,12 @@ private:
 	void ExecutePrintVarsCommand();
 	void ExecutePrintFnsCommand();
 
-	CCalculator::Identifier ParseIdentifier(const std::string& str);
-	AssignVarType ParseAssign(const std::string& str);
-	CreateFunctionType ParseFunction(const std::string& str);
+	static CCalculator::Identifier ParseIdentifier(const std::string& str);
+	static CCalculator::Identifier ParseIdentifier(std::stringstream& ss);
+	static AssignVarType ParseAssign(const std::string& str);
+	static std::string ParseAssignArguments(std::stringstream& ss);
+	static CreateFunctionType ParseFunction(const std::string& str);
+	static std::optional<CCalculator::Operation> ParseOperation(std::stringstream& ss);
 	void PrintValues(const CCalculator::Values& values);
 
 	CCalculator& m_calculator;
