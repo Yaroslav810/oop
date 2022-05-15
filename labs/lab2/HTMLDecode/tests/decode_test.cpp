@@ -10,7 +10,7 @@ TEST_CASE("html can be decode")
 		std::ostringstream oss;
 
 		CopyStreamWithDecode(iss, oss);
-		REQUIRE(oss.str() == "");
+		REQUIRE(oss.str().empty());
 	}
 
 	SECTION("There are no replacement literals in the string")
@@ -67,6 +67,21 @@ TEST_CASE("html can be decode")
 		REQUIRE(oss.str() == "&&&&&&&&&&&&&&&&&&&&&\n");
 	}
 
-	// Todo: Добавить &none;
-	// Todo: "&amp;lt;"
+	// TODO: Добавить "&none;" и "&amp;lt;"
+	SECTION("No section")
+	{
+		std::istringstream iss("&none;\n");
+		std::ostringstream oss;
+
+		CopyStreamWithDecode(iss, oss);
+		REQUIRE(oss.str() == "&none;\n");
+	}
+	SECTION("Missing ampersand - without replacement")
+	{
+		std::istringstream iss("&amp;lt;\n");
+		std::ostringstream oss;
+
+		CopyStreamWithDecode(iss, oss);
+		REQUIRE(oss.str() == "&lt;\n");
+	}
 }

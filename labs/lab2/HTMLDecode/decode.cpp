@@ -13,22 +13,18 @@ MapDecodeHTML InitMapDecode()
 	};
 }
 
-std::string DecodeHTMLEntity(const std::string& subject, const MapDecodeHTML& map, size_t& foundPos)
+char DecodeHTMLEntity(const std::string& subject, const MapDecodeHTML& map, size_t& foundPos)
 {
-	// subject обрезать
-	// map find
-	std::string res;
-	for (const auto& [search, replacement] : map)
-	{
-		if (std::string(subject, foundPos, search.size()) == search)
-		{
-			foundPos += search.size();
-			return std::string(1, replacement);
-		}
+	// TODO: subject обрезать
+	// TODO: map find
+	auto it = map.find(subject);
+	if (it != map.end()) {
+		foundPos += it->first.size();
+		return it->second;
 	}
 
 	foundPos++;
-	return std::string(1, subject[foundPos - 1]);
+	return subject[foundPos - 1];
 }
 
 std::string HtmlDecode(std::string const& html, MapDecodeHTML const& map)
@@ -44,7 +40,13 @@ std::string HtmlDecode(std::string const& html, MapDecodeHTML const& map)
 			break;
 		}
 
-		result.append(DecodeHTMLEntity(html, map, foundPos));
+		size_t foundEndEntity = html.find(';', foundPos);
+		if (foundEndEntity == std::string::npos)
+		{
+			result.append(html, foundPos, foundEndEntity - foundPos);
+			break;
+		}
+		result += DecodeHTMLEntity(html.substr(foundPos, foundEndEntity - foundPos + 1), map, foundPos);
 		pos = foundPos;
 	}
 
