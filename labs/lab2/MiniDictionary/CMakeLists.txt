@@ -3,6 +3,8 @@ add_executable(
         main.cpp
         dictionary.h
         dictionary.cpp
+        dictionaryController.h
+        dictionaryController.cpp
 )
 
 add_executable(
