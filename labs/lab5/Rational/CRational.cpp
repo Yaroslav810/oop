@@ -30,7 +30,7 @@ int CRational::GetDenominator() const
 
 double CRational::ToDouble() const
 {
-	return static_cast<double>(m_numerator) / m_denominator;
+	return static_cast<double>(GetNumerator()) / GetDenominator();
 }
 
 CRational CRational::operator+() const
@@ -112,6 +112,39 @@ CRational operator*(CRational const& number1, CRational const& number2)
 CRational operator/(CRational const& number1, CRational const& number2)
 {
 	return CRational(number1.GetNumerator(), number1.GetDenominator()) /= number2;
+}
+
+bool operator==(CRational const& number1, CRational const& number2)
+{
+	return number1.GetNumerator() == number2.GetNumerator() && number1.GetDenominator() == number2.GetDenominator();
+}
+
+bool operator!=(CRational const& number1, CRational const& number2)
+{
+	return !(number1 == number2);
+}
+
+bool operator<(CRational const& number1, CRational const& number2)
+{
+	auto lcm = std::lcm(number1.GetDenominator(), number2.GetDenominator());
+	auto numerator1 = number1.GetNumerator() * (lcm / number1.GetDenominator());
+	auto numerator2 = number2.GetNumerator() * (lcm / number2.GetDenominator());
+	return numerator1 < numerator2;
+}
+
+bool operator<=(CRational const& number1, CRational const& number2)
+{
+	return number1 < number2 || number1 == number2;
+}
+
+bool operator>(CRational const& number1, CRational const& number2)
+{
+	return !(number1 <= number2);
+}
+
+bool operator>=(CRational const& number1, CRational const& number2)
+{
+	return !(number1 < number2);
 }
 
 std::ostream& operator<<(std::ostream& stream, CRational const& number)

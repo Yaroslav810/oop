@@ -32,4 +32,11 @@ CRational operator-(CRational const& number1, CRational const& number2);
 CRational operator*(CRational const& number1, CRational const& number2);
 CRational operator/(CRational const& number1, CRational const& number2);
 
+bool operator==(CRational const& number1, CRational const& number2);
+bool operator!=(CRational const& number1, CRational const& number2);
+bool operator<(CRational const& number1, CRational const& number2);
+bool operator<=(CRational const& number1, CRational const& number2);
+bool operator>(CRational const& number1, CRational const& number2);
+bool operator>=(CRational const& number1, CRational const& number2);
+
 std::ostream& operator<<(std::ostream& stream, CRational const& number);
