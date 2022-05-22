@@ -151,3 +151,19 @@ std::ostream& operator<<(std::ostream& stream, CRational const& number)
 {
 	return stream << number.GetNumerator() << '/' << number.GetDenominator();
 }
+
+std::istream& operator>>(std::istream& stream, CRational& number)
+{
+	int numerator;
+	int denominator;
+	if ((stream >> numerator) && (stream.get() == '/' && (stream >> denominator)))
+	{
+		number = CRational(numerator, denominator);
+	}
+	else
+	{
+		stream.setstate(std::ios_base::failbit | stream.rdstate());
+	}
+
+	return stream;
+}
