@@ -8,4 +8,6 @@ add_executable(
 add_executable(
         rational_test
         tests/rational_test.cpp
+        CRational.h
+        CRational.cpp
 )

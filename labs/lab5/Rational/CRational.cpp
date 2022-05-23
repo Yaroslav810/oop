@@ -71,11 +71,7 @@ CRational CRational::operator*=(const CRational& other)
 
 CRational CRational::operator/=(const CRational& other)
 {
-	m_numerator *= other.GetDenominator();
-	m_denominator *= other.GetNumerator();
-	NormalizeNumber();
-
-	return *this;
+	return *this *= {other.GetDenominator(), other.GetNumerator()};
 }
 
 void CRational::NormalizeNumber()
@@ -156,7 +152,7 @@ std::istream& operator>>(std::istream& stream, CRational& number)
 {
 	int numerator;
 	int denominator;
-	if ((stream >> numerator) && (stream.get() == '/' && (stream >> denominator)))
+	if ((stream >> numerator) && (stream.get() == '/') && (stream >> denominator))
 	{
 		number = CRational(numerator, denominator);
 	}
