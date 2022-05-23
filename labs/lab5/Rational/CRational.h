@@ -12,6 +12,7 @@ public:
 	[[nodiscard]] int GetNumerator() const;
 	[[nodiscard]] int GetDenominator() const;
 	[[nodiscard]] double ToDouble() const;
+	std::pair<int, CRational> ToCompoundFraction() const;
 
 	CRational operator+() const;
 	CRational operator-() const;
@@ -20,6 +21,7 @@ public:
 	CRational operator-=(CRational const& other);
 	CRational operator*=(CRational const& other);
 	CRational operator/=(CRational const& other);
+
 private:
 	void NormalizeNumber();
 

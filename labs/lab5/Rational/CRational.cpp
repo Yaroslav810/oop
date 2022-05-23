@@ -33,6 +33,14 @@ double CRational::ToDouble() const
 	return static_cast<double>(GetNumerator()) / GetDenominator();
 }
 
+std::pair<int, CRational> CRational::ToCompoundFraction() const
+{
+	auto div = std::div(GetNumerator(), GetDenominator());
+	return {
+		div.quot, { div.rem, GetDenominator() }
+	};
+}
+
 CRational CRational::operator+() const
 {
 	return *this;
@@ -71,7 +79,7 @@ CRational CRational::operator*=(const CRational& other)
 
 CRational CRational::operator/=(const CRational& other)
 {
-	return *this *= {other.GetDenominator(), other.GetNumerator()};
+	return *this *= { other.GetDenominator(), other.GetNumerator() };
 }
 
 void CRational::NormalizeNumber()

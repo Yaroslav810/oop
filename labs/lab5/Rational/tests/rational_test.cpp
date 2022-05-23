@@ -801,3 +801,42 @@ TEST_CASE("Reading a rational number from a stream")
 		}
 	}
 }
+
+TEST_CASE("Conversion to a compound fraction")
+{
+	SECTION("Conversion 9/4 with expectation 2 1/4")
+	{
+		CRational rational(9, 4);
+		auto result = rational.ToCompoundFraction();
+		REQUIRE(result.first == 2);
+		REQUIRE(result.second.GetNumerator() == 1);
+		REQUIRE(result.second.GetDenominator() == 4);
+	}
+
+	SECTION("Conversion -9/4 with expectation -2 -1/4")
+	{
+		CRational rational(-9, 4);
+		auto result = rational.ToCompoundFraction();
+		REQUIRE(result.first == -2);
+		REQUIRE(result.second.GetNumerator() == -1);
+		REQUIRE(result.second.GetDenominator() == 4);
+	}
+
+	SECTION("Conversion 0/1 with expectation 0 0/1")
+	{
+		CRational rational(0, 1);
+		auto result = rational.ToCompoundFraction();
+		REQUIRE(result.first == 0);
+		REQUIRE(result.second.GetNumerator() == 0);
+		REQUIRE(result.second.GetDenominator() == 1);
+	}
+
+	SECTION("Conversion 8/4 with expectation 2 0/1")
+	{
+		CRational rational(8, 4);
+		auto result = rational.ToCompoundFraction();
+		REQUIRE(result.first == 2);
+		REQUIRE(result.second.GetNumerator() == 0);
+		REQUIRE(result.second.GetDenominator() == 1);
+	}
+}
