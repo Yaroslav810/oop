@@ -1,5 +1,6 @@
 #pragma once
 #include "CUrlParsingError.h"
+#include <regex>
 
 class CHttpUrl
 {
@@ -11,53 +12,40 @@ public:
 	};
 	using Port = unsigned short;
 
-	// выполняет парсинг строкового представления URL-а, в случае ошибки парсинга
-	// выбрасыват исключение CUrlParsingError, содержащее текстовое описание ошибки
 	explicit CHttpUrl(std::string const& url);
-
-	/* инициализирует URL на основе переданных параметров.
-		При недопустимости входных параметров выбрасывает исключение
-		std::invalid_argument
-		Если имя документа не начинается с символа /, то добавляет / к имени документа
-	*/
 	CHttpUrl(
 		std::string const& domain,
 		std::string const& document,
-		Protocol protocol = HTTP);
-
-	/* инициализирует URL на основе переданных параметров.
-		При недопустимости входных параметров выбрасывает исключение
-		std::invalid_argument
-		Если имя документа не начинается с символа /, то добавляет / к имени документа
-	*/
+		Protocol protocol = CHttpUrl::Protocol::HTTP);
 	CHttpUrl(
 		std::string const& domain,
 		std::string const& document,
 		Protocol protocol,
-		Unsigned short port);
+		CHttpUrl::Port port);
 
-	// возвращает строковое представление URL-а. Порт, являющийся стандартным для
-	// выбранного протокола (80 для http и 443 для https) в эту строку
-	// не должен включаться
-	std::string GetURL()const;
+	[[nodiscard]] std::string GetURL() const;
+	[[nodiscard]] std::string GetDomain() const;
+	[[nodiscard]] std::string GetDocument() const;
+	[[nodiscard]] Protocol GetProtocol() const;
+	[[nodiscard]] Port GetPort() const;
 
-	// возвращает доменное имя
-	std::string GetDomain()const;
+	[[nodiscard]] static std::string GetStringFromProtocol(Protocol const& protocol);
 
-	/*
-		Возвращает имя документа. Примеры:
-			/
-			/index.html
-			/images/photo.jpg
-	*/
-	std::string GetDocument()const;
-
-	// возвращает тип протокола
-	Protocol GetProtocol()const;
-
-	// возвращает номер порта
-	Port GetPort()const;
 private:
+	static constexpr Port MIN_PORT = 1;
+	static constexpr Port MAX_PORT = 65535;
+
+	static constexpr Port DEFAULT_HTTP_PORT = 80;
+	static constexpr Port DEFAULT_HTTPS_PORT = 443;
+
+	static Port GetDefaultPort(Protocol const& protocol);
+	static std::string GetStringInLowerCase(std::string const& string);
+
+	static Protocol ParseProtocol(std::string const& protocol);
+	static std::string ParseDomain(std::string const& domain);
+	static Port ParsePort(std::string const& port, CHttpUrl::Protocol const& protocol);
+	static std::string ParseDocument(std::string const& document);
+
 	Protocol m_protocol;
 	std::string m_domain;
 	std::string m_document;
