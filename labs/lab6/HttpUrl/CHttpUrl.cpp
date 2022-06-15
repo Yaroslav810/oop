@@ -7,7 +7,8 @@ CHttpUrl::CHttpUrl(std::string const& url)
 					   "://"
 					   "([0-9a-zA-Z-.]+)"
 					   "(?::(\\d+))?"
-					   "(/[\\w-\\/.]*)?");
+					   "(/[\\w-\\/.]*)?",
+		std::regex::icase);
 	if (!std::regex_match(url, result, regular))
 	{
 		throw CUrlParsingError("Invalid url");
@@ -100,7 +101,7 @@ std::string CHttpUrl::GetStringInLowerCase(std::string const& string)
 	std::transform(
 		string.begin(),
 		string.end(),
-		result.begin(),
+		std::back_inserter(result),
 		[](unsigned char c) {
 			return std::tolower(c);
 		});
@@ -111,11 +112,11 @@ std::string CHttpUrl::GetStringInLowerCase(std::string const& string)
 CHttpUrl::Protocol CHttpUrl::ParseProtocol(std::string const& protocol)
 {
 	auto protocolInLowerCase = GetStringInLowerCase(protocol);
-	if (protocol == "http")
+	if (protocolInLowerCase == "http")
 	{
 		return CHttpUrl::Protocol::HTTP;
 	}
-	if (protocol == "https")
+	if (protocolInLowerCase == "https")
 	{
 		return CHttpUrl::Protocol::HTTPS;
 	}
