@@ -1,5 +1,7 @@
-#include <iostream>
 #include <cstring>
+#include <iostream>
+#include <memory>
+#include <string>
 
 class CMyString
 {
@@ -8,34 +10,34 @@ public:
 	CMyString(const char* pString);
 	CMyString(const char* pString, size_t length);
 
-	// конструктор копирования
 	CMyString(CMyString const& other);
-
-	// перемещающий конструктор (для компиляторов, совместимых с C++11)
-	//  реализуется совместно с перемещающим оператором присваивания
-	CMyString(CMyString&& other);
-
-	// конструктор, инициализирующий строку данными из
-	// строки стандартной библиотеки C++
+	CMyString(CMyString&& other) noexcept;
 	CMyString(std::string const& stlString);
 
-	// деструктор класса - освобождает память, занимаемую символами строки
-	~CMyString();
+	[[nodiscard]] size_t GetLength() const;
+	[[nodiscard]] const char* GetStringData() const;
 
-	// возвращает длину строки (без учета завершающего нулевого символа)
-	size_t GetLength() const;
-
-	// возвращает указатель на массив символов строки.
-	// В конце массива обязательно должен быть завершающий нулевой символ
-	// даже если строка пустая
-	const char* GetStringData() const;
-
-	// возвращает подстроку с заданной позиции длиной не больше length символов
-	CMyString SubString(size_t start, size_t length = SIZE_MAX) const;
-
-	// очистка строки (строка становится снова нулевой длины)
+	[[nodiscard]] CMyString SubString(size_t start, size_t length = SIZE_MAX) const;
 	void Clear();
+
+	CMyString& operator=(const CMyString& other);
+	CMyString& operator=(CMyString&& other) noexcept;
+	CMyString& operator+=(const CMyString& other);
+	const char operator[](size_t index) const;
+	char& operator[](size_t index);
+
 private:
-	char* m_data;
+	std::unique_ptr<char[]> m_data;
 	size_t m_length;
 };
+
+CMyString operator+(CMyString string1, CMyString const& string2);
+bool operator==(CMyString const& string1, CMyString const& string2);
+bool operator!=(CMyString const& string1, CMyString const& string2);
+bool operator<(CMyString const& string1, CMyString const& string2);
+bool operator>(CMyString const& string1, CMyString const& string2);
+bool operator<=(CMyString const& string1, CMyString const& string2);
+bool operator>=(CMyString const& string1, CMyString const& string2);
+
+std::ostream& operator<<(std::ostream& stream, const CMyString& string);
+std::istream& operator>>(std::istream& stream, const CMyString& string);

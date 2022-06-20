@@ -2,8 +2,7 @@
 
 int main()
 {
-	char* m =  "string";
-	auto num = std::strlen(m);
-	std::cout << num << std::endl;
+	CMyString str = "Hello, world!";
+	std::cout << str << std::endl;
 	return 0;
 }
