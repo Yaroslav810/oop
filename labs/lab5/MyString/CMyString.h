@@ -31,13 +31,13 @@ private:
 	size_t m_length;
 };
 
-CMyString operator+(CMyString string1, CMyString const& string2);
-bool operator==(CMyString const& string1, CMyString const& string2);
-bool operator!=(CMyString const& string1, CMyString const& string2);
-bool operator<(CMyString const& string1, CMyString const& string2);
-bool operator>(CMyString const& string1, CMyString const& string2);
-bool operator<=(CMyString const& string1, CMyString const& string2);
-bool operator>=(CMyString const& string1, CMyString const& string2);
+CMyString operator+(CMyString lhs, CMyString const& rhs);
+bool operator==(CMyString const& lhs, CMyString const& rhs);
+bool operator!=(CMyString const& lhs, CMyString const& rhs);
+bool operator<(CMyString const& lhs, CMyString const& rhs);
+bool operator>(CMyString const& lhs, CMyString const& rhs);
+bool operator<=(CMyString const& lhs, CMyString const& rhs);
+bool operator>=(CMyString const& lhs, CMyString const& rhs);
 
 std::ostream& operator<<(std::ostream& stream, const CMyString& string);
 std::istream& operator>>(std::istream& stream, const CMyString& string);

@@ -13,10 +13,10 @@ CMyString::CMyString(const char* pString)
 }
 
 CMyString::CMyString(const char* pString, size_t length)
-	: m_data(std::make_unique<char[]>(length + 1))
-	, m_length(length)
+	: m_data(std::make_unique<char[]>(pString == nullptr ? 1 : length + 1))
+	, m_length(pString == nullptr ? 0 : length)
 {
-	memcpy(m_data.get(), pString, m_length);
+	std::memcpy(m_data.get(), pString, m_length);
 	m_data[m_length] = '\0';
 }
 
@@ -29,8 +29,11 @@ CMyString::CMyString(CMyString&& other) noexcept
 	: m_data(nullptr)
 	, m_length(0)
 {
-	std::swap(m_data, other.m_data);
-	std::swap(m_length, other.m_length);
+	if (std::addressof(other) != this)
+	{
+		std::swap(m_data, other.m_data);
+		std::swap(m_length, other.m_length);
+	}
 }
 
 CMyString::CMyString(const std::string& stlString)
@@ -132,51 +135,65 @@ char& CMyString::operator[](size_t index)
 	return m_data[index];
 }
 
-CMyString operator+(CMyString string1, CMyString const& string2)
+CMyString operator+(CMyString lhs, CMyString const& rhs)
 {
-	return string1 += string2;
+	return lhs += rhs;
 }
 
-bool operator==(CMyString const& string1, CMyString const& string2)
+bool operator==(CMyString const& lhs, CMyString const& rhs)
 {
-	if (string1.GetLength() != string2.GetLength())
+	if (lhs.GetLength() != rhs.GetLength())
 	{
 		return false;
 	}
 
-	return memcmp(string1.GetStringData(), string2.GetStringData(), string1.GetLength()) == 0;
+	return std::memcmp(lhs.GetStringData(), rhs.GetStringData(), lhs.GetLength()) == 0;
 }
 
-bool operator!=(CMyString const& string1, CMyString const& string2)
+bool operator!=(CMyString const& lhs, CMyString const& rhs)
 {
-	return !(string1 == string2);
+	return !(lhs == rhs);
 }
 
-bool operator<(CMyString const& string1, CMyString const& string2)
+bool operator<(CMyString const& lhs, CMyString const& rhs)
 {
-	return memcmp(string1.GetStringData(), string2.GetStringData(), string1.GetLength()) < 0;
+	auto minLength = std::min(lhs.GetLength(), rhs.GetLength());
+	auto result = std::memcmp(lhs.GetStringData(), rhs.GetStringData(), minLength);
+
+	if (result != 0)
+	{
+		return false;
+	}
+
+	if (lhs.GetLength() == rhs.GetLength())
+	{
+		return false;
+	}
+
+	return rhs.GetLength() > minLength;
 }
 
-bool operator>(CMyString const& string1, CMyString const& string2)
+bool operator>(CMyString const& lhs, CMyString const& rhs)
 {
-	return memcmp(string1.GetStringData(), string2.GetStringData(), string1.GetLength()) > 0;
+	return !(lhs < rhs) && !(lhs == rhs);
 }
 
-bool operator<=(CMyString const& string1, CMyString const& string2)
+bool operator<=(CMyString const& lhs, CMyString const& rhs)
 {
-	return !(string1 > string2);
+	return !(lhs > rhs);
 }
 
-bool operator>=(CMyString const& string1, CMyString const& string2)
+bool operator>=(CMyString const& lhs, CMyString const& rhs)
 {
-	return !(string1 < string2);
+	return !(lhs < rhs);
 }
 
 std::ostream& operator<<(std::ostream& output, CMyString const& string)
 {
-	for (int i = 0; i < string.GetLength(); ++i)
+	auto const str = string.GetStringData();
+	for (size_t i = 0; i < string.GetLength(); ++i)
 	{
-		output << string.GetStringData()[i];
+		output << str[i];
 	}
 	return output;
 }
