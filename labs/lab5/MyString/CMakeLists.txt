@@ -3,6 +3,8 @@ add_executable(
         main.cpp
         CMyString.h
         CMyString.cpp
+        CMyStringIterator.h
+        CMyStringIterator.cpp
 )
 
 add_executable(
@@ -10,4 +12,6 @@ add_executable(
         tests/my_string_test.cpp
         CMyString.h
         CMyString.cpp
+        CMyStringIterator.h
+        CMyStringIterator.cpp
 )

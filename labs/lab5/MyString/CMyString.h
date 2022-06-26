@@ -1,3 +1,4 @@
+#include "CMyStringIterator.h"
 #include <cstring>
 #include <iostream>
 #include <memory>
@@ -25,6 +26,20 @@ public:
 	CMyString& operator+=(const CMyString& other);
 	const char operator[](size_t index) const;
 	char& operator[](size_t index);
+
+	using iterator = CMyStringIterator<char>;
+	using const_iterator = CMyStringIterator<const char>;
+	using reverse_iterator = std::reverse_iterator<iterator>;
+	using const_reverse_iterator = std::reverse_iterator<const_iterator>;
+
+	iterator begin();
+	iterator end();
+	[[nodiscard]] const_iterator begin() const;
+	[[nodiscard]] const_iterator end() const;
+	reverse_iterator rbegin();
+	reverse_iterator rend();
+	[[nodiscard]] const_reverse_iterator rbegin() const;
+	[[nodiscard]] const_reverse_iterator rend() const;
 
 private:
 	std::unique_ptr<char[]> m_data;

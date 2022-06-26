@@ -197,3 +197,43 @@ std::ostream& operator<<(std::ostream& output, CMyString const& string)
 	}
 	return output;
 }
+
+CMyString::iterator CMyString::begin()
+{
+	return { m_data.get() };
+}
+
+CMyString::iterator CMyString::end()
+{
+	return { m_data.get() + m_length };
+}
+
+CMyString::const_iterator CMyString::begin() const
+{
+	return { m_data.get() };
+}
+
+CMyString::const_iterator CMyString::end() const
+{
+	return { m_data.get() + m_length };
+}
+
+CMyString::reverse_iterator CMyString::rbegin()
+{
+	return std::make_reverse_iterator(end());
+}
+
+CMyString::reverse_iterator CMyString::rend()
+{
+	return std::make_reverse_iterator(begin());
+}
+
+CMyString::const_reverse_iterator CMyString::rbegin() const
+{
+	return std::make_reverse_iterator(end());
+}
+
+CMyString::const_reverse_iterator CMyString::rend() const
+{
+	return std::make_reverse_iterator(begin());
+}
