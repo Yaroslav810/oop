@@ -457,3 +457,291 @@ TEST_CASE("Writing to a stream")
 		REQUIRE(ss.str() == "Hello, world");
 	}
 }
+
+TEST_CASE("String const iterator")
+{
+	SECTION("begin")
+	{
+		const CMyString str("Hello, world");
+		const char* firstPtr = str.GetStringData();
+		CMyString::const_iterator it = str.begin();
+		REQUIRE(it == firstPtr);
+	}
+
+	SECTION("end")
+	{
+		const CMyString str("Hello, world");
+		CMyString::const_iterator it = str.end();
+		const char* firstPtr = str.GetStringData();
+		REQUIRE(it == firstPtr + str.GetLength());
+	}
+}
+
+TEST_CASE("String iterator")
+{
+	SECTION("begin")
+	{
+		CMyString str("Hello, world");
+		char* firstPtr = const_cast<char*>(str.GetStringData());
+		CMyString::iterator it = str.begin();
+		REQUIRE(it == firstPtr);
+	}
+
+	SECTION("end")
+	{
+		CMyString str("Hello, world");
+		CMyString::iterator it = str.end();
+		char* firstPtr = const_cast<char*>(str.GetStringData());
+		REQUIRE(it == firstPtr + str.GetLength());
+	}
+}
+
+TEST_CASE("String reverse const iterator")
+{
+	SECTION("loop")
+	{
+		std::stringstream ss;
+		const CMyString str("Hello");
+		for (auto it = str.rbegin(); it != str.rend(); ++it)
+		{
+			ss << *it;
+		}
+		REQUIRE(std::memcmp(ss.str().c_str(), "olleH", 5) == 0);
+	}
+}
+
+TEST_CASE("String reverse iterator")
+{
+	SECTION("loop")
+	{
+		std::stringstream ss;
+		CMyString str("Hello");
+		for (auto it = str.rbegin(); it != str.rend(); ++it)
+		{
+			ss << *it;
+		}
+		REQUIRE(std::memcmp(ss.str().c_str(), "olleH", 5) == 0);
+	}
+}
+
+TEST_CASE("Operation *")
+{
+	SECTION("iterator")
+	{
+		CMyString str("Hello, world");
+		CMyString::iterator beginIt = str.begin();
+		CMyString::iterator endIt = str.end();
+		REQUIRE(*beginIt == 'H');
+		REQUIRE(*(endIt - 1) == 'd');
+		REQUIRE(*endIt == '\0');
+	}
+
+	SECTION("const iterator")
+	{
+		const CMyString str("Hello, world");
+		CMyString::const_iterator beginIt = str.begin();
+		CMyString::const_iterator endIt = str.end();
+		REQUIRE(*beginIt == 'H');
+		REQUIRE(*(endIt - 1) == 'd');
+		REQUIRE(*endIt == '\0');
+	}
+
+	SECTION("reverse iterator")
+	{
+		CMyString str("Hello, world");
+		CMyString::reverse_iterator rbeginIt = str.rbegin();
+		CMyString::reverse_iterator rendIt = str.rend();
+		REQUIRE(*rbeginIt == 'd');
+		REQUIRE(*(rendIt - 1) == 'H');
+	}
+
+	SECTION("const reverse iterator")
+	{
+		const CMyString str("Hello, world");
+		CMyString::const_reverse_iterator rbeginIt = str.rbegin();
+		CMyString::const_reverse_iterator rendIt = str.rend();
+		REQUIRE(*rbeginIt == 'd');
+		REQUIRE(*(rendIt - 1) == 'H');
+	}
+}
+
+TEST_CASE("pre ++")
+{
+	SECTION("const iterator")
+	{
+		const CMyString str("World");
+		CMyString::const_iterator it = str.begin();
+		REQUIRE(*it == 'W');
+		REQUIRE(*(++it) == 'o');
+		REQUIRE(*it == 'o');
+	}
+
+	SECTION("iterator")
+	{
+		CMyString str("World");
+		CMyString::iterator it = str.begin();
+		REQUIRE(*it == 'W');
+		REQUIRE(*(++it) == 'o');
+		REQUIRE(*it == 'o');
+	}
+
+	SECTION("const reverse iterator")
+	{
+		const CMyString str("World");
+		CMyString::const_reverse_iterator it = str.rbegin();
+		REQUIRE(*it == 'd');
+		REQUIRE(*(++it) == 'l');
+		REQUIRE(*it == 'l');
+	}
+
+	SECTION("reverse iterator")
+	{
+		CMyString str("World");
+		CMyString::reverse_iterator it = str.rbegin();
+		REQUIRE(*it == 'd');
+		REQUIRE(*(++it) == 'l');
+		REQUIRE(*it == 'l');
+	}
+}
+
+TEST_CASE("Another operation")
+{
+	SECTION("post ++")
+	{
+		const CMyString str("World");
+		CMyString::const_iterator it = str.begin();
+		REQUIRE(*it == 'W');
+		REQUIRE(*(it++) == 'W');
+		REQUIRE(*it == 'o');
+	}
+
+	SECTION("pre --")
+	{
+		const CMyString str("World");
+		CMyString::const_iterator it = str.end();
+		REQUIRE(*it == '\0');
+		REQUIRE(*(--it) == 'd');
+		REQUIRE(*it == 'd');
+	}
+
+	SECTION("post --")
+	{
+		const CMyString str("World");
+		CMyString::const_iterator it = str.end();
+		REQUIRE(*it == '\0');
+		REQUIRE(*(it--) == '\0');
+		REQUIRE(*it == 'd');
+	}
+
+	SECTION("+=")
+	{
+		const CMyString str("Hello, world");
+		CMyString::const_iterator it = str.begin();
+		REQUIRE(*it == 'H');
+		it += 1;
+		REQUIRE(*it == 'e');
+		it += 3;
+		REQUIRE(*it == 'o');
+	}
+
+	SECTION("-=")
+	{
+		const CMyString str("Hello, world");
+		CMyString::const_iterator it = str.end();
+		REQUIRE(*it == '\0');
+		it -= 1;
+		REQUIRE(*it == 'd');
+		it -= 2;
+		REQUIRE(*it == 'r');
+	}
+
+	SECTION("+")
+	{
+		const CMyString str("Hello, world");
+		CMyString::const_iterator it = str.begin();
+		REQUIRE(*it == 'H');
+		it = it + 1;
+		REQUIRE(*it == 'e');
+		it = it + 3;
+		REQUIRE(*it == 'o');
+	}
+
+	SECTION("-")
+	{
+		const CMyString str("Hello, world");
+		CMyString::const_iterator it = str.end();
+		REQUIRE(*it == '\0');
+		it = it - 1;
+		REQUIRE(*it == 'd');
+		it = it - 2;
+		REQUIRE(*it == 'r');
+	}
+
+	SECTION("- iterators")
+	{
+		const CMyString str("Hello, world");
+		CMyString::const_iterator beginIt = str.begin();
+		CMyString::const_iterator endIt = str.end();
+		REQUIRE(endIt - beginIt == 12);
+		beginIt++;
+		endIt--;
+		REQUIRE(endIt - beginIt == 10);
+	}
+
+	SECTION("<")
+	{
+		const CMyString str("Hello, world");
+		CMyString::const_iterator beginIt = str.begin();
+		CMyString::const_iterator endIt = str.end();
+		REQUIRE((beginIt < endIt) == true);
+		REQUIRE((endIt < beginIt) == false);
+		beginIt += str.GetLength();
+		REQUIRE((beginIt < endIt) == false);
+	}
+
+	SECTION(">")
+	{
+		const CMyString str("Hello, world");
+		CMyString::const_iterator beginIt = str.begin();
+		CMyString::const_iterator endIt = str.end();
+		REQUIRE((beginIt > endIt) == false);
+		REQUIRE((endIt > beginIt) == true);
+		beginIt += str.GetLength();
+		REQUIRE((endIt > beginIt) == false);
+	}
+
+	SECTION("<=")
+	{
+		const CMyString str("Hello, world");
+		CMyString::const_iterator beginIt = str.begin();
+		CMyString::const_iterator endIt = str.end();
+		REQUIRE((beginIt <= endIt) == true);
+		REQUIRE((endIt <= beginIt) == false);
+		beginIt += str.GetLength();
+		REQUIRE((beginIt <= endIt) == true);
+	}
+
+	SECTION(">=")
+	{
+		const CMyString str("Hello, world");
+		CMyString::const_iterator beginIt = str.begin();
+		CMyString::const_iterator endIt = str.end();
+		REQUIRE((beginIt >= endIt) == false);
+		REQUIRE((endIt >= beginIt) == true);
+		beginIt += str.GetLength();
+		REQUIRE((endIt >= beginIt) == true);
+	}
+
+	SECTION("[]")
+	{
+		const CMyString str("Hello, world");
+		CMyString::const_iterator it = str.begin();
+		REQUIRE(it[0] == 'H');
+		REQUIRE(it[1] == 'e');
+		REQUIRE(it[2] == 'l');
+		it += str.GetLength();
+		REQUIRE(it[0] == '\0');
+		REQUIRE(it[-1] == 'd');
+		REQUIRE(it[-2] == 'l');
+	}
+}
