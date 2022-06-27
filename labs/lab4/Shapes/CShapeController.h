@@ -12,11 +12,11 @@
 class CShapeController
 {
 public:
-	CShapeController();
-	void Start(std::istream& input, std::ostream& output);
+	CShapeController(std::istream& input, std::ostream& output);
+	void Start();
 
 private:
-	using ShapePtr = std::shared_ptr<IShape>;
+	using ShapePtr = std::unique_ptr<IShape>;
 	using ShapeVector = std::vector<ShapePtr>;
 
 	enum class CommandType
@@ -33,7 +33,7 @@ private:
 		std::string arguments;
 	};
 
-	static ShapeVector ReadShapes(std::istream& input);
+	ShapeVector ReadShapes();
 
 	static Command ParseCommand(const std::string& str);
 	static std::optional<CommandType> ParseCommandType(const std::string& command);
@@ -44,9 +44,13 @@ private:
 	static ShapePtr CreateTriangle(const std::string& str);
 	static ShapePtr NoneCommand(const std::string& str);
 
+	void PrintShapeWithMaxArea(const ShapeVector& shapes);
+	void PrintShapeWithMinPerimeter(const ShapeVector& shapes);
+
 	static double ReadDouble(std::istream& input);
 	static CPoint ReadPoint(std::istream& input);
 	static uint32_t ReadColor(std::istream& input);
 
-	ShapeVector m_shapes;
+	std::istream& m_input;
+	std::ostream& m_output;
 };

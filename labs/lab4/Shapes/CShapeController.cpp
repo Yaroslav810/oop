@@ -1,31 +1,30 @@
 #include "CShapeController.h"
+#include <algorithm>
 
-CShapeController::CShapeController()
-	: m_shapes()
+CShapeController::CShapeController(std::istream& input, std::ostream& output)
+	: m_input(input)
+	, m_output(output)
 {
 }
 
-void CShapeController::Start(std::istream& input, std::ostream& output)
+void CShapeController::Start()
 {
-	try
+	const auto shapes = ReadShapes();
+
+	PrintShapeWithMaxArea(shapes);
+	PrintShapeWithMinPerimeter(shapes);
+
+	for (const auto& d : shapes)
 	{
-		const auto shapes = ReadShapes(input);
-		for (const auto& d : shapes)
-		{
-			output << d->ToString() << std::endl; // << std::fixed << std::setprecision(2)
-		}
-	}
-	catch (const std::exception& e)
-	{
-		output << e.what() << std::endl;
+		m_output << std::fixed << std::setprecision(2) << d->ToString() << std::endl;
 	}
 }
 
-CShapeController::ShapeVector CShapeController::ReadShapes(std::istream& input)
+CShapeController::ShapeVector CShapeController::ReadShapes()
 {
 	std::string str;
 	ShapeVector shapes;
-	while (std::getline(input, str))
+	while (std::getline(m_input, str))
 	{
 		try
 		{
@@ -36,12 +35,11 @@ CShapeController::ShapeVector CShapeController::ReadShapes(std::istream& input)
 				shapes.push_back(std::move(shape));
 			}
 		}
-		catch (const std::exception&)
+		catch (const std::exception& e)
 		{
+			m_output << e.what() << std::endl;
 		}
 	}
-
-	std::cout << "!23" << std::endl;
 
 	return shapes;
 }
@@ -114,7 +112,7 @@ CShapeController::ShapePtr CShapeController::CreateLine(const std::string& str)
 	auto const startPoint = ReadPoint(ss);
 	auto const endPoint = ReadPoint(ss);
 	auto const outlineColor = ReadColor(ss);
-	return std::make_shared<CLineSegment>(startPoint, endPoint, outlineColor);
+	return std::make_unique<CLineSegment>(startPoint, endPoint, outlineColor);
 }
 
 CShapeController::ShapePtr CShapeController::CreateCircle(const std::string& str)
@@ -124,7 +122,7 @@ CShapeController::ShapePtr CShapeController::CreateCircle(const std::string& str
 	auto radius = ReadDouble(ss);
 	auto outlineColor = ReadColor(ss);
 	auto fillColor = ReadColor(ss);
-	return std::make_shared<CCircle>(centerPoint, radius, outlineColor, fillColor);
+	return std::make_unique<CCircle>(centerPoint, radius, outlineColor, fillColor);
 }
 
 CShapeController::ShapePtr CShapeController::CreateRectangle(const std::string& str)
@@ -135,7 +133,7 @@ CShapeController::ShapePtr CShapeController::CreateRectangle(const std::string& 
 	auto height = ReadDouble(ss);
 	auto outlineColor = ReadColor(ss);
 	auto fillColor = ReadColor(ss);
-	return std::make_shared<CRectangle>(topLeftPoint, width, height, outlineColor, fillColor);
+	return std::make_unique<CRectangle>(topLeftPoint, width, height, outlineColor, fillColor);
 }
 
 CShapeController::ShapePtr CShapeController::CreateTriangle(const std::string& str)
@@ -146,7 +144,47 @@ CShapeController::ShapePtr CShapeController::CreateTriangle(const std::string& s
 	auto vertex3 = ReadPoint(ss);
 	auto outlineColor = ReadColor(ss);
 	auto fillColor = ReadColor(ss);
-	return std::make_shared<CTriangle>(vertex1, vertex2, vertex3, outlineColor, fillColor);
+	return std::make_unique<CTriangle>(vertex1, vertex2, vertex3, outlineColor, fillColor);
+}
+
+void CShapeController::PrintShapeWithMaxArea(const ShapeVector& shapes)
+{
+	auto const shape = std::max_element(
+		shapes.begin(),
+		shapes.end(),
+		[](const ShapePtr& shape1, const ShapePtr& shape2) {
+			return shape1->GetArea() < shape2->GetArea();
+		});
+
+	if (shape != shapes.end())
+	{
+		m_output << "Shape with max area: " << std::endl;
+		m_output << (*shape)->ToString() << std::endl;
+	}
+	else
+	{
+		m_output << "There is no such element" << std::endl;
+	}
+}
+
+void CShapeController::PrintShapeWithMinPerimeter(const ShapeVector& shapes)
+{
+	auto const shape = std::min_element(
+		shapes.begin(),
+		shapes.end(),
+		[](const ShapePtr& shape1, const ShapePtr& shape2) {
+			return shape1->GetPerimeter() > shape2->GetPerimeter();
+		});
+
+	if (shape != shapes.end())
+	{
+		m_output << "Shape with min perimeter: " << std::endl;
+		m_output << (*shape)->ToString() << std::endl;
+	}
+	else
+	{
+		m_output << "There is no such element" << std::endl;
+	}
 }
 
 double CShapeController::ReadDouble(std::istream& input)
