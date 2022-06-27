@@ -29,6 +29,7 @@ CMyString::CMyString(CMyString&& other) noexcept
 	: m_data(nullptr)
 	, m_length(0)
 {
+	// TODO: Лишняя проверка
 	if (std::addressof(other) != this)
 	{
 		std::swap(m_data, other.m_data);
@@ -48,6 +49,9 @@ size_t CMyString::GetLength() const
 
 const char* CMyString::GetStringData() const
 {
+	// TODO: Проверка на nullptr
+	// TODO: Если nullptr => возвращать адрес массива
+	// static в CMySting
 	return m_data.get();
 }
 
@@ -58,17 +62,19 @@ CMyString CMyString::SubString(size_t start, size_t length) const
 		return {};
 	}
 
+	// TODO: len и length, избавиться от len
 	size_t len = length;
 	if (length > m_length - start)
 	{
 		len = m_length - start;
 	}
-
+	// TODO: Не создавать объект с nullptr
 	return { m_data.get() + start, len };
 }
 
 void CMyString::Clear()
 {
+	// TODO: std::make_unique<char[]>(1); исключение
 	m_data.reset();
 	m_data = std::make_unique<char[]>(1);
 	m_data[0] = '\0';
@@ -115,8 +121,10 @@ CMyString& CMyString::operator+=(const CMyString& other)
 	return *this;
 }
 
-const char CMyString::operator[](size_t index) const
+// TODO: const&
+char CMyString::operator[](size_t index) const
 {
+	// TODO: >=
 	if (index > m_length)
 	{
 		throw std::out_of_range("index out of range");
@@ -157,6 +165,7 @@ bool operator!=(CMyString const& lhs, CMyString const& rhs)
 
 bool operator<(CMyString const& lhs, CMyString const& rhs)
 {
+	// TODO: Код сложен для понимания
 	auto minLength = std::min(lhs.GetLength(), rhs.GetLength());
 	auto result = std::memcmp(lhs.GetStringData(), rhs.GetStringData(), minLength);
 
@@ -175,6 +184,7 @@ bool operator<(CMyString const& lhs, CMyString const& rhs)
 
 bool operator>(CMyString const& lhs, CMyString const& rhs)
 {
+	// TODO: Много сравнений
 	return !(lhs < rhs) && !(lhs == rhs);
 }
 

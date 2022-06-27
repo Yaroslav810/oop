@@ -122,6 +122,8 @@ public:
 		return m_ptr >= iterator.m_ptr;
 	}
 
+	// TODO: Число + it
+
 private:
 	pointer m_ptr;
 };

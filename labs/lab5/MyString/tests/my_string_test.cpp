@@ -745,3 +745,18 @@ TEST_CASE("Another operation")
 		REQUIRE(it[-2] == 'l');
 	}
 }
+
+TEST_CASE("Range based")
+{
+	SECTION("Iterator pass through all elements")
+	{
+		std::stringstream ss;
+		CMyString str("Hello, world");
+		for (char& ch : str)
+		{
+			ss << ch;
+		}
+
+		REQUIRE(ss.str() == "Hello, world");
+	}
+}

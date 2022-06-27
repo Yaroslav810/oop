@@ -64,10 +64,11 @@ TEST_CASE("Resize")
 TEST_CASE("[]")
 {
 	CMyArray<std::string> array;
-	REQUIRE(array.GetSize() == 0);
+	REQUIRE_NOTHROW(array.Push("Hello"));
+	REQUIRE_NOTHROW(array.Push(" "));
+	REQUIRE_NOTHROW(array.Push("World"));
 
-	REQUIRE_NOTHROW(array.Resize(10));
-	REQUIRE(array.GetSize() == 10);
+	REQUIRE(array[0] == '');
 
 	REQUIRE_NOTHROW(array.Resize(5));
 	REQUIRE(array.GetSize() == 5);

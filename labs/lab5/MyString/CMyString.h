@@ -24,7 +24,7 @@ public:
 	CMyString& operator=(const CMyString& other);
 	CMyString& operator=(CMyString&& other) noexcept;
 	CMyString& operator+=(const CMyString& other);
-	const char operator[](size_t index) const;
+	char operator[](size_t index) const;
 	char& operator[](size_t index);
 
 	using iterator = CMyStringIterator<char>;
