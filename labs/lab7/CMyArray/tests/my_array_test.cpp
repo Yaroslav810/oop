@@ -48,3 +48,27 @@ TEST_CASE("Clear")
 	REQUIRE(array.GetSize() == 0);
 	REQUIRE_THROWS_AS(array[0], std::out_of_range);
 }
+
+TEST_CASE("Resize")
+{
+	CMyArray<std::string> array;
+	REQUIRE(array.GetSize() == 0);
+
+	REQUIRE_NOTHROW(array.Resize(10));
+	REQUIRE(array.GetSize() == 10);
+
+	REQUIRE_NOTHROW(array.Resize(5));
+	REQUIRE(array.GetSize() == 5);
+}
+
+TEST_CASE("[]")
+{
+	CMyArray<std::string> array;
+	REQUIRE(array.GetSize() == 0);
+
+	REQUIRE_NOTHROW(array.Resize(10));
+	REQUIRE(array.GetSize() == 10);
+
+	REQUIRE_NOTHROW(array.Resize(5));
+	REQUIRE(array.GetSize() == 5);
+}
