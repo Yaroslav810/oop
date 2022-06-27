@@ -24,7 +24,7 @@ public:
 		try
 		{
 			std::unique_ptr<T[]> newData = std::make_unique<T[]>(other.m_size);
-			std::copy(std::begin(other), std::end(other), std::begin(newData));
+			std::copy(std::begin(other), std::end(other), newData.get());
 			m_data = std::move(newData);
 			m_size = other.m_size;
 		}

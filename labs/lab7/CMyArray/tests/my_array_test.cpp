@@ -61,15 +61,23 @@ TEST_CASE("Resize")
 	REQUIRE(array.GetSize() == 5);
 }
 
-TEST_CASE("[]")
+TEST_CASE("assignment")
 {
-	CMyArray<std::string> array;
-	REQUIRE_NOTHROW(array.Push("Hello"));
-	REQUIRE_NOTHROW(array.Push(" "));
-	REQUIRE_NOTHROW(array.Push("World"));
+	CMyArray<std::string> array(4);
+	array.Push("Hello");
+	array.Push(" ");
+	array.Push("World");
+	REQUIRE(array.GetSize() == 7);
 
-	REQUIRE(array[0] == '');
+	CMyArray<std::string> array2(0);
+	REQUIRE(array2.GetSize() == 0);
 
-	REQUIRE_NOTHROW(array.Resize(5));
-	REQUIRE(array.GetSize() == 5);
+	array = array2;
+	REQUIRE(array.GetSize() == 0);
+	REQUIRE(array2.GetSize() == 0);
+}
+
+TEST_CASE("Copy Constructor")
+{
+	
 }
