@@ -1,8 +1,13 @@
-#include "../../stdafx.h"
+#pragma once
+#include <string>
 
-class IShape {
-	virtual double GetArea() const = 0;
-	virtual double GetPerimeter() const = 0;
-	virtual std::string ToString() const = 0;
-	virtual uint32_t GetOutlineColor() const = 0;
+class IShape
+{
+public:
+	[[nodiscard]] virtual double GetArea() const = 0;
+	[[nodiscard]] virtual double GetPerimeter() const = 0;
+	[[nodiscard]] virtual std::string ToString() const = 0;
+	[[nodiscard]] virtual uint32_t GetOutlineColor() const = 0;
+
+	virtual ~IShape() = default;
 };

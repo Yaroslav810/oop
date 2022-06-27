@@ -1,19 +1,14 @@
 add_executable(
         shapes
         main.cpp
-        stdafx.h
         CShapeController.h
         CShapeController.cpp
         lib/Point/CPoint.h
         lib/Point/CPoint.cpp
         lib/Shapes/IShape.h
-        lib/Shapes/CShape.h
-        lib/Shapes/CShape.cpp
         lib/Shapes/LineSegment/CLineSegment.h
         lib/Shapes/LineSegment/CLineSegment.cpp
         lib/Shapes/SolidShapes/ISolidShape.h
-        lib/Shapes/SolidShapes/CSolidShape.h
-        lib/Shapes/SolidShapes/CSolidShape.cpp
         lib/Shapes/SolidShapes/Circle/CCircle.h
         lib/Shapes/SolidShapes/Circle/CCircle.cpp
         lib/Shapes/SolidShapes/Rectangle/CRectangle.h
