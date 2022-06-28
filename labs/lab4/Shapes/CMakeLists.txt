@@ -16,3 +16,22 @@ add_executable(
         lib/Shapes/SolidShapes/Triangle/CTriangle.h
         lib/Shapes/SolidShapes/Triangle/CTriangle.cpp
 )
+
+add_executable(
+        shapes_tests
+        tests/shapes_test.cpp
+        CShapeController.h
+        CShapeController.cpp
+        lib/Point/CPoint.h
+        lib/Point/CPoint.cpp
+        lib/Shapes/IShape.h
+        lib/Shapes/LineSegment/CLineSegment.h
+        lib/Shapes/LineSegment/CLineSegment.cpp
+        lib/Shapes/SolidShapes/ISolidShape.h
+        lib/Shapes/SolidShapes/Circle/CCircle.h
+        lib/Shapes/SolidShapes/Circle/CCircle.cpp
+        lib/Shapes/SolidShapes/Rectangle/CRectangle.h
+        lib/Shapes/SolidShapes/Rectangle/CRectangle.cpp
+        lib/Shapes/SolidShapes/Triangle/CTriangle.h
+        lib/Shapes/SolidShapes/Triangle/CTriangle.cpp
+)

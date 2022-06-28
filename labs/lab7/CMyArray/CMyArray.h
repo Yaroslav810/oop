@@ -8,7 +8,7 @@ class CMyArray
 {
 public:
 	CMyArray()
-		: m_data(std::make_unique<T[]>(0))
+		: m_data(nullptr)
 		, m_size(0)
 	{
 	}
@@ -39,11 +39,8 @@ public:
 		: m_data(nullptr)
 		, m_size(0)
 	{
-		if (std::addressof(other) != this)
-		{
-			std::swap(m_data, other.m_data);
-			std::swap(m_size, other.m_length);
-		}
+		std::swap(m_data, other.m_data);
+		std::swap(m_size, other.m_length);
 	}
 
 	[[nodiscard]] size_t GetSize() const
@@ -57,16 +54,10 @@ public:
 		m_data[m_size - 1] = item;
 	}
 
-	void Push(T&& item)
-	{
-		Resize(m_size + 1);
-		m_data[m_size - 1] = std::move(item);
-	}
-
 	void Clear()
 	{
-		m_size = 0;
 		m_data.reset();
+		m_size = 0;
 	}
 
 	void Resize(size_t newSize)
@@ -82,8 +73,8 @@ public:
 			std::copy(m_data.get(), m_data.get() + newSize, newData.get());
 		}
 
-		m_size = newSize;
 		m_data = std::move(newData);
+		m_size = newSize;
 	}
 
 	CMyArray& operator=(const CMyArray& other)
