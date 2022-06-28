@@ -40,7 +40,7 @@ public:
 		, m_size(0)
 	{
 		std::swap(m_data, other.m_data);
-		std::swap(m_size, other.m_length);
+		std::swap(m_size, other.m_size);
 	}
 
 	[[nodiscard]] size_t GetSize() const
@@ -94,8 +94,8 @@ public:
 		{
 			m_size = 0;
 			m_data = nullptr;
+			std::swap(m_data, other.m_data);
 			std::swap(m_size, other.m_size);
-			std::swap(m_data, other.m_itemsPtr);
 		}
 		return *this;
 	}

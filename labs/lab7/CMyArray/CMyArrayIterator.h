@@ -66,7 +66,7 @@ public:
 
 	CMyArrayIterator operator+(const difference_type& offset) const
 	{
-		return MyArrayIterator(m_ptr + offset);
+		return CMyArrayIterator(m_ptr + offset);
 	}
 
 	difference_type operator-(const CMyArrayIterator& it) const
@@ -86,32 +86,32 @@ public:
 
 	bool operator==(const CMyArrayIterator& it) const
 	{
-		return m_ptr == it.ptr;
+		return m_ptr == it.m_ptr;
 	}
 
 	bool operator!=(const CMyArrayIterator& it) const
 	{
-		return m_ptr != it.ptr;
+		return m_ptr != it.m_ptr;
 	}
 
 	bool operator<(const CMyArrayIterator& it) const
 	{
-		return m_ptr < it.ptr;
+		return m_ptr < it.m_ptr;
 	}
 
 	bool operator>(const CMyArrayIterator& it) const
 	{
-		return m_ptr > it.ptr;
+		return m_ptr > it.m_ptr;
 	}
 
 	bool operator<=(const CMyArrayIterator& it) const
 	{
-		return m_ptr <= it.ptr;
+		return m_ptr <= it.m_ptr;
 	}
 
 	bool operator>=(const CMyArrayIterator& it) const
 	{
-		return m_ptr >= it.ptr;
+		return m_ptr >= it.m_ptr;
 	}
 
 	operator CMyArrayIterator<const T>() const
