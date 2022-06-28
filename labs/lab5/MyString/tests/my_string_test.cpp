@@ -121,7 +121,7 @@ TEST_CASE("Moving constructor")
 	{
 		CMyString str1 = "Hello, world";
 		CMyString str2(std::move(str1));
-		REQUIRE(str1.GetStringData() == nullptr);
+		REQUIRE(str1.GetStringData() == CMyString::GetDefaultString());
 		REQUIRE(std::strcmp(str2.GetStringData(), "Hello, world") == 0);
 		REQUIRE(str1.GetLength() == 0);
 		REQUIRE(str2.GetLength() == 12);
@@ -201,7 +201,7 @@ TEST_CASE("String assignment")
 		CMyString str2;
 		str2 = std::move(str1);
 
-		REQUIRE(str1.GetStringData() == nullptr);
+		REQUIRE(str1.GetStringData() == CMyString::GetDefaultString());
 		REQUIRE(std::strcmp(str2.GetStringData(), "Hello, world") == 0);
 		REQUIRE(str1.GetLength() == 0);
 		REQUIRE(str2.GetLength() == 12);
@@ -746,15 +746,28 @@ TEST_CASE("Another operation")
 	}
 }
 
-TEST_CASE("Range based")
+TEST_CASE("range based")
 {
-	SECTION("Iterator pass through all elements")
+	SECTION("reference")
 	{
 		std::stringstream ss;
 		CMyString str("Hello, world");
 		for (char& ch : str)
 		{
 			ss << ch;
+		}
+
+		REQUIRE(ss.str() == "Hello, world");
+	}
+
+	SECTION("iterator")
+	{
+		std::stringstream ss;
+		CMyString str("Hello, world");
+		CMyString::iterator endIt = str.end();
+		for (auto it = str.begin(); it != endIt; it++)
+		{
+			ss << *it;
 		}
 
 		REQUIRE(ss.str() == "Hello, world");

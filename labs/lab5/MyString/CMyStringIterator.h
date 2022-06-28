@@ -122,8 +122,13 @@ public:
 		return m_ptr >= iterator.m_ptr;
 	}
 
-	// TODO: Число + it
-
 private:
 	pointer m_ptr;
+};
+
+// Добавил число + it
+template <typename T>
+typename CMyStringIterator<T>::difference_type operator+(typename CMyStringIterator<T>::difference_type offset, CMyStringIterator<T> const& iterator)
+{
+	return iterator + offset;
 };

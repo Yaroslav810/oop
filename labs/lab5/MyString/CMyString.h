@@ -17,6 +17,7 @@ public:
 
 	[[nodiscard]] size_t GetLength() const;
 	[[nodiscard]] const char* GetStringData() const;
+	[[nodiscard]] static const char* GetDefaultString();
 
 	[[nodiscard]] CMyString SubString(size_t start, size_t length = SIZE_MAX) const;
 	void Clear();
@@ -24,7 +25,7 @@ public:
 	CMyString& operator=(const CMyString& other);
 	CMyString& operator=(CMyString&& other) noexcept;
 	CMyString& operator+=(const CMyString& other);
-	char operator[](size_t index) const;
+	const char& operator[](size_t index) const;
 	char& operator[](size_t index);
 
 	using iterator = CMyStringIterator<char>;
@@ -42,6 +43,7 @@ public:
 	[[nodiscard]] const_reverse_iterator rend() const;
 
 private:
+	constexpr static const char defaultString[] = { '\0' };
 	std::unique_ptr<char[]> m_data;
 	size_t m_length;
 };
