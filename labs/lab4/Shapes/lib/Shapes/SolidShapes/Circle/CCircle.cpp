@@ -32,7 +32,7 @@ std::string CCircle::ToString() const
 {
 	std::stringstream ss;
 	ss << std::fixed
-	   << std::setprecision(1)
+	   << std::setprecision(2)
 	   << "Type: circle" << std::endl
 	   << "Center: " << GetCenter().ToString() << std::endl
 	   << "Radius: " << GetRadius() << std::endl

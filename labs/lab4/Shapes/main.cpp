@@ -5,8 +5,8 @@ int main()
 {
 	try
 	{
-		CShapeController controller;
-		controller.Start(std::cin, std::cout);
+		CShapeController controller(std::cin, std::cout);
+		controller.Start();
 	}
 	catch (const std::exception& e)
 	{

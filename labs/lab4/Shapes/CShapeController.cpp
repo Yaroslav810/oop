@@ -16,7 +16,7 @@ void CShapeController::Start()
 
 	for (const auto& d : shapes)
 	{
-		m_output << std::fixed << std::setprecision(2) << d->ToString() << std::endl;
+		m_output << d->ToString() << std::endl;
 	}
 }
 

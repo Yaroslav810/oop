@@ -28,12 +28,12 @@ CPoint CRectangle::GetRightBottom() const
 
 double CRectangle::GetWidth() const
 {
-	return m_rightBottom.GetX() - m_leftTop.GetX();
+	return std::abs(m_rightBottom.GetX() - m_leftTop.GetX());
 }
 
 double CRectangle::GetHeight() const
 {
-	return m_leftTop.GetY() - m_rightBottom.GetY();
+	return std::abs(m_leftTop.GetY() - m_rightBottom.GetY());
 }
 
 double CRectangle::GetArea() const
@@ -50,9 +50,10 @@ std::string CRectangle::ToString() const
 {
 	std::stringstream ss;
 	ss << std::fixed
-	   << std::setprecision(1)
+	   << std::setprecision(2)
 	   << "Type: rectangle" << std::endl
 	   << "Left top vertex: " << m_leftTop.ToString() << std::endl
+	   << "Right bottom vertex: " << m_rightBottom.ToString() << std::endl
 	   << "Width: " << GetWidth() << std::endl
 	   << "Height: " << GetHeight() << std::endl
 	   << "Area: " << GetArea() << std::endl

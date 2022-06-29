@@ -28,8 +28,8 @@ TEST_CASE("Create rectangle")
 	REQUIRE(rectangle.GetPerimeter() == 8);
 	REQUIRE(rectangle.GetOutlineColor() == 0xff00ff);
 	REQUIRE(rectangle.GetFillColor() == 0x00ff00);
-	REQUIRE(rectangle.GetHeight() == 3);
-	REQUIRE(rectangle.GetWidth() == 1);
+	REQUIRE(rectangle.GetHeight() == 1);
+	REQUIRE(rectangle.GetWidth() == 3);
 }
 
 TEST_CASE("Create circle")
@@ -39,8 +39,8 @@ TEST_CASE("Create circle")
 	uint32_t fillColor = 0x00ff00;
 
 	CCircle circle(center, 2.5, outlineColor, fillColor);
-	REQUIRE(circle.GetArea() == 19.6349540849);
-	REQUIRE(circle.GetPerimeter() == 15.7);
+	REQUIRE(abs(circle.GetArea() - 19.63) <= 0.01);
+	REQUIRE(abs(circle.GetPerimeter() - 15.7) <= 0.01);
 	REQUIRE(circle.GetOutlineColor() == 0xff00ff);
 	REQUIRE(circle.GetFillColor() == 0x00ff00);
 	REQUIRE(circle.GetRadius() == 2.5);
@@ -55,8 +55,8 @@ TEST_CASE("Create triangle")
 	uint32_t fillColor = 0x00ff00;
 
 	CTriangle triangle(vertex1, vertex2, vertex3, outlineColor, fillColor);
-	REQUIRE(std::fabs(triangle.GetArea()) - 4 < 0.01);
-	REQUIRE(std::fabs(triangle.GetPerimeter() - 11.981) < 0.01);
+	REQUIRE(abs(triangle.GetArea() - 4) <= 0.01);
+	REQUIRE(abs(triangle.GetPerimeter() - 11.981) <= 0.01);
 	REQUIRE(triangle.GetOutlineColor() == 0xff00ff);
 	REQUIRE(triangle.GetFillColor() == 0x00ff00);
 }

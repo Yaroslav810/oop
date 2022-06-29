@@ -1,0 +1,8 @@
+line 0 0 100 100 ff0000
+line -100 -100 -100 100 00ff00
+rectangle -100 -100 200 200 000000 ffffff
+rectangle -100 50 200 100 ffffff 000000
+triangle -50 0 0 100 50 0 0000ff 00ffff
+triangle 0 0 100 10 0 200 ff00ff 00ff00
+circle 0 0 50 ff0000 ff0000
+circle 50 50 100 00ff00 00ffff

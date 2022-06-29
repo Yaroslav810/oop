@@ -43,7 +43,7 @@ std::string CTriangle::ToString() const
 {
 	std::stringstream ss;
 	ss << std::fixed
-	   << std::setprecision(1)
+	   << std::setprecision(2)
 	   << "Type: triangle" << std::endl
 	   << "Vertex 1: " << m_vertex1.ToString() << std::endl
 	   << "Vertex 2: " << m_vertex2.ToString() << std::endl
