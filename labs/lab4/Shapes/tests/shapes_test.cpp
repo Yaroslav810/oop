@@ -60,3 +60,6 @@ TEST_CASE("Create triangle")
 	REQUIRE(triangle.GetOutlineColor() == 0xff00ff);
 	REQUIRE(triangle.GetFillColor() == 0x00ff00);
 }
+
+// TODO: PrintShapeWithMaxArea
+// TODO: PrintShapeWithMinPerimeter

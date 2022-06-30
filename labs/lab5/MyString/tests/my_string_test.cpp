@@ -666,6 +666,17 @@ TEST_CASE("Another operation")
 		REQUIRE(*it == 'o');
 	}
 
+	SECTION("+")
+	{
+		const CMyString str("Hello, world");
+		CMyString::const_iterator it = str.begin();
+		REQUIRE(*it == 'H');
+		it = 1 + it;
+		REQUIRE(*it == 'e');
+		it = 3 + it;
+		REQUIRE(*it == 'o');
+	}
+
 	SECTION("-")
 	{
 		const CMyString str("Hello, world");

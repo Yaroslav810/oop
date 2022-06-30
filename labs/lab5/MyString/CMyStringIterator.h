@@ -128,7 +128,7 @@ private:
 
 // Добавил число + it
 template <typename T>
-typename CMyStringIterator<T>::difference_type operator+(typename CMyStringIterator<T>::difference_type offset, CMyStringIterator<T> const& iterator)
+typename CMyStringIterator<T>::CMyStringIterator operator+(typename CMyStringIterator<T>::difference_type offset, CMyStringIterator<T> const& iterator)
 {
 	return iterator + offset;
 };

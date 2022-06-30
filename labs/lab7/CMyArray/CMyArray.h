@@ -64,14 +64,7 @@ public:
 	{
 		std::unique_ptr<T[]> newData = std::make_unique<T[]>(newSize);
 
-		if (newSize >= m_size)
-		{
-			std::copy(m_data.get(), m_data.get() + m_size, newData.get());
-		}
-		else
-		{
-			std::copy(m_data.get(), m_data.get() + newSize, newData.get());
-		}
+		std::copy(m_data.get(), m_data.get() + std::min(m_size, newSize), newData.get());
 
 		m_data = std::move(newData);
 		m_size = newSize;
@@ -163,6 +156,9 @@ public:
 		return std::make_reverse_iterator(begin());
 	}
 
+	// TODO: crbegin, crend
+
+	// TODO: Добавить capacity
 private:
 	std::unique_ptr<T[]> m_data;
 	size_t m_size;

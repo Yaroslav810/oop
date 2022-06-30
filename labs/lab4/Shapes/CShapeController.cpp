@@ -13,11 +13,6 @@ void CShapeController::Start()
 
 	PrintShapeWithMaxArea(shapes);
 	PrintShapeWithMinPerimeter(shapes);
-
-	for (const auto& d : shapes)
-	{
-		m_output << d->ToString() << std::endl;
-	}
 }
 
 CShapeController::ShapeVector CShapeController::ReadShapes()
@@ -57,7 +52,6 @@ CShapeController::Command CShapeController::ParseCommand(const std::string& str)
 			.type = CommandType::NONE,
 		};
 	}
-	line >> std::ws;
 	std::getline(line, arguments);
 	return {
 		.type = commandType.value(),

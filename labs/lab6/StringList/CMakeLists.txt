@@ -1,0 +1,21 @@
+add_executable(
+        string_list
+        main.cpp
+        CStringList.h
+        CStringList.cpp
+        CStringNode.h
+        CStringNode.cpp
+        CStringIterator.h
+        CStringIterator.cpp
+)
+
+add_executable(
+        string_list_test
+        tests/string_list_test.cpp
+        CStringList.h
+        CStringList.cpp
+        CStringNode.h
+        CStringNode.cpp
+        CStringIterator.h
+        CStringIterator.cpp
+)
