@@ -1,9 +1,9 @@
 #pragma once
 #include "./../../../Point/CPoint.h"
-#include "./../ISolidShape.h"
+#include "./../CSolidShape.h"
 #include <iomanip>
 
-class CRectangle : public ISolidShape
+class CRectangle : public CSolidShape
 {
 public:
 	CRectangle(CPoint leftTop, CPoint rightBottom, uint32_t outlineColor, uint32_t fillColor);
@@ -18,11 +18,9 @@ public:
 	[[nodiscard]] double GetPerimeter() const override;
 	[[nodiscard]] std::string ToString() const override;
 	[[nodiscard]] uint32_t GetOutlineColor() const override;
-	[[nodiscard]] uint32_t GetFillColor() const override;
 
 private:
 	CPoint m_leftTop;
 	CPoint m_rightBottom;
 	uint32_t m_outlineColor;
-	uint32_t m_fillColor;
 };

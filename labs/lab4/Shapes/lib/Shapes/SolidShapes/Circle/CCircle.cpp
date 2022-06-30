@@ -3,8 +3,8 @@
 CCircle::CCircle(CPoint center, double radius, uint32_t outlineColor, uint32_t fillColor)
 	: m_center(center)
 	, m_radius(radius)
-	, m_outlineColor(outlineColor)
-	, m_fillColor(fillColor)
+	, CShape(outlineColor)
+	, CSolidShape(fillColor)
 {
 }
 
@@ -47,9 +47,4 @@ std::string CCircle::ToString() const
 uint32_t CCircle::GetOutlineColor() const
 {
 	return m_outlineColor;
-}
-
-uint32_t CCircle::GetFillColor() const
-{
-	return m_fillColor;
 }

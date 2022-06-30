@@ -5,7 +5,7 @@ CTriangle::CTriangle(CPoint vertex1, CPoint vertex2, CPoint vertex3, uint32_t ou
 	, m_vertex2(vertex2)
 	, m_vertex3(vertex3)
 	, m_outlineColor(outlineColor)
-	, m_fillColor(fillColor)
+	, CSolidShape(fillColor)
 {
 }
 
@@ -59,9 +59,4 @@ std::string CTriangle::ToString() const
 uint32_t CTriangle::GetOutlineColor() const
 {
 	return m_outlineColor;
-}
-
-uint32_t CTriangle::GetFillColor() const
-{
-	return m_fillColor;
 }

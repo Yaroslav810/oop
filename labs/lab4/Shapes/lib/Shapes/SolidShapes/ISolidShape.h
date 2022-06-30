@@ -1,9 +1,7 @@
 #pragma once
-#include "../IShape.h"
+#include "../CShape.h"
 
-class ISolidShape : public IShape
+class ISolidShape : public CShape
 {
 	[[nodiscard]] virtual uint32_t GetFillColor() const = 0;
 };
-
-// TODO: CSolidShape

@@ -1,10 +1,10 @@
 #pragma once
 #include "./../../../Point/CPoint.h"
-#include "./../ISolidShape.h"
+#include "./../CSolidShape.h"
 #include <cmath>
 #include <iomanip>
 
-class CTriangle : public ISolidShape
+class CTriangle : public CSolidShape
 {
 public:
 	CTriangle(CPoint vertex1, CPoint vertex2, CPoint vertex3, uint32_t outlineColor, uint32_t fillColor);
@@ -17,12 +17,10 @@ public:
 	[[nodiscard]] double GetPerimeter() const override;
 	[[nodiscard]] std::string ToString() const override;
 	[[nodiscard]] uint32_t GetOutlineColor() const override;
-	[[nodiscard]] uint32_t GetFillColor() const override;
 
 private:
 	CPoint m_vertex1;
 	CPoint m_vertex2;
 	CPoint m_vertex3;
 	uint32_t m_outlineColor;
-	uint32_t m_fillColor;
 };
