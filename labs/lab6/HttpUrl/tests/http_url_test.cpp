@@ -137,6 +137,18 @@ TEST_CASE("Creating a CHttpUrl")
 			REQUIRE(url.GetProtocol() == CHttpUrl::Protocol::HTTPS);
 			REQUIRE(url.GetPort() == 443);
 		}
+
+		SECTION("https://yandex.ru/:99")
+		{
+			CHttpUrl url(
+				"yandex.ru",
+				":99",
+				CHttpUrl::Protocol::HTTPS);
+			REQUIRE(url.GetDomain() == "yandex.ru");
+			REQUIRE(url.GetDocument() == "/:99");
+			REQUIRE(url.GetProtocol() == CHttpUrl::Protocol::HTTPS);
+			REQUIRE(url.GetPort() == 443);
+		}
 	}
 
 	SECTION("Constructor with port")
@@ -227,6 +239,7 @@ TEST_CASE("Error")
 		REQUIRE_THROWS_AS(CHttpUrl("https://yandex.ru:-1"), CUrlParsingError);
 		REQUIRE_THROWS_AS(CHttpUrl("https://yandex.ru:0"), CUrlParsingError);
 		REQUIRE_THROWS_AS(CHttpUrl("https://yandex.ru:65536"), CUrlParsingError);
+		REQUIRE_THROWS_AS(CHttpUrl("https://yandex.ru:65537"), CUrlParsingError);
 	}
 }
 

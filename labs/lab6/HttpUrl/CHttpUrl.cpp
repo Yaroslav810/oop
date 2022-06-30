@@ -7,7 +7,7 @@ CHttpUrl::CHttpUrl(std::string const& url)
 					   "://"
 					   "([0-9a-zA-Z-.]+)"
 					   "(?::(\\d+))?"
-					   "(/[\\w-\\/.]*)?",
+					   "(/[\\w-\\/.:]*)?",
 		std::regex::icase);
 	if (!std::regex_match(url, result, regular))
 	{
@@ -140,7 +140,7 @@ CHttpUrl::Port CHttpUrl::ParsePort(const std::string& port, CHttpUrl::Protocol c
 		return GetDefaultPort(protocol);
 	}
 
-	CHttpUrl::Port result;
+	unsigned long result;
 	try
 	{
 		result = std::stoi(port);

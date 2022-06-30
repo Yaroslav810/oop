@@ -12,7 +12,7 @@ public:
 	};
 	using Port = unsigned short;
 
-	explicit CHttpUrl(std::string const& url);
+	CHttpUrl(std::string const& url);
 	CHttpUrl(
 		std::string const& domain,
 		std::string const& document,
