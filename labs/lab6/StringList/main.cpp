@@ -12,12 +12,10 @@ int main()
 	std::cout << "---" << std::endl;
 
 	auto it = list.begin();
-	std::cout << (*it).GetData() << std::endl;
-	it++;
-	std::cout << (*it).GetData() << std::endl;
-	it--;
-	std::cout << (*it).GetData() << std::endl;
+	list.Clear();
+	it = list.begin();
 	std::cout << (it == list.end()) << std::endl;
+	std::cout << list.GetSize() << std::endl;
 
 	return 0;
 }

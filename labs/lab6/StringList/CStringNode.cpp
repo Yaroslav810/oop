@@ -6,11 +6,10 @@ CStringNode::CStringNode(std::string data, CStringNode::NodePtr prev, CStringNod
 	: m_data(std::move(data))
 	, m_prev(std::move(prev))
 	, m_next(std::move(next))
-
 {
 }
 
-std::string CStringNode::GetData() const
+std::string const& CStringNode::GetData() const
 {
 	return m_data;
 }

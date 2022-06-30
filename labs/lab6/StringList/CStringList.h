@@ -6,10 +6,28 @@
 class CStringList
 {
 public:
+	using iterator = CStringIterator<CStringNode>;
+	using const_iterator = CStringIterator<const CStringNode>;
+	using reverse_iterator = std::reverse_iterator<iterator>;
+	using const_reverse_iterator = std::reverse_iterator<const_iterator>;
+
 	CStringList();
 
 	CStringList(CStringList const& other) = delete;
 	CStringList(CStringList&& other) = delete;
+
+	iterator begin();
+	iterator end();
+	[[nodiscard]] const_iterator begin() const;
+	[[nodiscard]] const_iterator end() const;
+	[[nodiscard]] const_iterator cbegin() const;
+	[[nodiscard]] const_iterator cend() const;
+	reverse_iterator rbegin();
+	reverse_iterator rend();
+	[[nodiscard]] const_reverse_iterator rbegin() const;
+	[[nodiscard]] const_reverse_iterator rend() const;
+	[[nodiscard]] const_reverse_iterator crbegin() const;
+	[[nodiscard]] const_reverse_iterator crend() const;
 
 	[[nodiscard]] bool IsEmpty() const;
 	[[nodiscard]] size_t GetSize() const;
@@ -17,21 +35,13 @@ public:
 	CStringList& PushBack(std::string const& data);
 	CStringList& PushFront(std::string const& data);
 
+	[[nodiscard]] std::string const& GetBack() const;
+	[[nodiscard]] std::string const& GetFront() const;
+
 	void Clear();
 
-	using iterator = CStringIterator<CStringNode>;
-	using const_iterator = CStringIterator<const CStringNode>;
-	using reverse_iterator = std::reverse_iterator<iterator>;
-	using const_reverse_iterator = std::reverse_iterator<const_iterator>;
-
-	iterator begin();
-	iterator end();
-	[[nodiscard]] const_iterator begin() const;
-	[[nodiscard]] const_iterator end() const;
-	reverse_iterator rbegin();
-	reverse_iterator rend();
-	[[nodiscard]] const_reverse_iterator rbegin() const;
-	[[nodiscard]] const_reverse_iterator rend() const;
+	iterator Insert(const_iterator& it, std::string const& data);
+	iterator Delete(const_iterator& it);
 
 private:
 	size_t m_size;

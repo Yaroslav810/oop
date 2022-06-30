@@ -10,7 +10,7 @@ public:
 	CStringNode() = default;
 	CStringNode(std::string data, CStringNode::NodePtr prev, CStringNode::NodePtr next);
 
-	[[nodiscard]] std::string GetData() const;
+	[[nodiscard]] std::string const& GetData() const;
 	[[nodiscard]] NodePtr GetPrev() const;
 	[[nodiscard]] NodePtr GetNext() const;
 
