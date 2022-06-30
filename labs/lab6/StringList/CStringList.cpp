@@ -49,6 +49,17 @@ CStringList& CStringList::PushFront(const std::string& data)
 	return *this;
 }
 
+void CStringList::Clear()
+{
+	auto beginIt = m_begin;
+	while (beginIt != m_end)
+	{
+		beginIt = beginIt->GetNext();
+		beginIt->GetPrev()->SetNext(nullptr);
+		beginIt->SetPrev(nullptr);
+	}
+}
+
 CStringList::iterator CStringList::begin()
 {
 	return { m_begin.get() };

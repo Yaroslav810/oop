@@ -17,6 +17,8 @@ public:
 	CStringList& PushBack(std::string const& data);
 	CStringList& PushFront(std::string const& data);
 
+	void Clear();
+
 	using iterator = CStringIterator<CStringNode>;
 	using const_iterator = CStringIterator<const CStringNode>;
 	using reverse_iterator = std::reverse_iterator<iterator>;
