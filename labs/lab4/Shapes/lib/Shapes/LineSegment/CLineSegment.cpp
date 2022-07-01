@@ -3,7 +3,7 @@
 CLineSegment::CLineSegment(CPoint start, CPoint end, uint32_t color)
 	: m_startPoint(start)
 	, m_endPoint(end)
-	, m_outlineColor(color)
+	, CShape(color)
 {
 }
 
@@ -41,9 +41,4 @@ std::string CLineSegment::ToString() const
 	   << "Perimeter: " << GetPerimeter() << std::endl
 	   << "Outline color: " << std::setfill('0') << std::setw(6) << std::hex << GetOutlineColor() << std::dec << std::endl;
 	return ss.str();
-}
-
-uint32_t CLineSegment::GetOutlineColor() const
-{
-	return m_outlineColor;
 }

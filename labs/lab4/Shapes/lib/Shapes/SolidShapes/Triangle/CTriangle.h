@@ -16,11 +16,9 @@ public:
 	[[nodiscard]] double GetArea() const override;
 	[[nodiscard]] double GetPerimeter() const override;
 	[[nodiscard]] std::string ToString() const override;
-	[[nodiscard]] uint32_t GetOutlineColor() const override;
 
 private:
 	CPoint m_vertex1;
 	CPoint m_vertex2;
 	CPoint m_vertex3;
-	uint32_t m_outlineColor;
 };

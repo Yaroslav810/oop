@@ -3,7 +3,7 @@
 CRectangle::CRectangle(CPoint leftTop, CPoint rightBottom, uint32_t outlineColor, uint32_t fillColor)
 	: m_leftTop(leftTop)
 	, m_rightBottom(rightBottom)
-	, m_outlineColor(outlineColor)
+	, CShape(outlineColor)
 	, CSolidShape(fillColor)
 {
 }
@@ -11,7 +11,7 @@ CRectangle::CRectangle(CPoint leftTop, CPoint rightBottom, uint32_t outlineColor
 CRectangle::CRectangle(CPoint leftTop, double width, double height, uint32_t outlineColor, uint32_t fillColor)
 	: m_leftTop(leftTop)
 	, m_rightBottom(leftTop.GetX() + width, leftTop.GetY() + height)
-	, m_outlineColor(outlineColor)
+	, CShape(outlineColor)
 	, CSolidShape(fillColor)
 {
 }
@@ -62,9 +62,4 @@ std::string CRectangle::ToString() const
 	   << "Fill  color: " << std::setfill('0') << std::setw(6) << GetFillColor() << std::dec << std::endl;
 
 	return ss.str();
-}
-
-uint32_t CRectangle::GetOutlineColor() const
-{
-	return m_outlineColor;
 }

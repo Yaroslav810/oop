@@ -43,8 +43,3 @@ std::string CCircle::ToString() const
 
 	return ss.str();
 }
-
-uint32_t CCircle::GetOutlineColor() const
-{
-	return m_outlineColor;
-}

@@ -4,7 +4,7 @@
 #include <cmath>
 #include <iomanip>
 
-class CLineSegment : public CShape
+class CLineSegment : public virtual CShape
 {
 public:
 	CLineSegment(CPoint start, CPoint end, uint32_t color);
