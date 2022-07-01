@@ -6,8 +6,8 @@
 class CStringList
 {
 public:
-	using iterator = CStringIterator<CStringNode>;
-	using const_iterator = CStringIterator<const CStringNode>;
+	using iterator = CStringListIterator;
+	using const_iterator = CStringListConstIterator;
 	using reverse_iterator = std::reverse_iterator<iterator>;
 	using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
@@ -40,7 +40,7 @@ public:
 
 	void Clear();
 
-	iterator Insert(const_iterator& it, std::string const& data);
+	iterator Insert(CStringListIterator& it, std::string const& data);
 	iterator Delete(const_iterator& it);
 
 private:

@@ -67,7 +67,7 @@ void CStringList::Clear()
 	m_size = 0;
 }
 
-CStringList::iterator CStringList::Insert(CStringList::const_iterator& it, std::string const& data)
+CStringList::iterator CStringList::Insert(CStringListIterator& it, std::string const& data)
 {
 	if (it == nullptr)
 	{
@@ -113,22 +113,22 @@ CStringList::iterator CStringList::end()
 
 CStringList::const_iterator CStringList::begin() const
 {
-	return { m_begin->GetNext().get() };
+	return { static_cast<const CStringNode::NodePtr>(m_begin->GetNext().get()) };
 }
 
 CStringList::const_iterator CStringList::end() const
 {
-	return { m_end.get() };
+	return { static_cast<const CStringNode::NodePtr>(m_end.get()) };
 }
 
 CStringList::const_iterator CStringList::cbegin() const
 {
-	return { m_begin->GetNext().get() };
+	return { static_cast<const CStringNode::NodePtr>(m_begin->GetNext().get()) };
 }
 
 CStringList::const_iterator CStringList::cend() const
 {
-	return { m_end.get() };
+	return { static_cast<const CStringNode::NodePtr>(m_end.get()) };
 }
 
 CStringList::reverse_iterator CStringList::rbegin()

@@ -92,3 +92,13 @@ TEST_CASE("Clear")
 	REQUIRE_NOTHROW(list.Clear());
 	REQUIRE(list.GetSize() == 0);
 }
+
+TEST_CASE("Insert")
+{
+	CStringList list;
+	SECTION("begin")
+	{
+		CStringList::iterator it = list.begin();
+		list.Insert(it, "Hello");
+	}
+}
